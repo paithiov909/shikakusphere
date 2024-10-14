@@ -1,0 +1,77 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+pkgload::load_all(export_all = FALSE)
+```
+
+# shikakusphere
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+shikakusphere is a collection of miscellaneous funcitons for Japanese mahjong that wraps C++ sources of [cmajiang](https://github.com/TadaoYamaoka/cmajiang).
+
+The name "shikakusphere" is a compound word of "shikaku" + "sphere". "shikaku" means "square" in Japanese.
+It comes from "Shikakui Uchuu De Matteru Yo", which is the third ED of the anime "Saki", and sounds exactly like mahjong games.
+
+## Installation
+
+You can install the development version of shikakusphere from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("paithiov909/shikakusphere")
+```
+
+## Example
+
+手牌（`hands`）は[kobalab/majiang-core](https://github.com/kobalab/majiang-core)の記法で表現する。
+
+- [牌 · kobalab/majiang-core Wiki](https://github.com/kobalab/majiang-core/wiki/%E7%89%8C)
+- [面子 · kobalab/majiang-core Wiki](https://github.com/kobalab/majiang-core/wiki/%E9%9D%A2%E5%AD%90)
+- [牌姿 · kobalab/majiang-core Wiki](https://github.com/kobalab/majiang-core/wiki/%E7%89%8C%E5%A7%BF)
+
+```{r}
+hands <- c(
+  "p222345z1234567",
+  "p11222345z12345",
+  "m055z7z7,m78-9,z5555,z666=",
+  "m055z77,m78-9,z5555,z666=,",
+  "m123p055s789z1117*"
+)
+
+# シャンテン数
+n_xiangting <- calc_xiangting(hands)
+
+# 有効牌（シャンテン数が減る牌）
+# すでにテンパイしている or 和了形である場合、エラーになる
+collect_tingpai(hands[n_xiangting > 0])
+
+# 得点. この関数はvectorizeされていないので注意！
+# baopaiはドラ表示牌、libaopaiは裏ドラ表示牌
+score <- calc_defen(hands[n_xiangting == -1][1], baopai = "z1", libaopai = "")
+score
+
+# ロン和了のときはこんなふうに書く
+calc_defen("m345567p234s3378", baopai = "z1", libaopai = "", rongpai = "s9=")
+
+# あがり役の表示
+parse_hupai(score$hupai, "jp")
+
+# 牌姿を表示する
+hand2img(score$shoupai[1])
+```
+
+# License
+
+MIT
