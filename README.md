@@ -4,6 +4,12 @@
 # shikakusphere
 
 <!-- badges: start -->
+
+[![shikakusphere status
+badge](https://paithiov909.r-universe.dev/badges/shikakusphere)](https://paithiov909.r-universe.dev/shikakusphere)
+[![R-CMD-check](https://github.com/paithiov909/shikakusphere/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/paithiov909/shikakusphere/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/paithiov909/shikakusphere/graph/badge.svg)](https://app.codecov.io/gh/paithiov909/shikakusphere)
 <!-- badges: end -->
 
 shikakusphere is a collection of miscellaneous funcitons for Japanese
