@@ -38,6 +38,7 @@ pak::pak("paithiov909/shikakusphere")
 手牌（`hands`）は[kobalab/majiang-core](https://github.com/kobalab/majiang-core)の記法で表現する。
 
 **参考**
+
 - [牌 · kobalab/majiang-core Wiki](https://github.com/kobalab/majiang-core/wiki/%E7%89%8C)
 - [面子 · kobalab/majiang-core Wiki](https://github.com/kobalab/majiang-core/wiki/%E9%9D%A2%E5%AD%90)
 - [牌姿 · kobalab/majiang-core Wiki](https://github.com/kobalab/majiang-core/wiki/%E7%89%8C%E5%A7%BF)

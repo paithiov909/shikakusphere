@@ -29,14 +29,16 @@ pak::pak("paithiov909/shikakusphere")
 
 手牌（`hands`）は[kobalab/majiang-core](https://github.com/kobalab/majiang-core)の記法で表現する。
 
-**参考** - [牌 · kobalab/majiang-core
-Wiki](https://github.com/kobalab/majiang-core/wiki/%E7%89%8C) - [面子 ·
-kobalab/majiang-core
-Wiki](https://github.com/kobalab/majiang-core/wiki/%E9%9D%A2%E5%AD%90) -
-[牌姿 · kobalab/majiang-core
-Wiki](https://github.com/kobalab/majiang-core/wiki/%E7%89%8C%E5%A7%BF) -
-[電脳麻将のプログラム中の中国語一覧 -
-koba::blog](https://blog.kobalab.net/entry/20170722/1500688645)
+**参考**
+
+- [牌 · kobalab/majiang-core
+  Wiki](https://github.com/kobalab/majiang-core/wiki/%E7%89%8C)
+- [面子 · kobalab/majiang-core
+  Wiki](https://github.com/kobalab/majiang-core/wiki/%E9%9D%A2%E5%AD%90)
+- [牌姿 · kobalab/majiang-core
+  Wiki](https://github.com/kobalab/majiang-core/wiki/%E7%89%8C%E5%A7%BF)
+- [電脳麻将のプログラム中の中国語一覧 -
+  koba::blog](https://blog.kobalab.net/entry/20170722/1500688645)
 
 ``` r
 hands <- c(
