@@ -99,7 +99,12 @@ Rule create_rule(
     };
 }
 Rule set_rule(Rcpp::List& list, Rcpp::NumericVector& rankPoints, Rcpp::IntegerVector& hongpai) {
-    const std::array<float, 4> rp= { rankPoints(0), rankPoints(1), rankPoints(2), rankPoints(3) };
+    const std::array<float, 4> rp= {
+        static_cast<float>(rankPoints(0)),
+        static_cast<float>(rankPoints(1)),
+        static_cast<float>(rankPoints(2)),
+        static_cast<float>(rankPoints(3))
+    };
     const std::array<int, 3> hp = { hongpai(0), hongpai(1), hongpai(2) };
     Rule rule = create_rule(
         Rcpp::as<bool>(list["startingPoints"]),

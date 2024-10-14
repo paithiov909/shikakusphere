@@ -1,7 +1,7 @@
 Package: shikakusphere
 Title: Miscellaneous Functions for Japanese Mahjong
 Version: 0.0.1
-Authors@R:c(
+Authors@R: c(
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
     person("Tadao", "Yamaoka", role = "ctb"),
     person("Thomason", "Lee", role = "ctb")
@@ -10,9 +10,11 @@ Description: A collection of miscellaneous functions for Japanese Mahjong
     that wraps C++ sources of 'cmajiang'
     <https://github.com/TadaoYamaoka/cmajiang>.
 License: MIT + file LICENSE
+BugReports: https://github.com/paithiov909/shikakusphere/issues
 Depends:
     R (>= 2.10)
 Imports:
+    grDevices,
     magick,
     purrr,
     Rcpp,
@@ -28,4 +30,3 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-BugReports: https://github.com/paithiov909/shikakusphere/issues

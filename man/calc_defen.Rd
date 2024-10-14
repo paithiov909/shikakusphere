@@ -50,6 +50,9 @@ Note that this param is not vectorized.}
 \item{haidi}{Integer (0-2);
 0: normal, 1: haidimoyue, 2: hedilaoyu.}
 
+\item{tianhu}{Integer (0-2);
+0: normal, 1: tianhu, 2: dihe.}
+
 \item{changbang}{Integer;
 Number of counter sticks that indicates "honba".}
 

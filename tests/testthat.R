@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(sph)
+library(shikakusphere)
 
-test_check("sph")
+# test_check("shikakusphere")

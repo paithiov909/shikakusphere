@@ -1,4 +1,5 @@
 ## usethis namespace: start
+#' @import Rcpp
 #' @useDynLib shikakusphere, .registration = TRUE
 ## usethis namespace: end
 "_PACKAGE"
@@ -45,6 +46,7 @@ parse_hupai <- function(str, lang = c("en", "jp")) {
 #' @returns A bitmap image that internally converted by `magick::image_read_svg`
 #' is invisibly returned.
 #' @export
+#' @importFrom grDevices as.raster
 hand2img <- function(pai, width = NULL, height = NULL) {
   img <-
     to_svg_string(pai) |>

@@ -10,7 +10,7 @@ rand_hands(
     "sananke", "sangangzi", "sansetongke", "hunlaotou", "xiaosanyuan", "hunyise",
     "chunquandaiyaojiu", "erbeikou", "qingyise", "guoshiwushuang", "sianke", "dasanyuan",
     "xiaosixi", "dasixi", "ziyise", "lvyise", "qinglaotou", "sigangzi", "jiulianbaodeng"),
-  seed = floor(runif(1, 0, 1) * 1e+05),
+  seed = 1234,
   rule = default_rule()
 )
 }

@@ -39,7 +39,7 @@ rand_hands <- function(
     "sigangzi",
     "jiulianbaodeng"
   ),
-  seed = floor(runif(1, 0, 1) * 1e5),
+  seed = 1234,
   rule = default_rule()
 ) {
   if (!is_valid_rule(rule)) {

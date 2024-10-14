@@ -15,6 +15,8 @@
 #' @param lingshang Logical; flag for "rinshan-kaihou".
 #' @param haidi Integer (0-2);
 #' 0: normal, 1: haidimoyue, 2: hedilaoyu.
+#' @param tianhu Integer (0-2);
+#' 0: normal, 1: tianhu, 2: dihe.
 #' @param changbang Integer;
 #' Number of counter sticks that indicates "honba".
 #' @param lizhibang Integer;
