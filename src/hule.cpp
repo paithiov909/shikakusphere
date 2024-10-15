@@ -15,9 +15,9 @@ const std::regex re_zipai{ R"(^z.*$)" };
 const std::regex re_kezi{ R"(^[mpsz](\d)\1\1.*$)" };
 const std::regex re_ankezi{ R"(^[mpsz](\d)\1\1(?:\1|_\!)?$)" };
 const std::regex re_gangzi{ R"(^[mpsz](\d)\1\1.*\1.*$)" };
-const std::regex re_danqi{ R"(^[mpsz](\d)\1[\+\=\-\_]\!$)" };
-const std::regex re_kanzhang{ R"(^[mps]\d\d[\+\=\-\_]\!\d$)" };
-const std::regex re_bianzhang{ R"(^[mps](123[\+\=\-\_]\!|7[\+\=\-\_]\!89)$)" };
+const std::regex re_danqi{ R"(^[mpsz](\d)\1[\+\=\-_]\!$)" };
+const std::regex re_kanzhang{ R"(^[mps]\d\d[\+\=\-_]\!\d$)" };
+const std::regex re_bianzhang{ R"(^[mps](123[\+\=\-_]\!|7[\+\=\-_]\!89)$)" };
 
 const std::regex re_get_hudi1{ R"([\+\=\-](?!\!))" };
 const std::regex re_get_hudi2{ R"([\+\=\-]\!)" };
