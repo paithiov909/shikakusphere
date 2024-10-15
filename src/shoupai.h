@@ -119,12 +119,12 @@ private:
     std::vector<int> _s;
     std::vector<int> _z;
 
+    // 立直
+    bool _lizhi;
     // 副露
     std::vector<std::string> _fulou;
     // 自摸
     std::string _zimo;
-    // 立直
-    bool _lizhi;
 
 };
 

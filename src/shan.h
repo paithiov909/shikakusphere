@@ -64,8 +64,8 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Shan& shan);
 
 private:
-    Rule _rule;
     std::vector<std::string> _pai;
+    Rule _rule;
     std::vector<std::string> _baopai;   // 宝牌(ドラ)
     std::vector<std::string> _libaopai; // 里宝牌(裏ドラ)
     bool _weikaigang;                   // 未开杠(未開槓)

@@ -96,7 +96,7 @@ std::string Shoupai::valid_mianzi(const std::string& m) {
 }
 
 void Shoupai::_set(const std::vector<std::string>& qipai) {
-    for (const auto p : qipai) {
+    for (const auto& p : qipai) {
         if (p == "_") {
             __++;
             continue;
@@ -237,7 +237,7 @@ std::string Shoupai::toString() const {
 
 void Shoupai::decrease(const char s, const int n) {
     auto& bingpai = _bingpai(s);
-    if (bingpai[n] == 0 || n == 5 && bingpai[0] == bingpai[5]) {
+    if (bingpai[n] == 0 || (n == 5 && bingpai[0] == bingpai[5])) {
         if (__ == 0) throw std::invalid_argument(to_string(s, n));
         __--;
     }
@@ -262,7 +262,7 @@ Shoupai& Shoupai::zimo(const std::string& p, bool check) {
         if (bingpai[n] == 4) throw std::invalid_argument(p + " cannot be greater than 4");
         bingpai[n]++;
         if (n == 0) {
-            if (bingpai[5] == 4) throw std::invalid_argument(s + "5 cannot be greater than 4");
+            if (bingpai[5] == 4) throw std::invalid_argument(p.substr(0, 1) + "5 cannot be greater than 4");
             bingpai[5]++;
         }
         _zimo = p.substr(0, 2);
@@ -403,7 +403,7 @@ std::vector<std::string> Shoupai::get_chi_mianzi(const std::string& p, bool chec
         if (!check || bingpai[n] < 14 - (_fulou.size() + 1) * 3) {
             if (n - 1 == 5 && bingpai[0] > 0) mianzi.emplace_back(std::string(1, s) + "06-7");
             if (n + 1 == 5 && bingpai[0] > 0) mianzi.emplace_back(std::string(1, s) + "34-0");
-            if (n - 1 != 5 && n + 1 != 5 || bingpai[0] < bingpai[5])
+            if ((n - 1 != 5 && n + 1 != 5) || bingpai[0] < bingpai[5])
                 mianzi.emplace_back(to_string(s, n - 1, p[1], d[0], n + 1));
         }
     }
@@ -414,7 +414,7 @@ std::vector<std::string> Shoupai::get_chi_mianzi(const std::string& p, bool chec
         {
             if (n + 1 == 5 && bingpai[0] > 0) mianzi.emplace_back(std::string(1, s) + "4-06");
             if (n + 2 == 5 && bingpai[0] > 0) mianzi.emplace_back(std::string(1, s) + "3-40");
-            if (n + 1 != 5 && n + 2 != 5 || bingpai[0] < bingpai[5])
+            if ((n + 1 != 5 && n + 2 != 5) || bingpai[0] < bingpai[5])
                 mianzi.emplace_back(to_string(s, p[1], d[0], n + 1, n + 2));
         }
     }

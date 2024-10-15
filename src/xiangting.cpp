@@ -51,9 +51,9 @@ std::tuple<std::array<int, 3>, std::array<int, 3>> mianzi(std::vector<int> bingp
         bingpai[n]++; bingpai[n + 1]++; bingpai[n + 2]++;
         a[0]++; b[0]++;
         if (a[2] < max_a[2]
-            || a[2] == max_a[2] && a[1] < max_a[1]) max_a = a;
+            || (a[2] == max_a[2] && a[1] < max_a[1])) max_a = a;
         if (b[0] > max_b[0]
-            || b[0] == max_b[0] && b[1] > max_b[1]) max_b = b;
+            || (b[0] == max_b[0] && b[1] > max_b[1])) max_b = b;
     }
 
     if (bingpai[n] >= 3) {
@@ -62,9 +62,9 @@ std::tuple<std::array<int, 3>, std::array<int, 3>> mianzi(std::vector<int> bingp
         bingpai[n] += 3;
         a[0]++; b[0]++;
         if (a[2] < max_a[2]
-            || a[2] == max_a[2] && a[1] < max_a[1]) max_a = a;
+            || (a[2] == max_a[2] && a[1] < max_a[1])) max_a = a;
         if (b[0] > max_b[0]
-            || b[0] == max_b[0] && b[1] > max_b[1]) max_b = b;
+            || (b[0] == max_b[0] && b[1] > max_b[1])) max_b = b;
     }
 
     return { max_a, max_b };

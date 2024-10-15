@@ -16,9 +16,9 @@ void PaipuReplay::qipai() {
         _game.next();
     }
     else if (
-        _paipu.rounds[_round].moves[_ply].msg == Game::Message::DAPAI ||
-        _paipu.rounds[_round].moves[_ply].msg == Game::Message::GANG && std::regex_search(_paipu.rounds[_round].moves[_ply].arg, re_angang_or_jiagang) ||
-        _paipu.rounds[_round].moves[_ply].msg == Game::Message::HULE && _paipu.rounds[_round].moves[_ply].arg.empty()
+        (_paipu.rounds[_round].moves[_ply].msg == Game::Message::DAPAI) ||
+        (_paipu.rounds[_round].moves[_ply].msg == Game::Message::GANG && std::regex_search(_paipu.rounds[_round].moves[_ply].arg, re_angang_or_jiagang)) ||
+        (_paipu.rounds[_round].moves[_ply].msg == Game::Message::HULE && _paipu.rounds[_round].moves[_ply].arg.empty())
         )
         _skip = true;
 }
@@ -44,15 +44,17 @@ void PaipuReplay::next() {
         const auto& move = _paipu.rounds[_round].moves[_ply++];
         switch (move.msg)
         {
+        case Game::Message::NONE:
+            ;
         case Game::Message::DAPAI:
             assert(_game.status() == Game::Status::ZIMO || _game.status() == Game::Status::GANGZIMO || _game.status() == Game::Status::FULOU);
             _game.reply(_game.lunban_player_id(), move.msg, move.arg);
             _game.next();
             assert(_game.he_(_game.lunban()).pai().back() == move.arg);
             if (_ply < _paipu.rounds[_round].moves.size() && (
-                _paipu.rounds[_round].moves[_ply].msg == Game::Message::DAPAI ||
-                _paipu.rounds[_round].moves[_ply].msg == Game::Message::GANG && std::regex_search(_paipu.rounds[_round].moves[_ply].arg, re_angang_or_jiagang) ||
-                _paipu.rounds[_round].moves[_ply].msg == Game::Message::HULE && _paipu.rounds[_round].moves[_ply].arg.empty()
+                (_paipu.rounds[_round].moves[_ply].msg == Game::Message::DAPAI) ||
+                (_paipu.rounds[_round].moves[_ply].msg == Game::Message::GANG && std::regex_search(_paipu.rounds[_round].moves[_ply].arg, re_angang_or_jiagang)) ||
+                (_paipu.rounds[_round].moves[_ply].msg == Game::Message::HULE && _paipu.rounds[_round].moves[_ply].arg.empty())
                 ))
                 _skip = true;
             break;
@@ -116,6 +118,8 @@ void PaipuReplay::next() {
             _game.next();
             assert(_game.status() == Game::Status::HULE);
             break;
+        case Game::Message::DAOPAI:
+            ;
         }
         if (_ply == _paipu.rounds[_round].moves.size() && _game.status() != Game::Status::HULE) {
             // 流局

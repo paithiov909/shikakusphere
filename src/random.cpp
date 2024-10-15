@@ -477,7 +477,7 @@ bool setup_hule(std::vector<std::string>& pai, std::map<std::string, int>& rest,
 // チー
 std::string make_chi(const std::string& p1, const std::string& p2, const std::string& p3, std::mt19937_64& mt) {
     std::uniform_int_distribution<int> i_dist(0, 2);
-    const int i = i_dist(mt);
+    // const int i = i_dist(mt);
     switch (i_dist(mt)) {
     case 0:
         return std::string(1, p1[0]) + p1[1] + '-' + p2[1] + p3[1];

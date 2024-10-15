@@ -258,14 +258,14 @@ private:
     Rule _rule;
     Model _model;
 
+    std::unique_ptr<Paipu> _paipu;
+
     Status _status;
     Defen _defen;
     std::array<int, 4> _rank;
     std::array<float, 4> _point;
     Pingju _pingju;
     std::array<Reply, 4> _reply;
-
-    std::unique_ptr<Paipu> _paipu;
 
     // 最大局数
     int _max_jushu;
