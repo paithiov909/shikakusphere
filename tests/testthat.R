@@ -9,4 +9,4 @@
 library(testthat)
 library(shikakusphere)
 
-# test_check("shikakusphere")
+test_check("shikakusphere")
