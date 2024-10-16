@@ -21,7 +21,7 @@ Useful links:
 Other contributors:
 \itemize{
   \item Tadao Yamaoka [contributor]
-  \item Thomason Lee [contributor]
+  \item Lee Thomason [contributor]
 }
 
 }
