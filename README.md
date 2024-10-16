@@ -93,4 +93,6 @@ hand2img(score$shoupai[1])
 
 # License
 
-MIT
+MIT license. This package contains [modified
+code](https://github.com/paithiov909/shikakusphere/blob/main/src/tinyxml2.cpp#L103)
+based on the [tinyxml2](https://github.com/leethomason/tinyxml2).
