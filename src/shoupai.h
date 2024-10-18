@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <Rcpp.h>
+
 #include <vector>
 #include <string>
 #include <regex>

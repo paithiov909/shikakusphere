@@ -48,6 +48,9 @@ parse_hupai <- function(str, lang = c("en", "jp")) {
 #' @export
 #' @importFrom grDevices as.raster
 hand2img <- function(pai, width = NULL, height = NULL) {
+  if (!rlang::is_installed("rsvg")) {
+    rlang::abort("Please install `rsvg` to use this function.")
+  }
   img <-
     to_svg_string(pai) |>
     magick::image_read_svg(width = width, height = height)
