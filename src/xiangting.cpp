@@ -5,9 +5,21 @@
 static const std::vector<int> zipai_n = { 1, 2, 3, 4, 5, 6, 7 };
 static const std::vector<int> yaojiu_n = { 1, 9 };
 
+int _count_quadruplet(const Shoupai& shoupai) {
+    const auto m = shoupai.m();
+    const auto p = shoupai.p();
+    const auto s = shoupai.s();
+    const auto z = shoupai.z();
+    return (
+       std::count(m.begin(), m.end(), 4) +
+       std::count(p.begin(), p.end(), 4) +
+       std::count(s.begin(), s.end(), 4) +
+       std::count(z.begin(), z.end(), 4)
+    );
+}
+
 // 面子数、搭子数、孤立牌数からシャンテン数を計算する
 int _xiangting(int m, int d, int g, const bool j) {
-
     const auto n = j ? 4 : 5;
     if (m > 4) { d += m - 4; m = 4; }
     if (m + d > 4) { g += m + d - 4; d = 4 - m; }
@@ -114,14 +126,17 @@ int xiangting_yiban(const Shoupai& shoupai) {
         for (int n = 1; n < bingpai.size(); n++) {
             if (bingpai[n] >= 2) {
                 bingpai[n] -= 2;
-                int n_xiangting = mianzi_all(shoupai_, true);
+                int n_xiangting = mianzi_all(shoupai_, (bingpai[n] != 2));
                 bingpai[n] += 2;
                 if (n_xiangting < min) min = n_xiangting;
+            } else {
+                continue;
             }
         }
     }
-    if (min == -1 && !shoupai_.zimo_().empty() && shoupai_.zimo_().size() > 2) return 0;
-
+    if (min == -1 && !shoupai_.zimo_().empty() && shoupai_.zimo_().size() > 2) {
+        min++;
+    }
     return min;
 }
 
@@ -167,11 +182,19 @@ int xiangting_qidui(const Shoupai& shoupai) {
 
 // 実際のシャンテン数(一般形、国士無双形、七対子形の最小値)
 int xiangting(const Shoupai& shoupai) {
-    return std::min({
-        xiangting_yiban(shoupai),
+    int min_yiban = xiangting_yiban(shoupai);
+    // FIXME: これであっているのかわからない
+    if (_count_quadruplet(shoupai) > 2) {
+        Shoupai tmp = shoupai.clone();
+        auto tp = !shoupai.zimo_().empty()
+            ? tingpai(tmp.dapai(shoupai.zimo_()), xiangting_yiban)
+            : tingpai(tmp, xiangting_yiban);
+        if (tp.empty()) min_yiban++;
+    }
+    return std::min({min_yiban,
         xiangting_guoshi(shoupai),
         xiangting_qidui(shoupai)
-        });
+    });
 }
 
 // 听牌(向聴数が減る牌)
