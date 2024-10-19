@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shikakusphere</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3.900</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3.9001</span>
       </span>
     </div>
 
@@ -53,17 +53,17 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_defen</span><span class="op">(</span></span>
 <span>  <span class="va">pai</span>,</span>
 <span>  <span class="va">baopai</span>,</span>
-<span>  <span class="va">libaopai</span>,</span>
-<span>  rongpai <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  libaopai <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  rongpai <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  rule <span class="op">=</span> <span class="fu"><a href="default_rule.html">default_rule</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  zhuangfeng <span class="op">=</span> <span class="fl">0L</span>,</span>
-<span>  menfeng <span class="op">=</span> <span class="fl">1L</span>,</span>
-<span>  lizhi <span class="op">=</span> <span class="fl">0L</span>,</span>
+<span>  zhuangfeng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z1"</span>, <span class="st">"z2"</span>, <span class="st">"z3"</span>, <span class="st">"z4"</span><span class="op">)</span>,</span>
+<span>  menfeng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z2"</span>, <span class="st">"z3"</span>, <span class="st">"z4"</span>, <span class="st">"z1"</span><span class="op">)</span>,</span>
+<span>  lizhi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"lizhi"</span>, <span class="st">"double-lizhi"</span><span class="op">)</span>,</span>
 <span>  yifa <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  qianggang <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  lingshang <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  haidi <span class="op">=</span> <span class="fl">0L</span>,</span>
-<span>  tianhu <span class="op">=</span> <span class="fl">0L</span>,</span>
+<span>  haidi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"haidimoyue"</span>, <span class="st">"hedilaoyu"</span><span class="op">)</span>,</span>
+<span>  tianhe <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"tianhe"</span>, <span class="st">"dihe"</span><span class="op">)</span>,</span>
 <span>  changbang <span class="op">=</span> <span class="fl">0L</span>,</span>
 <span>  lizhibang <span class="op">=</span> <span class="fl">0L</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -83,11 +83,13 @@ Note that this param is not vectorized.</p></dd>
 
 
 <dt id="arg-libaopai">libaopai<a class="anchor" aria-label="anchor" href="#arg-libaopai"></a></dt>
-<dd><p>Character vector. "Ura-dora" indicators.</p></dd>
+<dd><p>Character vector. "Ura-dora" indicators.
+Leave with single NA if there is no libaopai.</p></dd>
 
 
 <dt id="arg-rongpai">rongpai<a class="anchor" aria-label="anchor" href="#arg-rongpai"></a></dt>
-<dd><p>String. Leave empty if there is no rongpai.</p></dd>
+<dd><p>String.
+Leave with single NA if there is no rongpai.</p></dd>
 
 
 <dt id="arg-rule">rule<a class="anchor" aria-label="anchor" href="#arg-rule"></a></dt>
@@ -95,16 +97,15 @@ Note that this param is not vectorized.</p></dd>
 
 
 <dt id="arg-zhuangfeng">zhuangfeng<a class="anchor" aria-label="anchor" href="#arg-zhuangfeng"></a></dt>
-<dd><p>Integer (0-3); "ba-kaze" pai.</p></dd>
+<dd><p>String; "ba-kaze" pai.</p></dd>
 
 
 <dt id="arg-menfeng">menfeng<a class="anchor" aria-label="anchor" href="#arg-menfeng"></a></dt>
-<dd><p>Integer (0-3); "ji-kaze" pai.</p></dd>
+<dd><p>String; "ji-kaze" pai.</p></dd>
 
 
 <dt id="arg-lizhi">lizhi<a class="anchor" aria-label="anchor" href="#arg-lizhi"></a></dt>
-<dd><p>Integer (0-2);
-0: no lizhi, 1: lizhi, 2: double-lizhi.</p></dd>
+<dd><p>String; One of "none", "lizhi", or "double-lizhi".</p></dd>
 
 
 <dt id="arg-yifa">yifa<a class="anchor" aria-label="anchor" href="#arg-yifa"></a></dt>
@@ -120,13 +121,7 @@ Note that this param is not vectorized.</p></dd>
 
 
 <dt id="arg-haidi">haidi<a class="anchor" aria-label="anchor" href="#arg-haidi"></a></dt>
-<dd><p>Integer (0-2);
-0: normal, 1: haidimoyue, 2: hedilaoyu.</p></dd>
-
-
-<dt id="arg-tianhu">tianhu<a class="anchor" aria-label="anchor" href="#arg-tianhu"></a></dt>
-<dd><p>Integer (0-2);
-0: normal, 1: tianhu, 2: dihe.</p></dd>
+<dd><p>String; One of "none", "haidimoyue", or "hedilaoyu".</p></dd>
 
 
 <dt id="arg-changbang">changbang<a class="anchor" aria-label="anchor" href="#arg-changbang"></a></dt>
@@ -137,6 +132,10 @@ Number of counter sticks that indicates "honba".</p></dd>
 <dt id="arg-lizhibang">lizhibang<a class="anchor" aria-label="anchor" href="#arg-lizhibang"></a></dt>
 <dd><p>Integer;
 Number of 1,000-point sticks on the table.</p></dd>
+
+
+<dt id="arg-tianhu">tianhu<a class="anchor" aria-label="anchor" href="#arg-tianhu"></a></dt>
+<dd><p>String; One of "none", "tianhe", or "dihe".</p></dd>
 
 </dl></div>
     <div id="value">
