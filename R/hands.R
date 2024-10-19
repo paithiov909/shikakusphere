@@ -41,7 +41,7 @@ calc_defen <- function(
   lizhibang = 0L
 ) {
   rongpai[is.na(rongpai)] <- ""
-  get_defen(
+  skksph_get_defen(
     pai,
     baopai,
     libaopai,
@@ -68,7 +68,7 @@ calc_defen <- function(
 #' @returns Integer vector.
 #' @export
 calc_xiangting <- function(pai) {
-  get_xiangting(pai)
+  skksph_get_xiangting(pai)
 }
 
 #' Collect tingpais of hands
@@ -80,5 +80,5 @@ calc_xiangting <- function(pai) {
 #' @returns List of character vectors.
 #' @export
 collect_tingpai <- function(pai) {
-  get_tingpai(pai)
+  skksph_get_tingpai(pai)
 }

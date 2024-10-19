@@ -5,7 +5,7 @@
 static const std::vector<int> zipai_n = { 1, 2, 3, 4, 5, 6, 7 };
 static const std::vector<int> yaojiu_n = { 1, 9 };
 
-int _count_quadruplet(const Shoupai& shoupai) {
+int count_quadruplet(const Shoupai& shoupai) {
     const auto m = shoupai.m();
     const auto p = shoupai.p();
     const auto s = shoupai.s();
@@ -19,7 +19,7 @@ int _count_quadruplet(const Shoupai& shoupai) {
 }
 
 // 面子数、搭子数、孤立牌数からシャンテン数を計算する
-int _xiangting(int m, int d, int g, const bool j) {
+int count_xiangting(int m, int d, int g, const bool j) {
     const auto n = j ? 4 : 5;
     if (m > 4) { d += m - 4; m = 4; }
     if (m + d > 4) { g += m + d - 4; d = 4 - m; }
@@ -107,7 +107,7 @@ int mianzi_all(const Shoupai& shoupai, const bool jiangpai) {
                 for (int i = 0; i < 3; i++) {
                     x[i] += m[i] + p[i] + s[i] + z[i];
                 }
-                int n_xiangting = _xiangting(x[0], x[1], x[2], jiangpai);
+                int n_xiangting = count_xiangting(x[0], x[1], x[2], jiangpai);
                 if (n_xiangting < min) min = n_xiangting;
             }
         }
@@ -184,7 +184,7 @@ int xiangting_qidui(const Shoupai& shoupai) {
 int xiangting(const Shoupai& shoupai) {
     int min_yiban = xiangting_yiban(shoupai);
     // FIXME: これであっているのかわからない
-    if (_count_quadruplet(shoupai) > 2) {
+    if (count_quadruplet(shoupai) > 2) {
         Shoupai tmp = shoupai.clone();
         auto tp = !shoupai.zimo_().empty()
             ? tingpai(tmp.dapai(shoupai.zimo_()), xiangting_yiban)

@@ -10,20 +10,20 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// to_svg_string
-std::vector<std::string> to_svg_string(const std::vector<std::string>& pai);
-RcppExport SEXP _shikakusphere_to_svg_string(SEXP paiSEXP) {
+// skksph_shoupai_to_svg
+std::vector<std::string> skksph_shoupai_to_svg(const std::vector<std::string>& pai);
+RcppExport SEXP _shikakusphere_skksph_shoupai_to_svg(SEXP paiSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<std::string>& >::type pai(paiSEXP);
-    rcpp_result_gen = Rcpp::wrap(to_svg_string(pai));
+    rcpp_result_gen = Rcpp::wrap(skksph_shoupai_to_svg(pai));
     return rcpp_result_gen;
 END_RCPP
 }
-// get_defen
-Rcpp::DataFrame get_defen(const std::string& paistr, const std::vector<std::string>& baopai, const std::vector<std::string>& libaopai, Rcpp::List list, Rcpp::NumericVector rankPoints, Rcpp::IntegerVector hongpai, const std::string& rongpai, const int zhuangfeng, const int menfeng, const int lizhi, const bool yifa, const bool qianggang, const bool lingshang, const int haidi, const int tianhu, const int changbang, const int lizhibang);
-RcppExport SEXP _shikakusphere_get_defen(SEXP paistrSEXP, SEXP baopaiSEXP, SEXP libaopaiSEXP, SEXP listSEXP, SEXP rankPointsSEXP, SEXP hongpaiSEXP, SEXP rongpaiSEXP, SEXP zhuangfengSEXP, SEXP menfengSEXP, SEXP lizhiSEXP, SEXP yifaSEXP, SEXP qianggangSEXP, SEXP lingshangSEXP, SEXP haidiSEXP, SEXP tianhuSEXP, SEXP changbangSEXP, SEXP lizhibangSEXP) {
+// skksph_get_defen
+Rcpp::DataFrame skksph_get_defen(const std::string& paistr, const std::vector<std::string>& baopai, const std::vector<std::string>& libaopai, Rcpp::List list, Rcpp::NumericVector rankPoints, Rcpp::IntegerVector hongpai, const std::string& rongpai, const int zhuangfeng, const int menfeng, const int lizhi, const bool yifa, const bool qianggang, const bool lingshang, const int haidi, const int tianhu, const int changbang, const int lizhibang);
+RcppExport SEXP _shikakusphere_skksph_get_defen(SEXP paistrSEXP, SEXP baopaiSEXP, SEXP libaopaiSEXP, SEXP listSEXP, SEXP rankPointsSEXP, SEXP hongpaiSEXP, SEXP rongpaiSEXP, SEXP zhuangfengSEXP, SEXP menfengSEXP, SEXP lizhiSEXP, SEXP yifaSEXP, SEXP qianggangSEXP, SEXP lingshangSEXP, SEXP haidiSEXP, SEXP tianhuSEXP, SEXP changbangSEXP, SEXP lizhibangSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -44,29 +44,29 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const int >::type tianhu(tianhuSEXP);
     Rcpp::traits::input_parameter< const int >::type changbang(changbangSEXP);
     Rcpp::traits::input_parameter< const int >::type lizhibang(lizhibangSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_defen(paistr, baopai, libaopai, list, rankPoints, hongpai, rongpai, zhuangfeng, menfeng, lizhi, yifa, qianggang, lingshang, haidi, tianhu, changbang, lizhibang));
+    rcpp_result_gen = Rcpp::wrap(skksph_get_defen(paistr, baopai, libaopai, list, rankPoints, hongpai, rongpai, zhuangfeng, menfeng, lizhi, yifa, qianggang, lingshang, haidi, tianhu, changbang, lizhibang));
     return rcpp_result_gen;
 END_RCPP
 }
-// get_xiangting
-std::vector<int> get_xiangting(const std::vector<std::string>& shoupai);
-RcppExport SEXP _shikakusphere_get_xiangting(SEXP shoupaiSEXP) {
+// skksph_get_xiangting
+std::vector<int> skksph_get_xiangting(const std::vector<std::string>& shoupai);
+RcppExport SEXP _shikakusphere_skksph_get_xiangting(SEXP shoupaiSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<std::string>& >::type shoupai(shoupaiSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_xiangting(shoupai));
+    rcpp_result_gen = Rcpp::wrap(skksph_get_xiangting(shoupai));
     return rcpp_result_gen;
 END_RCPP
 }
-// get_tingpai
-Rcpp::List get_tingpai(const std::vector<std::string>& shoupai);
-RcppExport SEXP _shikakusphere_get_tingpai(SEXP shoupaiSEXP) {
+// skksph_get_tingpai
+Rcpp::List skksph_get_tingpai(const std::vector<std::string>& shoupai);
+RcppExport SEXP _shikakusphere_skksph_get_tingpai(SEXP shoupaiSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<std::string>& >::type shoupai(shoupaiSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_tingpai(shoupai));
+    rcpp_result_gen = Rcpp::wrap(skksph_get_tingpai(shoupai));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -526,10 +526,10 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_shikakusphere_to_svg_string", (DL_FUNC) &_shikakusphere_to_svg_string, 1},
-    {"_shikakusphere_get_defen", (DL_FUNC) &_shikakusphere_get_defen, 17},
-    {"_shikakusphere_get_xiangting", (DL_FUNC) &_shikakusphere_get_xiangting, 1},
-    {"_shikakusphere_get_tingpai", (DL_FUNC) &_shikakusphere_get_tingpai, 1},
+    {"_shikakusphere_skksph_shoupai_to_svg", (DL_FUNC) &_shikakusphere_skksph_shoupai_to_svg, 1},
+    {"_shikakusphere_skksph_get_defen", (DL_FUNC) &_shikakusphere_skksph_get_defen, 17},
+    {"_shikakusphere_skksph_get_xiangting", (DL_FUNC) &_shikakusphere_skksph_get_xiangting, 1},
+    {"_shikakusphere_skksph_get_tingpai", (DL_FUNC) &_shikakusphere_skksph_get_tingpai, 1},
     {"_shikakusphere_random_zhuangfeng", (DL_FUNC) &_shikakusphere_random_zhuangfeng, 6},
     {"_shikakusphere_random_menfeng", (DL_FUNC) &_shikakusphere_random_menfeng, 6},
     {"_shikakusphere_random_fanpai", (DL_FUNC) &_shikakusphere_random_fanpai, 5},

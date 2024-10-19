@@ -52,7 +52,7 @@ hand2img <- function(pai, width = NULL, height = NULL) {
     rlang::abort("Please install `rsvg` to use this function.")
   }
   img <-
-    to_svg_string(pai) |>
+    skksph_shoupai_to_svg(pai) |>
     magick::image_read_svg(width = width, height = height)
   plot(as.raster(img))
   invisible(img)

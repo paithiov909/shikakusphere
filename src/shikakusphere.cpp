@@ -5,24 +5,19 @@
 #include "paipu.h"
 #include "svg.h"
 
-Defen __hule(const Shoupai& shoupai, const std::string& rongpai,
-             const Rule& rule, const int zhuangfeng, const int menfeng,
-             const int lizhi, const bool yifa, const bool qianggang,
-             const bool lingshang, const int haidi, const int tianhu,
-             const std::vector<std::string>& baopai,
-             const std::vector<std::string>& libaopai, const int changbang,
-             const int lizhibang) {
+Defen create_defen(const Shoupai& shoupai, const std::string& rongpai,
+                   const Rule& rule, const int zhuangfeng, const int menfeng,
+                   const int lizhi, const bool yifa, const bool qianggang,
+                   const bool lingshang, const int haidi, const int tianhu,
+                   const std::vector<std::string>& baopai,
+                   const std::vector<std::string>& libaopai,
+                   const int changbang, const int lizhibang) {
   return hule(
       shoupai, rongpai,
       Param{rule, zhuangfeng, menfeng,
             Param::Hupai{lizhi, yifa, qianggang, lingshang, haidi, tianhu},
             baopai, libaopai, Param::Jicun{changbang, lizhibang}});
 }
-
-std::vector<std::string> __tingpai(const Shoupai& shoupai) {
-  return tingpai(shoupai, xiangting);
-}
-
 
 Rule create_rule(const int startingPoints,
                  const std::array<float, 4>& rankPoints,
@@ -140,7 +135,8 @@ Shoupai random_setup(
 
 // Shoupai ----
 // [[Rcpp::export]]
-std::vector<std::string> to_svg_string(const std::vector<std::string>& pai) {
+std::vector<std::string> skksph_shoupai_to_svg(
+    const std::vector<std::string>& pai) {
   std::vector<std::string> ret;
   ret.reserve(pai.size());
   for (const auto& paistr : pai) {
@@ -152,18 +148,16 @@ std::vector<std::string> to_svg_string(const std::vector<std::string>& pai) {
 
 // Defen ----
 // [[Rcpp::export]]
-Rcpp::DataFrame get_defen(const std::string& paistr,
-                          const std::vector<std::string>& baopai,    // ドラ
-                          const std::vector<std::string>& libaopai,  // 裏ドラ
-                          Rcpp::List list, Rcpp::NumericVector rankPoints,
-                          Rcpp::IntegerVector hongpai,
-                          const std::string& rongpai = "",
-                          const int zhuangfeng = 0, const int menfeng = 1,
-                          const int lizhi = 0, const bool yifa = false,
-                          const bool qianggang = false,
-                          const bool lingshang = false, const int haidi = 0,
-                          const int tianhu = 0, const int changbang = 0,
-                          const int lizhibang = 0) {
+Rcpp::DataFrame skksph_get_defen(
+    const std::string& paistr,
+    const std::vector<std::string>& baopai,    // ドラ
+    const std::vector<std::string>& libaopai,  // 裏ドラ
+    Rcpp::List list, Rcpp::NumericVector rankPoints,
+    Rcpp::IntegerVector hongpai, const std::string& rongpai = "",
+    const int zhuangfeng = 0, const int menfeng = 1, const int lizhi = 0,
+    const bool yifa = false, const bool qianggang = false,
+    const bool lingshang = false, const int haidi = 0, const int tianhu = 0,
+    const int changbang = 0, const int lizhibang = 0) {
   // FIXME: Rcppで空のstd::vectorを渡すやり方がわからない
   if (std::all_of(baopai.begin(), baopai.end(),
                   [](const std::string& str) { return str.empty(); })) {
@@ -187,9 +181,9 @@ Rcpp::DataFrame get_defen(const std::string& paistr,
 
   Shoupai p = Shoupai{paistr};
   Rule rule = set_rule(list, rankPoints, hongpai);
-  Defen defen =
-      __hule(p, rp, rule, zhuangfeng, menfeng, lizhi, yifa, qianggang,
-             lingshang, haidi, tianhu, baopai, libao, changbang, lizhibang);
+  Defen defen = create_defen(p, rp, rule, zhuangfeng, menfeng, lizhi, yifa,
+                             qianggang, lingshang, haidi, tianhu, baopai, libao,
+                             changbang, lizhibang);
 
   std::string hupai;
   for (const auto& h : defen.hupai) {
@@ -216,7 +210,7 @@ Rcpp::DataFrame get_defen(const std::string& paistr,
 }
 
 // [[Rcpp::export]]
-std::vector<int> get_xiangting(const std::vector<std::string>& shoupai) {
+std::vector<int> skksph_get_xiangting(const std::vector<std::string>& shoupai) {
   std::vector<int> ret;
   ret.reserve(shoupai.size());
   for (const auto& paistr : shoupai) {
@@ -227,12 +221,12 @@ std::vector<int> get_xiangting(const std::vector<std::string>& shoupai) {
 }
 
 // [[Rcpp::export]]
-Rcpp::List get_tingpai(const std::vector<std::string>& shoupai) {
+Rcpp::List skksph_get_tingpai(const std::vector<std::string>& shoupai) {
   std::vector<std::vector<std::string>> ret;
   ret.reserve(shoupai.size());
   for (const auto& paistr : shoupai) {
     Shoupai p = Shoupai{paistr};
-    ret.push_back(__tingpai(p));
+    ret.push_back(tingpai(p, xiangting));
   }
   return Rcpp::wrap(ret);
 }

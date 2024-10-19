@@ -1,5 +1,5 @@
 test_that("get_tingpai works", {
-  tingpai <- \(paistr) unlist(get_tingpai(paistr), use.names = FALSE)
+  tingpai <- \(paistr) unlist(collect_tingpai(paistr), use.names = FALSE)
 
   # 打牌可能な状態のとき、エラー
   expect_error(get_tingpai("m123p456s789z12345"))
