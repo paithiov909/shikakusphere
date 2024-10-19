@@ -184,7 +184,7 @@ int xiangting_qidui(const Shoupai& shoupai) {
 int xiangting(const Shoupai& shoupai) {
     int min_yiban = xiangting_yiban(shoupai);
     // FIXME: これであっているのかわからない
-    if (count_quadruplet(shoupai) > 2) {
+    if (count_quadruplet(shoupai) >= 2) {
         Shoupai tmp = shoupai.clone();
         auto tp = !shoupai.zimo_().empty()
             ? tingpai(tmp.dapai(shoupai.zimo_()), xiangting_yiban)

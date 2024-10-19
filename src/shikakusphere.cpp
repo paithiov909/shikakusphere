@@ -66,6 +66,7 @@ Rule create_rule(const int startingPoints,
               damanguanPao,
               roundUpManguan};
 }
+
 Rule set_rule(Rcpp::List& list, Rcpp::NumericVector& rankPoints,
               Rcpp::IntegerVector& hongpai) {
   const std::array<float, 4> rp = {

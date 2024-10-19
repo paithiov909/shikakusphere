@@ -27,7 +27,7 @@ test_that("calc_xiangting works", {
 test_that("calc_xiangting works in additional cases", {
   # p1111234444s999s9
   expect_equal(calc_xiangting("p1111234444s999s9"), 1L)
-  expect_equal(calc_xiangting("p1111234444s999"), 0L)
+  expect_equal(calc_xiangting("p1111234444s999"), 1L)
   # z1111222233344z4
   expect_equal(calc_xiangting("z1111222233344z4"), 1L)
   # s123456789z1111
