@@ -50,13 +50,13 @@ Leave with single NA if there is no rongpai.}
 
 \item{haidi}{String; One of "none", "haidimoyue", or "hedilaoyu".}
 
+\item{tianhe}{String; One of "none", "tianhe", or "dihe".}
+
 \item{changbang}{Integer;
 Number of counter sticks that indicates "honba".}
 
 \item{lizhibang}{Integer;
 Number of 1,000-point sticks on the table.}
-
-\item{tianhu}{String; One of "none", "tianhe", or "dihe".}
 }
 \value{
 Dataframe.

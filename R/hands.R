@@ -15,7 +15,7 @@
 #' @param qianggang Logical; flag for "chankan".
 #' @param lingshang Logical; flag for "rinshan-kaihou".
 #' @param haidi String; One of "none", "haidimoyue", or "hedilaoyu".
-#' @param tianhu String; One of "none", "tianhe", or "dihe".
+#' @param tianhe String; One of "none", "tianhe", or "dihe".
 #' @param changbang Integer;
 #' Number of counter sticks that indicates "honba".
 #' @param lizhibang Integer;
