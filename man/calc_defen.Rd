@@ -7,17 +7,17 @@
 calc_defen(
   pai,
   baopai,
-  libaopai,
-  rongpai = "",
+  libaopai = NA,
+  rongpai = NA,
   rule = default_rule(),
-  zhuangfeng = 0L,
-  menfeng = 1L,
-  lizhi = 0L,
+  zhuangfeng = c("z1", "z2", "z3", "z4"),
+  menfeng = c("z2", "z3", "z4", "z1"),
+  lizhi = c("none", "lizhi", "double-lizhi"),
   yifa = FALSE,
   qianggang = FALSE,
   lingshang = FALSE,
-  haidi = 0L,
-  tianhu = 0L,
+  haidi = c("none", "haidimoyue", "hedilaoyu"),
+  tianhe = c("none", "tianhe", "dihe"),
   changbang = 0L,
   lizhibang = 0L
 )
@@ -28,18 +28,19 @@ Note that this param is not vectorized.}
 
 \item{baopai}{Character vector. "Dora" indicators.}
 
-\item{libaopai}{Character vector. "Ura-dora" indicators.}
+\item{libaopai}{Character vector. "Ura-dora" indicators.
+Leave with single NA if there is no libaopai.}
 
-\item{rongpai}{String. Leave empty if there is no rongpai.}
+\item{rongpai}{String.
+Leave with single NA if there is no rongpai.}
 
 \item{rule}{List; a rule set.}
 
-\item{zhuangfeng}{Integer (0-3); "ba-kaze" pai.}
+\item{zhuangfeng}{String; "ba-kaze" pai.}
 
-\item{menfeng}{Integer (0-3); "ji-kaze" pai.}
+\item{menfeng}{String; "ji-kaze" pai.}
 
-\item{lizhi}{Integer (0-2);
-0: no lizhi, 1: lizhi, 2: double-lizhi.}
+\item{lizhi}{String; One of "none", "lizhi", or "double-lizhi".}
 
 \item{yifa}{Logical; flag for "ippatsu".}
 
@@ -47,17 +48,15 @@ Note that this param is not vectorized.}
 
 \item{lingshang}{Logical; flag for "rinshan-kaihou".}
 
-\item{haidi}{Integer (0-2);
-0: normal, 1: haidimoyue, 2: hedilaoyu.}
-
-\item{tianhu}{Integer (0-2);
-0: normal, 1: tianhu, 2: dihe.}
+\item{haidi}{String; One of "none", "haidimoyue", or "hedilaoyu".}
 
 \item{changbang}{Integer;
 Number of counter sticks that indicates "honba".}
 
 \item{lizhibang}{Integer;
 Number of 1,000-point sticks on the table.}
+
+\item{tianhu}{String; One of "none", "tianhe", or "dihe".}
 }
 \value{
 Dataframe.
