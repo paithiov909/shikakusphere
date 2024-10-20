@@ -4,9 +4,9 @@
 #' Note that this param is not vectorized.
 #' @param baopai Character vector. "Dora" indicators.
 #' @param libaopai Character vector. "Ura-dora" indicators.
-#' Leave with single NA if there is no libaopai.
+#' Leave empty if there is no libaopai.
 #' @param rongpai String.
-#' Leave with single NA if there is no rongpai.
+#' Leave empty if there is no rongpai.
 #' @param rule List; a rule set.
 #' @param zhuangfeng String; "ba-kaze" pai.
 #' @param menfeng String; "ji-kaze" pai.
@@ -23,21 +23,21 @@
 #' @returns Dataframe.
 #' @export
 calc_defen <- function(
-  pai, # not vectorized!
-  baopai,
-  libaopai = NA,
-  rongpai = NA,
-  rule = default_rule(),
-  zhuangfeng = c("z1", "z2", "z3", "z4"),
-  menfeng = c("z2", "z3", "z4", "z1"),
-  lizhi = c("none", "lizhi", "double-lizhi"),
-  yifa = FALSE,
-  qianggang = FALSE,
-  lingshang = FALSE,
-  haidi = c("none", "haidimoyue", "hedilaoyu"),
-  tianhe = c("none", "tianhe", "dihe"),
-  changbang = 0L,
-  lizhibang = 0L
+    pai, # not vectorized!
+    baopai,
+    libaopai = "",
+    rongpai = "",
+    rule = default_rule(),
+    zhuangfeng = c("z1", "z2", "z3", "z4"),
+    menfeng = c("z2", "z3", "z4", "z1"),
+    lizhi = c("none", "lizhi", "double-lizhi"),
+    yifa = FALSE,
+    qianggang = FALSE,
+    lingshang = FALSE,
+    haidi = c("none", "haidimoyue", "hedilaoyu"),
+    tianhe = c("none", "tianhe", "dihe"),
+    changbang = 0L,
+    lizhibang = 0L
 ) {
   zhuangfeng <- rlang::arg_match(zhuangfeng)
   menfeng <- rlang::arg_match(menfeng)
@@ -78,11 +78,12 @@ calc_defen <- function(
       "dihe" = 2L
     )
 
+  # TODO: check
   libaopai[is.na(libaopai)] <- ""
   rongpai[is.na(rongpai)] <- ""
 
   skksph_get_defen(
-    pai,
+    paistr(pai),
     baopai,
     libaopai,
     rule,
@@ -108,7 +109,9 @@ calc_defen <- function(
 #' @returns Integer vector.
 #' @export
 calc_xiangting <- function(pai) {
-  skksph_get_xiangting(pai)
+  pai |>
+    paistr() |>
+    skksph_get_xiangting()
 }
 
 #' Collect tingpais of hands
@@ -120,5 +123,7 @@ calc_xiangting <- function(pai) {
 #' @returns List of character vectors.
 #' @export
 collect_tingpai <- function(pai) {
-  skksph_get_tingpai(pai)
+  pai |>
+    paistr() |>
+    skksph_get_tingpai()
 }

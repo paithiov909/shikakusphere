@@ -1,6 +1,8 @@
 #' Create a function to randomly generate hands
 #'
 #' @param hupai String.
+#' @param zhuangfeng String; "ba-kaze" pai.
+#' @param menfeng String; "ji-kaze" pai.
 #' @param rule List; a rule set.
 #' @param seed Integer.
 #' @returns Function inheriting class \code{purrr_function_partial}.
@@ -39,18 +41,38 @@ rand_hands <- function(
     "sigangzi",
     "jiulianbaodeng"
   ),
-  seed = 1234,
-  rule = default_rule()
+  zhuangfeng = c("z1", "z2", "z3", "z4"),
+  menfeng = c("z2", "z3", "z4", "z1"),
+  rule = default_rule(),
+  seed = 1234
 ) {
   if (!is_valid_rule(rule)) {
     rlang::abort("The rule set is invalid.")
   }
   hupai <- rlang::arg_match(hupai)
+  zhuangfeng <- rlang::arg_match(zhuangfeng)
+  menfeng <- rlang::arg_match(menfeng)
+
+  zhuangfeng <-
+    switch(zhuangfeng,
+      "z1" = 0L,
+      "z2" = 1L,
+      "z3" = 2L,
+      "z4" = 3L
+    )
+  menfeng <-
+    switch(menfeng,
+      "z2" = 1L,
+      "z3" = 2L,
+      "z4" = 3L,
+      "z1" = 0L
+    )
 
   func <-
     switch(hupai,
       "zhuangfeng" = partial(
         random_zhuangfeng,
+        zhuangfeng = zhuangfeng,
         seed = seed,
         list = rule,
         rankPoints = rule[["rankPoints"]],
@@ -58,6 +80,7 @@ rand_hands <- function(
       ),
       "menfeng" = partial(
         random_menfeng,
+        menfeng = menfeng,
         seed = seed,
         list = rule,
         rankPoints = rule[["rankPoints"]],
@@ -72,6 +95,8 @@ rand_hands <- function(
       ),
       "pinghe" = partial(
         random_pinghe,
+        zhuangfeng = zhuangfeng,
+        menfeng = menfeng,
         seed = seed,
         list = rule,
         rankPoints = rule[["rankPoints"]],

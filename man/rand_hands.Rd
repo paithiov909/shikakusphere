@@ -10,16 +10,22 @@ rand_hands(
     "sananke", "sangangzi", "sansetongke", "hunlaotou", "xiaosanyuan", "hunyise",
     "chunquandaiyaojiu", "erbeikou", "qingyise", "guoshiwushuang", "sianke", "dasanyuan",
     "xiaosixi", "dasixi", "ziyise", "lvyise", "qinglaotou", "sigangzi", "jiulianbaodeng"),
-  seed = 1234,
-  rule = default_rule()
+  zhuangfeng = c("z1", "z2", "z3", "z4"),
+  menfeng = c("z2", "z3", "z4", "z1"),
+  rule = default_rule(),
+  seed = 1234
 )
 }
 \arguments{
 \item{hupai}{String.}
 
-\item{seed}{Integer.}
+\item{zhuangfeng}{String; "ba-kaze" pai.}
+
+\item{menfeng}{String; "ji-kaze" pai.}
 
 \item{rule}{List; a rule set.}
+
+\item{seed}{Integer.}
 }
 \value{
 Function inheriting class \code{purrr_function_partial}.

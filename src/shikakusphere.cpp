@@ -136,6 +136,60 @@ Shoupai random_setup(
 
 // Shoupai ----
 // [[Rcpp::export]]
+Rcpp::List skksph_tidy_impl(const std::vector<std::string>& pai) {
+  std::vector<Rcpp::IntegerVector> ret;
+  ret.reserve(pai.size());
+  for (const auto& paistr : pai) {
+    Shoupai p = Shoupai{paistr};
+    Rcpp::IntegerVector mp = Rcpp::wrap(p.m());
+    Rcpp::IntegerVector pp = Rcpp::wrap(p.p());
+    Rcpp::IntegerVector sp = Rcpp::wrap(p.s());
+    Rcpp::IntegerVector zp = Rcpp::wrap(p.z());
+    auto fu = p.fulou_();
+    if (!fu.empty()) {
+      for (const auto& f : fu) {
+        Shoupai fulou = Shoupai{f};
+        Rcpp::IntegerVector mf = Rcpp::wrap(fulou.m());
+        Rcpp::IntegerVector pf = Rcpp::wrap(fulou.p());
+        Rcpp::IntegerVector sf = Rcpp::wrap(fulou.s());
+        Rcpp::IntegerVector zf = Rcpp::wrap(fulou.z());
+        mp = mp + mf;
+        pp = pp + pf;
+        sp = sp + sf;
+        zp = zp + zf;
+      }
+    }
+    Rcpp::IntegerVector cm(mp.size() + pp.size() + sp.size() + zp.size());
+    std::copy(mp.begin(), mp.end(), cm.begin());
+    std::copy(pp.begin(), pp.end(), cm.begin() + mp.size());
+    std::copy(sp.begin(), sp.end(), cm.begin() + mp.size() + pp.size());
+    std::copy(zp.begin(), zp.end(), cm.begin() + mp.size() + pp.size() + sp.size());
+
+    // hongpaiがあればそのぶん引く
+    if (cm(0) > 0) cm(5) -= cm(0);
+    if (cm(10) > 0) cm(15) -= cm(10);
+    if (cm(20) > 0) cm(25) -= cm(20);
+
+    ret.push_back(cm);
+  }
+  return Rcpp::wrap(ret);
+}
+
+// [[Rcpp::export]]
+std::vector<std::string> skksph_lipai_impl(const std::vector<std::vector<std::string>>& s) {
+  std::vector<std::string> ret;
+  ret.reserve(s.size());
+  for (auto pai : s) {
+    pai.erase(std::remove_if(pai.begin(), pai.end(), [](const std::string& st) {
+      return !Shoupai::valid_pai(st);
+    }), pai.end());
+    Shoupai p = Shoupai{pai};
+    ret.push_back(p.toString());
+  }
+  return ret;
+}
+
+// [[Rcpp::export]]
 std::vector<std::string> skksph_shoupai_to_svg(
     const std::vector<std::string>& pai) {
   std::vector<std::string> ret;
@@ -234,6 +288,26 @@ Rcpp::List skksph_get_tingpai(const std::vector<std::string>& shoupai) {
 
 // Features ----
 // TODO: features
+// [[Rcpp::export]]
+Rcpp::List skksph_feat_pai(const std::vector<std::string>& pai) {
+  std::vector<std::vector<float>> ret;
+  ret.reserve(pai.size());
+
+  channel_t dat;
+
+  for (const auto& paistr : pai) {
+    Shoupai p = Shoupai{paistr};
+    pai_features(p.toString(), &dat);
+    std::vector<float> v;
+    for (int i = 0; i < 9; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            v.push_back(dat[i][j]);
+        }
+    }
+    ret.push_back(v);
+  }
+  return Rcpp::wrap(ret);
+}
 
 // Random ----
 // [[Rcpp::export]]

@@ -1,6 +1,7 @@
 ## usethis namespace: start
 #' @import Rcpp
 #' @useDynLib shikakusphere, .registration = TRUE
+#' @keywords internal
 ## usethis namespace: end
 "_PACKAGE"
 
@@ -17,6 +18,52 @@
 
 #' @importFrom utils globalVariables
 utils::globalVariables("hupai")
+
+#' Line up tiles
+#'
+#' @param x A data frame with columns `id`, `tile`, and `n`.
+#' @returns Character vector (or factor).
+#' @export
+#' @examples
+#' rand_hands()(5) |>
+#'  paistr() |>
+#'  tidy() |>
+#'  lineup()
+lineup <- function(x) {
+  if (!is.data.frame(x) || !all(c("id", "tile", "n") %in% colnames(x))) {
+    rlang::abort("`x` must be a data frame with columns `id`, `tile`, and `n`.")
+  }
+  unname(tapply(x, x$id, function(d) {
+    rep(d$tile, d$n)
+  }))
+}
+
+#' Compose hands from character vectors
+#'
+#' Compose hands from character vectors
+#' while ignoring invalid pais.
+#'
+#' This function accepts less or more than 14 pais per hand,
+#' however, cannot handle 5th pai of each tiles.
+#' If there are any 5th pais, arises an error.
+#'
+#' @param x Character vector or a list of character vectors.
+#' @returns Character vector.
+#' @export
+#' @examples
+#' lipai(list(c("m1", "m2", "m3"), c("p1", "p2", "p3")))
+lipai <- function(x) {
+  if (!is.list(x)) {
+    x <- x[!is.na(x)]
+    lipai(list(x))
+  } else {
+    l <- unlist(x, use.names = FALSE) |>
+      as.character() |>
+      stringi::stri_replace_na("") |>
+      vctrs::vec_chop(sizes = vctrs::list_sizes(x))
+    skksph_lipai_impl(l)
+  }
+}
 
 #' Parse chains of hupai ids
 #'

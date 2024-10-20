@@ -7,8 +7,8 @@
 calc_defen(
   pai,
   baopai,
-  libaopai = NA,
-  rongpai = NA,
+  libaopai = "",
+  rongpai = "",
   rule = default_rule(),
   zhuangfeng = c("z1", "z2", "z3", "z4"),
   menfeng = c("z2", "z3", "z4", "z1"),
@@ -29,10 +29,10 @@ Note that this param is not vectorized.}
 \item{baopai}{Character vector. "Dora" indicators.}
 
 \item{libaopai}{Character vector. "Ura-dora" indicators.
-Leave with single NA if there is no libaopai.}
+Leave empty if there is no libaopai.}
 
 \item{rongpai}{String.
-Leave with single NA if there is no rongpai.}
+Leave empty if there is no rongpai.}
 
 \item{rule}{List; a rule set.}
 

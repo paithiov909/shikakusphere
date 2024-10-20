@@ -12,3 +12,6 @@ List.
 \description{
 Create default rule set
 }
+\seealso{
+\url{https://github.com/kobalab/majiang-core/wiki/\%E3\%83\%AB\%E3\%83\%BC\%E3\%83\%AB}
+}
