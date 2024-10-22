@@ -4,19 +4,13 @@
 \alias{hand2img}
 \title{Plot a player's hand as an image}
 \usage{
-hand2img(pai, width = NULL, height = NULL)
+hand2img(pai, ...)
 }
 \arguments{
-\item{pai}{String that represents a player's hand.}
+\item{pai}{Character vector.}
 
-\item{width}{Integer scalar.}
-
-\item{height}{Integer scalar.}
-}
-\value{
-A bitmap image that internally converted by \code{magick::image_read_svg}
-is invisibly returned.
+\item{...}{Passed to \code{plot()}.}
 }
 \description{
-Plot a player's hand as an image
+This function is a short hand for \code{plot(paistr(pai))}
 }

@@ -32,14 +32,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// skksph_shoupai_to_svg
-std::vector<std::string> skksph_shoupai_to_svg(const std::vector<std::string>& pai);
-RcppExport SEXP _shikakusphere_skksph_shoupai_to_svg(SEXP paiSEXP) {
+// skksph_hand_to_svg
+std::vector<std::string> skksph_hand_to_svg(const std::vector<std::string>& pai);
+RcppExport SEXP _shikakusphere_skksph_hand_to_svg(SEXP paiSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<std::string>& >::type pai(paiSEXP);
-    rcpp_result_gen = Rcpp::wrap(skksph_shoupai_to_svg(pai));
+    rcpp_result_gen = Rcpp::wrap(skksph_hand_to_svg(pai));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -561,7 +561,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_shikakusphere_skksph_tidy_impl", (DL_FUNC) &_shikakusphere_skksph_tidy_impl, 1},
     {"_shikakusphere_skksph_lipai_impl", (DL_FUNC) &_shikakusphere_skksph_lipai_impl, 1},
-    {"_shikakusphere_skksph_shoupai_to_svg", (DL_FUNC) &_shikakusphere_skksph_shoupai_to_svg, 1},
+    {"_shikakusphere_skksph_hand_to_svg", (DL_FUNC) &_shikakusphere_skksph_hand_to_svg, 1},
     {"_shikakusphere_skksph_get_defen", (DL_FUNC) &_shikakusphere_skksph_get_defen, 17},
     {"_shikakusphere_skksph_get_xiangting", (DL_FUNC) &_shikakusphere_skksph_get_xiangting, 1},
     {"_shikakusphere_skksph_get_tingpai", (DL_FUNC) &_shikakusphere_skksph_get_tingpai, 1},

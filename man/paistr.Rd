@@ -4,6 +4,7 @@
 \alias{paistr}
 \alias{is_paistr}
 \alias{tidy.skksph_paistr}
+\alias{plot.skksph_paistr}
 \title{\code{paistr} vector}
 \usage{
 paistr(x = character())
@@ -11,21 +12,30 @@ paistr(x = character())
 is_paistr(x)
 
 \method{tidy}{skksph_paistr}(x, ...)
+
+\method{plot}{skksph_paistr}(x, y, ...)
 }
 \arguments{
 \item{x}{\itemize{
 \item For \code{paistr()}: Character vector.
 \item For \code{is_paistr()}: An object to test.
+\item For \code{plot()}: An object to plot as an image.
 \item For \code{tidy()}: An object to tidy up.
 }}
 
-\item{...}{Other arguments for \code{tidy()}.}
+\item{...}{Other arguments for \code{plot()} or \code{tidy()}.}
+
+\item{y}{\itemize{
+\item For \code{plot()}: Not used.
+}}
 }
 \value{
 \itemize{
 \item For \code{paistr()}: An object of class \code{skksph_paistr}.
-\item For \code{is_paistr()}: A logical vector.
-\item For \code{tidy()}: A data frame.
+\item For \code{is_paistr()}: A logical scalar.
+\item For \code{plot()}: A bitmap image that internally converted
+by \code{magick::image_read_svg()} is invisibly returned.
+\item For \code{tidy()}: A data frame (not a tibble).
 }
 }
 \description{
@@ -35,10 +45,11 @@ that represents player's hands.
 \details{
 Note that the validation of this function is not so strict.
 For example, \code{paistr("z0")} still produces a valid \code{paistr} vector
-even though "z0" is not an existing tile.
+though "z0" is not an existing tile.
 
 Those \code{paistr} are simply ignored in wrappers for 'cmajiang' functions,
 so they are not harmful.
+When you need to count the actual number of tiles, use \code{tidy()}.
 }
 \examples{
 pai <- paistr(c("m055z7z7,m78-9,z5555,z666=", "m123s789z1117*,p5550"))

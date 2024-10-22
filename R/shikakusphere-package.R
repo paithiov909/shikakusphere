@@ -25,10 +25,10 @@ utils::globalVariables("hupai")
 #' @returns Character vector (or factor).
 #' @export
 #' @examples
-#' rand_hands()(5) |>
-#'  paistr() |>
-#'  tidy() |>
-#'  lineup()
+#' rand_hands()(3) |>
+#'   paistr() |>
+#'   tidy() |>
+#'   lineup()
 lineup <- function(x) {
   if (!is.data.frame(x) || !all(c("id", "tile", "n") %in% colnames(x))) {
     rlang::abort("`x` must be a data frame with columns `id`, `tile`, and `n`.")
@@ -44,8 +44,8 @@ lineup <- function(x) {
 #' while ignoring invalid pais.
 #'
 #' This function accepts less or more than 14 pais per hand,
-#' however, cannot handle 5th pai of each tiles.
-#' If there are any 5th pais, arises an error.
+#' however, cannot handle 5th+ pai of each tiles.
+#' If there are any 5th+ pais, arises an error.
 #'
 #' @param x Character vector or a list of character vectors.
 #' @returns Character vector.
@@ -85,22 +85,42 @@ parse_hupai <- function(str, lang = c("en", "jp")) {
     vctrs::vec_chop(sizes = vctrs::list_sizes(sp))
 }
 
+#' Convert integers to tiles
+#'
+#' @param x Integer vector.
+#' @param origin String. "zero" or "one".
+#' @returns Factor.
+#' @export
+#' @examples
+#' int2tile(c(0, 1, 25, 37))
+int2tile <- function(x = seq_len(38) - 1, origin = c("zero", "one")) {
+  origin <- rlang::arg_match(origin)
+  levels <- c(
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+    10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+    20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+    # 30, # "z0" is missing
+    31, 32, 33, 34, 35, 36, 37
+  ) + if (origin == "one") 1 else 0
+  factor(x,
+    levels = levels,
+    labels = c(
+      paste0("m", 0:9),
+      paste0("p", 0:9),
+      paste0("s", 0:9),
+      paste0("z", 1:7)
+    )
+  )
+}
+
 #' Plot a player's hand as an image
 #'
-#' @param pai String that represents a player's hand.
-#' @param width Integer scalar.
-#' @param height Integer scalar.
-#' @returns A bitmap image that internally converted by `magick::image_read_svg`
-#' is invisibly returned.
+#' This function is a short hand for `plot(paistr(pai))`
+#'
+#' @param pai Character vector.
+#' @param ... Passed to `plot()`.
 #' @export
-#' @importFrom grDevices as.raster
-hand2img <- function(pai, width = NULL, height = NULL) {
-  if (!rlang::is_installed("rsvg")) {
-    rlang::abort("Please install `rsvg` to use this function.")
-  }
-  img <-
-    skksph_shoupai_to_svg(pai) |>
-    magick::image_read_svg(width = width, height = height)
-  plot(as.raster(img))
-  invisible(img)
+hand2img <- function(pai, ...) {
+  paistr(pai) |>
+    plot(...)
 }

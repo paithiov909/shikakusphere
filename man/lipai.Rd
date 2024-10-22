@@ -18,8 +18,8 @@ while ignoring invalid pais.
 }
 \details{
 This function accepts less or more than 14 pais per hand,
-however, cannot handle 5th pai of each tiles.
-If there are any 5th pais, arises an error.
+however, cannot handle 5th+ pai of each tiles.
+If there are any 5th+ pais, arises an error.
 }
 \examples{
 lipai(list(c("m1", "m2", "m3"), c("p1", "p2", "p3")))

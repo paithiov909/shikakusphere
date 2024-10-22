@@ -5,6 +5,7 @@
 #include "paipu.h"
 #include "svg.h"
 
+namespace {
 Defen create_defen(const Shoupai& shoupai, const std::string& rongpai,
                    const Rule& rule, const int zhuangfeng, const int menfeng,
                    const int lizhi, const bool yifa, const bool qianggang,
@@ -67,8 +68,8 @@ Rule create_rule(const int startingPoints,
               roundUpManguan};
 }
 
-Rule set_rule(Rcpp::List& list, Rcpp::NumericVector& rankPoints,
-              Rcpp::IntegerVector& hongpai) {
+Rule set_rule(const Rcpp::List& list, const Rcpp::NumericVector& rankPoints,
+              const Rcpp::IntegerVector& hongpai) {
   const std::array<float, 4> rp = {
       static_cast<float>(rankPoints(0)), static_cast<float>(rankPoints(1)),
       static_cast<float>(rankPoints(2)), static_cast<float>(rankPoints(3))};
@@ -101,8 +102,6 @@ Rule set_rule(Rcpp::List& list, Rcpp::NumericVector& rankPoints,
   return rule;
 }
 
-extern std::mt19937_64 engine;
-
 std::map<std::string, int> init_rest(const Rule& rule) {
   std::map<std::string, int> rest{
       {"m1", 4}, {"m2", 4}, {"m3", 4}, {"m4", 4}, {"m5", 4}, {"m6", 4},
@@ -133,6 +132,7 @@ Shoupai random_setup(
   std::shuffle(pai.begin(), pai.end(), engine);
   return Shoupai{pai, fulou};
 }
+}  // namespace
 
 // Shoupai ----
 // [[Rcpp::export]]
@@ -145,26 +145,13 @@ Rcpp::List skksph_tidy_impl(const std::vector<std::string>& pai) {
     Rcpp::IntegerVector pp = Rcpp::wrap(p.p());
     Rcpp::IntegerVector sp = Rcpp::wrap(p.s());
     Rcpp::IntegerVector zp = Rcpp::wrap(p.z());
-    auto fu = p.fulou_();
-    if (!fu.empty()) {
-      for (const auto& f : fu) {
-        Shoupai fulou = Shoupai{f};
-        Rcpp::IntegerVector mf = Rcpp::wrap(fulou.m());
-        Rcpp::IntegerVector pf = Rcpp::wrap(fulou.p());
-        Rcpp::IntegerVector sf = Rcpp::wrap(fulou.s());
-        Rcpp::IntegerVector zf = Rcpp::wrap(fulou.z());
-        mp = mp + mf;
-        pp = pp + pf;
-        sp = sp + sf;
-        zp = zp + zf;
-      }
-    }
+
     Rcpp::IntegerVector cm(mp.size() + pp.size() + sp.size() + zp.size());
     std::copy(mp.begin(), mp.end(), cm.begin());
     std::copy(pp.begin(), pp.end(), cm.begin() + mp.size());
     std::copy(sp.begin(), sp.end(), cm.begin() + mp.size() + pp.size());
-    std::copy(zp.begin(), zp.end(), cm.begin() + mp.size() + pp.size() + sp.size());
-
+    std::copy(zp.begin(), zp.end(),
+              cm.begin() + mp.size() + pp.size() + sp.size());
     // hongpaiがあればそのぶん引く
     if (cm(0) > 0) cm(5) -= cm(0);
     if (cm(10) > 0) cm(15) -= cm(10);
@@ -180,9 +167,11 @@ std::vector<std::string> skksph_lipai_impl(const std::vector<std::vector<std::st
   std::vector<std::string> ret;
   ret.reserve(s.size());
   for (auto pai : s) {
-    pai.erase(std::remove_if(pai.begin(), pai.end(), [](const std::string& st) {
-      return !Shoupai::valid_pai(st);
-    }), pai.end());
+    pai.erase(std::remove_if(pai.begin(), pai.end(),
+                             [](const std::string& st) {
+                               return !Shoupai::valid_pai(st);
+                             }),
+              pai.end());
     Shoupai p = Shoupai{pai};
     ret.push_back(p.toString());
   }
@@ -190,8 +179,7 @@ std::vector<std::string> skksph_lipai_impl(const std::vector<std::vector<std::st
 }
 
 // [[Rcpp::export]]
-std::vector<std::string> skksph_shoupai_to_svg(
-    const std::vector<std::string>& pai) {
+std::vector<std::string> skksph_hand_to_svg(const std::vector<std::string>& pai) {
   std::vector<std::string> ret;
   ret.reserve(pai.size());
   for (const auto& paistr : pai) {
@@ -204,15 +192,18 @@ std::vector<std::string> skksph_shoupai_to_svg(
 // Defen ----
 // [[Rcpp::export]]
 Rcpp::DataFrame skksph_get_defen(
-    const std::string& paistr,
-    const std::vector<std::string>& baopai,    // ドラ
-    const std::vector<std::string>& libaopai,  // 裏ドラ
-    Rcpp::List list, Rcpp::NumericVector rankPoints,
-    Rcpp::IntegerVector hongpai, const std::string& rongpai = "",
-    const int zhuangfeng = 0, const int menfeng = 1, const int lizhi = 0,
-    const bool yifa = false, const bool qianggang = false,
-    const bool lingshang = false, const int haidi = 0, const int tianhu = 0,
-    const int changbang = 0, const int lizhibang = 0) {
+  const std::string& paistr,
+  const std::vector<std::string>& baopai,    // ドラ
+  const std::vector<std::string>& libaopai,  // 裏ドラ
+  Rcpp::List list,
+  Rcpp::NumericVector rankPoints,
+  Rcpp::IntegerVector hongpai,
+  const std::string& rongpai = "",
+  const int zhuangfeng = 0, const int menfeng = 1, const int lizhi = 0,
+  const bool yifa = false, const bool qianggang = false,
+  const bool lingshang = false, const int haidi = 0, const int tianhu = 0,
+  const int changbang = 0, const int lizhibang = 0
+) {
   // FIXME: Rcppで空のstd::vectorを渡すやり方がわからない
   if (std::all_of(baopai.begin(), baopai.end(),
                   [](const std::string& str) { return str.empty(); })) {
@@ -239,7 +230,6 @@ Rcpp::DataFrame skksph_get_defen(
   Defen defen = create_defen(p, rp, rule, zhuangfeng, menfeng, lizhi, yifa,
                              qianggang, lingshang, haidi, tianhu, baopai, libao,
                              changbang, lizhibang);
-
   std::string hupai;
   for (const auto& h : defen.hupai) {
     if (!hupai.empty()) {
@@ -287,7 +277,6 @@ Rcpp::List skksph_get_tingpai(const std::vector<std::string>& shoupai) {
 }
 
 // Features ----
-// TODO: features
 // [[Rcpp::export]]
 Rcpp::List skksph_feat_pai(const std::vector<std::string>& pai) {
   std::vector<std::vector<float>> ret;
@@ -300,9 +289,9 @@ Rcpp::List skksph_feat_pai(const std::vector<std::string>& pai) {
     pai_features(p.toString(), &dat);
     std::vector<float> v;
     for (int i = 0; i < 9; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            v.push_back(dat[i][j]);
-        }
+      for (int j = 0; j < 4; ++j) {
+        v.push_back(dat[i][j]);
+      }
     }
     ret.push_back(v);
   }
@@ -807,3 +796,5 @@ std::vector<std::string> random_jiulianbaodeng(const int n,
   }
   return ret;
 }
+
+// TODO: random state

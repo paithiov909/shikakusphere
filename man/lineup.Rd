@@ -16,8 +16,8 @@ Character vector (or factor).
 Line up tiles
 }
 \examples{
-rand_hands()(5) |>
- paistr() |>
- tidy() |>
- lineup()
+rand_hands()(3) |>
+  paistr() |>
+  tidy() |>
+  lineup()
 }

@@ -3,7 +3,9 @@
 #include <cassert>
 #include <sstream>
 
-static const std::regex re_angang_or_jiagang{ R"(^[mpsz]\d\d\d\d$|[\+\=\-]\d$)" }; // 暗槓もしくは加槓
+namespace {
+const std::regex re_angang_or_jiagang{ R"(^[mpsz]\d\d\d\d$|[\+\=\-]\d$)" }; // 暗槓もしくは加槓
+}
 
 PaipuReplay::PaipuReplay(const Game::Paipu& paipu) : _paipu{ paipu }, _game{ paipu.rule, false }, _round{ 0 }, _ply{ 0 }, _skip{ false } {
     _game.kaiju();

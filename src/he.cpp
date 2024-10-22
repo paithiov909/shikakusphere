@@ -1,6 +1,8 @@
 ﻿#include "he.h"
 
-static const std::regex re_fulou{ R"(\d(?=[\+\=\-]))" };
+namespace {
+const std::regex re_fulou{ R"(\d(?=[\+\=\-]))" };
+} // namespace
 
 // 打牌
 He& He::dapai(const std::string& p) {
@@ -27,7 +29,7 @@ bool He::find(const std::string& p) {
 }
 
 void He::set(const std::string& paistr) {
-    static const std::regex re_pai{ R"([mpsz]\d_?\*?)" };
+    const std::regex re_pai{ R"([mpsz]\d_?\*?)" };
     _pai.clear();
     for (std::sregex_iterator it(paistr.begin(), paistr.end(), re_pai), end; it != end; ++it)
         dapai(it->str());

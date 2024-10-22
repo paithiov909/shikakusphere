@@ -23,21 +23,21 @@
 #' @returns Dataframe.
 #' @export
 calc_defen <- function(
-    pai, # not vectorized!
-    baopai,
-    libaopai = "",
-    rongpai = "",
-    rule = default_rule(),
-    zhuangfeng = c("z1", "z2", "z3", "z4"),
-    menfeng = c("z2", "z3", "z4", "z1"),
-    lizhi = c("none", "lizhi", "double-lizhi"),
-    yifa = FALSE,
-    qianggang = FALSE,
-    lingshang = FALSE,
-    haidi = c("none", "haidimoyue", "hedilaoyu"),
-    tianhe = c("none", "tianhe", "dihe"),
-    changbang = 0L,
-    lizhibang = 0L
+  pai, # not vectorized!
+  baopai,
+  libaopai = "",
+  rongpai = "",
+  rule = default_rule(),
+  zhuangfeng = c("z1", "z2", "z3", "z4"),
+  menfeng = c("z2", "z3", "z4", "z1"),
+  lizhi = c("none", "lizhi", "double-lizhi"),
+  yifa = FALSE,
+  qianggang = FALSE,
+  lingshang = FALSE,
+  haidi = c("none", "haidimoyue", "hedilaoyu"),
+  tianhe = c("none", "tianhe", "dihe"),
+  changbang = 0L,
+  lizhibang = 0L
 ) {
   zhuangfeng <- rlang::arg_match(zhuangfeng)
   menfeng <- rlang::arg_match(menfeng)

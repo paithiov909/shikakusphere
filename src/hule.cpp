@@ -3,10 +3,7 @@
 #include <cmath>
 #include <numeric>
 
-
-static const std::vector<int> zipai_n = { 1, 2, 3, 4, 5, 6, 7 };
-static const std::vector<int> yaojiu_n = { 1, 9 };
-
+namespace {
 const std::regex re_add_hulepai{ R"([\+\=\-]|\d{4})" };
 
 const std::regex re_sanyuanpai{ R"(^z[567].*$)" };
@@ -32,7 +29,7 @@ const std::regex re_lvyise3{ R"(^s.*[1579])" };
 const std::regex re_jiulianbaodeng{ R"(^[mpsz]1112345678999)" };
 
 const std::regex re_get_post_hupai{ R"([mpsz][^mpsz,]*)" };
-
+}
 
 // 面子
 std::vector<std::vector<std::string>> mianzi(const char s, std::vector<int>& bingpai, const int n = 1) {

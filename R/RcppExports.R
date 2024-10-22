@@ -9,8 +9,8 @@ skksph_lipai_impl <- function(s) {
     .Call(`_shikakusphere_skksph_lipai_impl`, s)
 }
 
-skksph_shoupai_to_svg <- function(pai) {
-    .Call(`_shikakusphere_skksph_shoupai_to_svg`, pai)
+skksph_hand_to_svg <- function(pai) {
+    .Call(`_shikakusphere_skksph_hand_to_svg`, pai)
 }
 
 skksph_get_defen <- function(paistr, baopai, libaopai, list, rankPoints, hongpai, rongpai = "", zhuangfeng = 0L, menfeng = 1L, lizhi = 0L, yifa = FALSE, qianggang = FALSE, lingshang = FALSE, haidi = 0L, tianhu = 0L, changbang = 0L, lizhibang = 0L) {
