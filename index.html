@@ -94,33 +94,34 @@
 <span>  <span class="st">"p222345z1234567"</span>,</span>
 <span>  <span class="st">"p11222345z12345"</span>,</span>
 <span>  <span class="st">"m055z7z7,m78-9,z5555,z666="</span>,</span>
-<span>  <span class="st">"m055z77,m78-9,z5555,z666=,"</span>,</span>
 <span>  <span class="st">"m123p055s789z1117*"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># シャンテン数</span></span>
 <span><span class="va">n_xiangting</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_xiangting.html">calc_xiangting</a></span><span class="op">(</span><span class="va">hands</span><span class="op">)</span></span>
 <span><span class="va">n_xiangting</span></span>
-<span><span class="co">#&gt; [1]  4  3 -1  0  0</span></span>
+<span><span class="co">#&gt; [1]  4  3 -1  0</span></span>
 <span></span>
 <span><span class="co"># 有効牌（シャンテン数が減る牌）</span></span>
-<span><span class="co"># すでにテンパイしている or 和了形である場合、エラーになる</span></span>
-<span><span class="fu"><a href="reference/collect_tingpai.html">collect_tingpai</a></span><span class="op">(</span><span class="va">hands</span><span class="op">[</span><span class="va">n_xiangting</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/collect_tingpai.html">collect_tingpai</a></span><span class="op">(</span><span class="va">hands</span><span class="op">[</span><span class="va">n_xiangting</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] "z1" "z2" "z3" "z4" "z5" "z6" "z7"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[2]]</span></span>
 <span><span class="co">#&gt; [1] "p1" "z1" "z2" "z3" "z4" "z5"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] "z7"</span></span>
 <span></span>
 <span><span class="co"># 得点. この関数はvectorizeされていないので注意！</span></span>
 <span><span class="co"># baopaiはドラ表示牌、libaopaiは裏ドラ表示牌</span></span>
-<span><span class="va">score</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_defen.html">calc_defen</a></span><span class="op">(</span><span class="va">hands</span><span class="op">[</span><span class="va">n_xiangting</span> <span class="op">==</span> <span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, baopai <span class="op">=</span> <span class="st">"z1"</span>, libaopai <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="va">score</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_defen.html">calc_defen</a></span><span class="op">(</span><span class="va">hands</span><span class="op">[</span><span class="va">n_xiangting</span> <span class="op">==</span> <span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, baopai <span class="op">=</span> <span class="st">"z1"</span><span class="op">)</span></span>
 <span><span class="va">score</span></span>
 <span><span class="co">#&gt;                      shoupai        hupai fu fanshu damanguan defen menfeng</span></span>
 <span><span class="co">#&gt; 1 m055z7z7,m78-9,z5555,z666= 8,9,34,35,12 70      7         0 12000       1</span></span>
 <span></span>
 <span><span class="co"># ロン和了のときはこんなふうに書く</span></span>
-<span><span class="fu"><a href="reference/calc_defen.html">calc_defen</a></span><span class="op">(</span><span class="st">"m345567p234s3378"</span>, baopai <span class="op">=</span> <span class="st">"z1"</span>, libaopai <span class="op">=</span> <span class="st">""</span>, rongpai <span class="op">=</span> <span class="st">"s9="</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/calc_defen.html">calc_defen</a></span><span class="op">(</span><span class="st">"m345567p234s3378"</span>, baopai <span class="op">=</span> <span class="st">"z1"</span>, rongpai <span class="op">=</span> <span class="st">"s9="</span><span class="op">)</span></span>
 <span><span class="co">#&gt;               shoupai hupai fu fanshu damanguan defen menfeng</span></span>
 <span><span class="co">#&gt; 1 m345567p234s3378s9=    22 30      1         0  1000       1</span></span>
 <span></span>

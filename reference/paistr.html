@@ -57,10 +57,10 @@ that represents player's hands.</p>
 <span><span class="fu">is_paistr</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'skksph_paistr'</span></span>
-<span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'skksph_paistr'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -68,20 +68,20 @@ that represents player's hands.</p>
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><ul><li><p>For <code>paistr()</code>: Character vector.</p></li>
+<dd><ul><li><p>For <code>paistr()</code>: A character vector.</p></li>
 <li><p>For <code>is_paistr()</code>: An object to test.</p></li>
 <li><p>For <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>: An object to plot as an image.</p></li>
 <li><p>For <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code>: An object to tidy up.</p></li>
 </ul></dd>
 
 
-<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Other arguments for <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> or <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code>.</p></dd>
-
-
 <dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
 <dd><ul><li><p>For <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>: Not used.</p></li>
 </ul></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Other arguments for <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> or <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code>.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -97,10 +97,10 @@ by <code><a href="https://docs.ropensci.org/magick/reference/editing.html" class
     <h2>Details</h2>
     <p>Note that the validation of this function is not so strict.
 For example, <code>paistr("z0")</code> still produces a valid <code>paistr</code> vector
-though "z0" is not an existing tile.</p>
-<p>Those <code>paistr</code> are simply ignored in wrappers for 'cmajiang' functions,
-so they are not harmful.
-When you need to count the actual number of tiles, use <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code>.</p>
+even though "z0" is not a tile that actually exists.
+These <code>paistr</code> are simply ignored by the `cmajiang' function wrapper.</p>
+<p>The number of tiles displayed when <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> is not always accurate,
+so if you need to count the actual number of tiles, use <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code>.</p>
     </div>
 
     <div id="ref-examples">
