@@ -1,5 +1,4 @@
 ﻿#include "random.h"
-#include "random.h"
 #include "xiangting.h"
 
 #include <set>
@@ -239,7 +238,7 @@ bool pick_kezi<false, false, false, true>(std::vector<std::string>& pai, std::ma
 // 緑牌
 template <>
 bool pick_kezi<false, false, true, false, true>(std::vector<std::string>& pai, std::map<std::string, int>& rest, const Rule& rule, std::mt19937_64& mt) {
-    static const std::string lvy[] = { "s2", "s3", "s4", "s6", "s8", "z6" };
+    const std::string lvy[] = { "s2", "s3", "s4", "s6", "s8", "z6" };
     constexpr int N = 6;
     std::uniform_int_distribution<int> kezi_dist(0, N - 1);
     const int start = kezi_dist(mt);
@@ -408,7 +407,7 @@ bool pick_jiangpai<false, false, false, true>(std::vector<std::string>& pai, std
 // 緑牌
 template <>
 bool pick_jiangpai<false, false, true, false, true>(std::vector<std::string>& pai, std::map<std::string, int>& rest, const Rule& rule, std::mt19937_64& mt) {
-    static const std::string lvy[] = { "s2", "s3", "s4", "s6", "s8", "z6" };
+    const std::string lvy[] = { "s2", "s3", "s4", "s6", "s8", "z6" };
     constexpr int N = 6;
     std::uniform_int_distribution<int> jiangpai_dist(0, N - 1);
     const int start = jiangpai_dist(mt);
@@ -1102,7 +1101,7 @@ bool setup_qingyise(std::vector<std::string>& pai, std::map<std::string, int>& r
 // 国士無双
 bool setup_guoshiwushuang(std::vector<std::string>& pai, std::map<std::string, int>& rest, const Rule& rule, std::mt19937_64& mt) {
     std::uniform_int_distribution<int> guoshi_dist(0, 11);
-    static const std::string guoshi[] = { "m1", "m9", "p1", "p9", "s1", "s9", "z1", "z2", "z3", "z4", "z5", "z6", "z7" };
+    const std::string guoshi[] = { "m1", "m9", "p1", "p9", "s1", "s9", "z1", "z2", "z3", "z4", "z5", "z6", "z7" };
     for (const auto& p : guoshi) {
         if (rest[p] < 1) return false;
         pai.emplace_back(p);
@@ -1127,7 +1126,7 @@ bool setup_sianke(std::vector<std::string>& pai, std::map<std::string, int>& res
 
 // 大三元
 bool setup_dasanyuan(std::vector<std::string>& pai, std::map<std::string, int>& rest, std::vector<std::string>& fulou, const Rule& rule, std::mt19937_64& mt) {
-    static const std::string yuan[] = { "z5", "z6", "z7" };
+    const std::string yuan[] = { "z5", "z6", "z7" };
     for (const auto& p : yuan) {
         if (rest[p] < 3) return false;
         pai.emplace_back(p);
@@ -1143,7 +1142,7 @@ bool setup_dasanyuan(std::vector<std::string>& pai, std::map<std::string, int>& 
 // 小四喜
 bool setup_xiaosixi(std::vector<std::string>& pai, std::map<std::string, int>& rest, std::vector<std::string>& fulou, const Rule& rule, std::mt19937_64& mt) {
     std::uniform_int_distribution<int> sixi_dist(0, 3);
-    static const std::string sixi[] = { "z1", "z2", "z3", "z4" };
+    const std::string sixi[] = { "z1", "z2", "z3", "z4" };
     const auto sixi_i = sixi_dist(mt);
     for (int i = 0; i < 4; i++) {
         if (i == sixi_i) continue;
@@ -1167,7 +1166,7 @@ bool setup_xiaosixi(std::vector<std::string>& pai, std::map<std::string, int>& r
 // 大四喜
 bool setup_dasixi(std::vector<std::string>& pai, std::map<std::string, int>& rest, std::vector<std::string>& fulou, const Rule& rule, std::mt19937_64& mt) {
     std::uniform_int_distribution<int> sixi_dist(0, 3);
-    static const std::string sixi[] = { "z1", "z2", "z3", "z4" };
+    const std::string sixi[] = { "z1", "z2", "z3", "z4" };
     for (const auto& p : sixi) {
         if (rest[p] < 3) return false;
         pai.emplace_back(p);
@@ -1530,7 +1529,7 @@ void random_game_state(Game& game, const int n_xiangting, std::mt19937_64& mt) {
     const int base_he_num = he_dist(mt) + 1;
     // 副露と矛盾しないようにする
     std::array<int, 4> he_num{};
-    static const std::regex re_fulou{ R"(\d[\+\=\-])" };
+    const std::regex re_fulou{ R"(\d[\+\=\-])" };
     int max_he_num = 0;
     for (int i = 0; i < 4; i++) {
         for (const auto& m : player_state[i].fulou) {
@@ -1577,7 +1576,7 @@ void random_game_state(Game& game, const int n_xiangting, std::mt19937_64& mt) {
     for (int i = 0; i < 4; i++) {
         std::set<std::string> except;
         Shoupai shoupai_{ player_state[i].tingpai, player_state[i].tingpai_fulou };
-        for (const auto& p : tingpai(shoupai_))
+        for (const auto& p : tingpai(shoupai_, xiangting))
             except.emplace(p);
 
         auto& he = player_state[i].he;
