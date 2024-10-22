@@ -7,11 +7,14 @@
 calc_xiangting(pai)
 }
 \arguments{
-\item{pai}{Character vector.}
+\item{pai}{A character vector.}
 }
 \value{
-Integer vector.
+An integer vector.
 }
 \description{
 Calculate xiangting number of hands
+}
+\examples{
+calc_xiangting(c("m345567p234s3378", "p222345z1234567"))
 }

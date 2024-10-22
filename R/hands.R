@@ -1,29 +1,30 @@
 #' Calculate score of hand
 #'
-#' @param pai String.
-#' Note that this param is not vectorized.
-#' @param baopai Character vector. "Dora" indicators.
-#' @param libaopai Character vector. "Ura-dora" indicators.
+#' @param pai A string scalar. This param is not vectorized.
+#' @param baopai A character vector. "Dora" indicators.
+#' @param libaopai A character vector. "Ura-dora" indicators.
 #' Leave empty if there is no libaopai.
-#' @param rongpai String.
+#' @param rongpai A string scalar such as `"m1="`.
 #' Leave empty if there is no rongpai.
-#' @param rule List; a rule set.
-#' @param zhuangfeng String; "ba-kaze" pai.
-#' @param menfeng String; "ji-kaze" pai.
-#' @param lizhi String; One of "none", "lizhi", or "double-lizhi".
-#' @param yifa Logical; flag for "ippatsu".
-#' @param qianggang Logical; flag for "chankan".
-#' @param lingshang Logical; flag for "rinshan-kaihou".
-#' @param haidi String; One of "none", "haidimoyue", or "hedilaoyu".
-#' @param tianhe String; One of "none", "tianhe", or "dihe".
-#' @param changbang Integer;
-#' Number of counter sticks that indicates "honba".
-#' @param lizhibang Integer;
-#' Number of 1,000-point sticks on the table.
-#' @returns Dataframe.
+#' @param rule A list; a rule set. Defaults to \code{default_rule()}.
+#' @param zhuangfeng A string scalar; "ba-kaze" tile.
+#' @param menfeng A string scalar; "ji-kaze" tile.
+#' @param lizhi A string scalar. Either "none", "lizhi", or "double-lizhi".
+#' @param yifa A logical scalar; flag for "ippatsu".
+#' @param qianggang A logical scalar; flag for "chankan".
+#' @param lingshang A logical scalar; flag for "rinshan-kaihou".
+#' @param haidi A string scalar. Either "none", "haidimoyue", or "hedilaoyu".
+#' @param tianhe A string scalar; Either "none", "tianhe", or "dihe".
+#' @param changbang An integer scalar;
+#' the number of counter sticks that indicates "honba".
+#' @param lizhibang An integer scalar;
+#' the number of 1,000-point sticks on the table.
+#' @returns A data frame.
 #' @export
+#' @examples
+#' calc_defen("m345567p234s3378", baopai = "z1", rongpai = "s9=")
 calc_defen <- function(
-  pai, # not vectorized!
+  pai,
   baopai,
   libaopai = "",
   rongpai = "",
@@ -39,6 +40,20 @@ calc_defen <- function(
   changbang = 0L,
   lizhibang = 0L
 ) {
+  rongpai <- rongpai[1]
+  libaopai[is.na(libaopai)] <- ""
+  rongpai[is.na(rongpai)] <- ""
+
+  if (any(!is_valid_pai(baopai))) {
+    rlang::abort("baopai contains invalid tiles.")
+  }
+  if (all(!stringi::stri_isempty(libaopai)) && any(!is_valid_pai(libaopai))) {
+    rlang::abort("libaopai contains invalid tiles.")
+  }
+  if (all(!stringi::stri_isempty(rongpai)) &&
+      (!is_valid_pai(rongpai) && !stringi::stri_detect_regex(rongpai, "\\=$"))) { #nolint
+    rlang::abort("rongpai is invalid.")
+  }
   zhuangfeng <- rlang::arg_match(zhuangfeng)
   menfeng <- rlang::arg_match(menfeng)
   lizhi <- rlang::arg_match(lizhi)
@@ -78,10 +93,6 @@ calc_defen <- function(
       "dihe" = 2L
     )
 
-  # TODO: check
-  libaopai[is.na(libaopai)] <- ""
-  rongpai[is.na(rongpai)] <- ""
-
   skksph_get_defen(
     paistr(pai),
     baopai,
@@ -105,25 +116,30 @@ calc_defen <- function(
 
 #' Calculate xiangting number of hands
 #'
-#' @param pai Character vector.
-#' @returns Integer vector.
+#' @param pai A character vector.
+#' @returns An integer vector.
 #' @export
+#' @examples
+#' calc_xiangting(c("m345567p234s3378", "p222345z1234567"))
 calc_xiangting <- function(pai) {
-  pai |>
-    paistr() |>
-    skksph_get_xiangting()
+  skksph_get_xiangting(pai)
 }
 
-#' Collect tingpais of hands
+#' Collect tingpais for hands
 #'
-#' Collect all pais that can decrease the xiangting number of hands
+#' Collect tiles that can decrease the xiangting number of hands
 #' if they are drawn.
+#' In case of already winning hands, corresponding vectors will be `NA`.
 #'
-#' @param pai Character vector.
-#' @returns List of character vectors.
+#' @param pai A character vector.
+#' @returns A list of character vectors.
 #' @export
+#' @examples
+#' collect_tingpai(c("m345567p234s3378", "p222345z1234567"))
 collect_tingpai <- function(pai) {
-  pai |>
-    paistr() |>
-    skksph_get_tingpai()
+  n_xiangting <- skksph_get_xiangting(pai)
+  pai[n_xiangting < 0] <- ""
+  ret <- skksph_get_tingpai(pai)
+  ret[n_xiangting < 0] <- NA_character_
+  ret
 }

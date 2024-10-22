@@ -51,7 +51,6 @@ hands <- c(
   "p222345z1234567",
   "p11222345z12345",
   "m055z7z7,m78-9,z5555,z666=",
-  "m055z77,m78-9,z5555,z666=,",
   "m123p055s789z1117*"
 )
 
@@ -60,16 +59,15 @@ n_xiangting <- calc_xiangting(hands)
 n_xiangting
 
 # 有効牌（シャンテン数が減る牌）
-# すでにテンパイしている or 和了形である場合、エラーになる
-collect_tingpai(hands[n_xiangting > 0])
+collect_tingpai(hands[n_xiangting >= 0])
 
 # 得点. この関数はvectorizeされていないので注意！
 # baopaiはドラ表示牌、libaopaiは裏ドラ表示牌
-score <- calc_defen(hands[n_xiangting == -1][1], baopai = "z1", libaopai = "")
+score <- calc_defen(hands[n_xiangting == -1][1], baopai = "z1")
 score
 
 # ロン和了のときはこんなふうに書く
-calc_defen("m345567p234s3378", baopai = "z1", libaopai = "", rongpai = "s9=")
+calc_defen("m345567p234s3378", baopai = "z1", rongpai = "s9=")
 
 # あがり役の表示
 parse_hupai(score$hupai, "jp")

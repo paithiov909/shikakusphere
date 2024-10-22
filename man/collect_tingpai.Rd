@@ -2,17 +2,21 @@
 % Please edit documentation in R/hands.R
 \name{collect_tingpai}
 \alias{collect_tingpai}
-\title{Collect tingpais of hands}
+\title{Collect tingpais for hands}
 \usage{
 collect_tingpai(pai)
 }
 \arguments{
-\item{pai}{Character vector.}
+\item{pai}{A character vector.}
 }
 \value{
-List of character vectors.
+A list of character vectors.
 }
 \description{
-Collect all pais that can decrease the xiangting number of hands
+Collect tiles that can decrease the xiangting number of hands
 if they are drawn.
+In case of already winning hands, corresponding vectors will be \code{NA}.
+}
+\examples{
+collect_tingpai(c("m345567p234s3378", "p222345z1234567"))
 }

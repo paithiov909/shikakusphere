@@ -7,10 +7,10 @@
 is_valid_rule(rule)
 }
 \arguments{
-\item{rule}{List.}
+\item{rule}{A list.}
 }
 \value{
-Logical.
+A logical scalar.
 }
 \description{
 Check if a rule is valid

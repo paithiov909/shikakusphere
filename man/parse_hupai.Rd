@@ -7,12 +7,12 @@
 parse_hupai(str, lang = c("en", "jp"))
 }
 \arguments{
-\item{str}{Character vector.}
+\item{str}{A character vector.}
 
-\item{lang}{String.}
+\item{lang}{A string scalar. Either "en" or "jp".}
 }
 \value{
-List of factors.
+A list of factors.
 }
 \description{
 Parse comma separated chains of hupai ids

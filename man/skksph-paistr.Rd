@@ -3,12 +3,12 @@
 \name{skksph-paistr}
 \alias{skksph-paistr}
 \alias{new_paistr}
-\title{Internal function to create a \code{skksph_paistr}}
+\title{Internal function to create a \code{skksph_paistr} vector}
 \usage{
 new_paistr(x = character())
 }
 \arguments{
-\item{x}{Character vector.}
+\item{x}{A character vector.}
 }
 \value{
 An object of class \code{skksph_paistr}.

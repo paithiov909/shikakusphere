@@ -23,44 +23,46 @@ calc_defen(
 )
 }
 \arguments{
-\item{pai}{String.
-Note that this param is not vectorized.}
+\item{pai}{A string scalar. This param is not vectorized.}
 
-\item{baopai}{Character vector. "Dora" indicators.}
+\item{baopai}{A character vector. "Dora" indicators.}
 
-\item{libaopai}{Character vector. "Ura-dora" indicators.
+\item{libaopai}{A character vector. "Ura-dora" indicators.
 Leave empty if there is no libaopai.}
 
-\item{rongpai}{String.
+\item{rongpai}{A string scalar such as \code{"m1="}.
 Leave empty if there is no rongpai.}
 
-\item{rule}{List; a rule set.}
+\item{rule}{A list; a rule set. Defaults to \code{default_rule()}.}
 
-\item{zhuangfeng}{String; "ba-kaze" pai.}
+\item{zhuangfeng}{A string scalar; "ba-kaze" tile.}
 
-\item{menfeng}{String; "ji-kaze" pai.}
+\item{menfeng}{A string scalar; "ji-kaze" tile.}
 
-\item{lizhi}{String; One of "none", "lizhi", or "double-lizhi".}
+\item{lizhi}{A string scalar. Either "none", "lizhi", or "double-lizhi".}
 
-\item{yifa}{Logical; flag for "ippatsu".}
+\item{yifa}{A logical scalar; flag for "ippatsu".}
 
-\item{qianggang}{Logical; flag for "chankan".}
+\item{qianggang}{A logical scalar; flag for "chankan".}
 
-\item{lingshang}{Logical; flag for "rinshan-kaihou".}
+\item{lingshang}{A logical scalar; flag for "rinshan-kaihou".}
 
-\item{haidi}{String; One of "none", "haidimoyue", or "hedilaoyu".}
+\item{haidi}{A string scalar. Either "none", "haidimoyue", or "hedilaoyu".}
 
-\item{tianhe}{String; One of "none", "tianhe", or "dihe".}
+\item{tianhe}{A string scalar; Either "none", "tianhe", or "dihe".}
 
-\item{changbang}{Integer;
-Number of counter sticks that indicates "honba".}
+\item{changbang}{An integer scalar;
+the number of counter sticks that indicates "honba".}
 
-\item{lizhibang}{Integer;
-Number of 1,000-point sticks on the table.}
+\item{lizhibang}{An integer scalar;
+the number of 1,000-point sticks on the table.}
 }
 \value{
-Dataframe.
+A data frame.
 }
 \description{
 Calculate score of hand
+}
+\examples{
+calc_defen("m345567p234s3378", baopai = "z1", rongpai = "s9=")
 }

@@ -7,10 +7,10 @@
 modify_rule(patch = list())
 }
 \arguments{
-\item{patch}{List.}
+\item{patch}{A list.}
 }
 \value{
-List.
+A list.
 }
 \description{
 Modify the default rule set by patch

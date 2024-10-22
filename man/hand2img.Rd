@@ -7,10 +7,13 @@
 hand2img(pai, ...)
 }
 \arguments{
-\item{pai}{Character vector.}
+\item{pai}{A character vector.}
 
-\item{...}{Passed to \code{plot()}.}
+\item{...}{Other arguments passed to \code{plot()}.}
 }
 \description{
-This function is a short hand for \code{plot(paistr(pai))}
+This function is a short hand for \code{paistr(pai) |> plot()}
+}
+\seealso{
+\code{\link{paistr}}
 }

@@ -1,9 +1,9 @@
-#' Internal function to create a `skksph_paistr`
+#' Internal function to create a `skksph_paistr` vector
 #'
 #' The user-facing wrapper of this function is `paistr()`.
 #'
 #' @name skksph-paistr
-#' @param x Character vector.
+#' @param x A character vector.
 #' @returns An object of class `skksph_paistr`.
 #' @import vctrs
 #' @keywords internal
@@ -28,14 +28,14 @@ methods::setOldClass(c("skksph_paistr", "vctrs_vctr"))
 #' @details
 #' Note that the validation of this function is not so strict.
 #' For example, `paistr("z0")` still produces a valid `paistr` vector
-#' though "z0" is not an existing tile.
+#' even though "z0" is not a tile that actually exists.
+#' These `paistr` are simply ignored by the `cmajiang' function wrapper.
 #'
-#' Those `paistr` are simply ignored in wrappers for 'cmajiang' functions,
-#' so they are not harmful.
-#' When you need to count the actual number of tiles, use `tidy()`.
+#' The number of tiles displayed when `print()` is not always accurate,
+#' so if you need to count the actual number of tiles, use `tidy()`.
 #'
 #' @param x
-#' * For `paistr()`: Character vector.
+#' * For `paistr()`: A character vector.
 #' * For `is_paistr()`: An object to test.
 #' * For `plot()`: An object to plot as an image.
 #' * For `tidy()`: An object to tidy up.
@@ -62,7 +62,7 @@ paistr <- function(x = character()) {
   if (any(check)) {
     rlang::warn(
       sprintf(
-        "`%s` never contains any suits. Replacing with empty string.",
+        "`%s` do not contains any suits. Replacing with empty string.",
         paste(x[check], collapse = ", ")
       )
     )
@@ -82,6 +82,21 @@ format.skksph_paistr <- function(x, ...) {
   dat <- vctrs::vec_data(x)
   counts <- stringi::stri_count_regex(dat, "\\d")
   paste0("<", counts, ">\'", dat, "\'")
+}
+
+#' @rdname paistr
+#' @export
+#' @importFrom grDevices as.raster
+plot.skksph_paistr <- function(x, y, ...) {
+  if (!rlang::is_installed("rsvg")) {
+    rlang::abort("Please install `rsvg` to use this function.")
+  }
+  dots <- rlang::list2(...)
+  img <-
+    skksph_hand_to_svg(x) |>
+    magick::image_read_svg(width = dots[["width"]], height = dots[["height"]])
+  plot(as.raster(img), ...)
+  invisible(img)
 }
 
 #' @importFrom generics tidy
@@ -108,25 +123,8 @@ tidy.skksph_paistr <- function(x, ...) {
   vctrs::vec_slice(df, which(df[["n"]] > 0))
 }
 
-#' @rdname paistr
 #' @export
-#' @importFrom grDevices as.raster
-plot.skksph_paistr <- function(x, y, ...) {
-  if (!rlang::is_installed("rsvg")) {
-    rlang::abort("Please install `rsvg` to use this function.")
-  }
-  dots <- rlang::list2(...)
-  img <-
-    skksph_hand_to_svg(x) |>
-    magick::image_read_svg(width = dots[["width"]], height = dots[["height"]])
-  plot(as.raster(img), ...)
-  invisible(img)
-}
-
-#' @export
-vec_ptype_abbr.skksph_paistr <- function(x, ...) {
-  "paistr"
-}
+vec_ptype_abbr.skksph_paistr <- function(x, ...) "paistr"
 
 #' @export
 vec_ptype2.skksph_paistr.skksph_paistr <- function(x, y, ...) new_paistr()

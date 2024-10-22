@@ -7,7 +7,7 @@
 default_rule()
 }
 \value{
-List.
+A list.
 }
 \description{
 Create default rule set

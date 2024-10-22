@@ -17,18 +17,20 @@ rand_hands(
 )
 }
 \arguments{
-\item{hupai}{String.}
+\item{hupai}{A string scalar.}
 
-\item{zhuangfeng}{String; "ba-kaze" pai.}
+\item{zhuangfeng}{A string scalar; "ba-kaze" tile.}
 
-\item{menfeng}{String; "ji-kaze" pai.}
+\item{menfeng}{A string scalar; "ji-kaze" tile.}
 
-\item{rule}{List; a rule set.}
+\item{rule}{A list; a rule set. Defaults to \code{default_rule()}.}
 
-\item{seed}{Integer.}
+\item{seed}{An integer scalar.
+Used for initializing the random number generator.}
 }
 \value{
-Function inheriting class \code{purrr_function_partial}.
+A function inheriting class \code{purrr_function_partial}
+that takes single arguments \code{n}: number of hands to be generated.
 }
 \description{
 Create a function to randomly generate hands

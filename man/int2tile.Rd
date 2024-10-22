@@ -7,12 +7,12 @@
 int2tile(x = seq_len(38) - 1, origin = c("zero", "one"))
 }
 \arguments{
-\item{x}{Integer vector.}
+\item{x}{An integer vector.}
 
-\item{origin}{String. "zero" or "one".}
+\item{origin}{A string scalar. Either "zero" or "one".}
 }
 \value{
-Factor.
+A factor.
 }
 \description{
 Convert integers to tiles

@@ -7,19 +7,17 @@
 lipai(x)
 }
 \arguments{
-\item{x}{Character vector or a list of character vectors.}
+\item{x}{A list of character vectors or a character vector.}
 }
 \value{
-Character vector.
+A character vector.
 }
 \description{
 Compose hands from character vectors
-while ignoring invalid pais.
-}
-\details{
-This function accepts less or more than 14 pais per hand,
-however, cannot handle 5th+ pai of each tiles.
-If there are any 5th+ pais, arises an error.
+while ignoring invalid tiles.
+This function can handle any number of tiles in each hand,
+but cannot more than 5 identical tiles.
+If there are more than 5 identical tiles, arises an error.
 }
 \examples{
 lipai(list(c("m1", "m2", "m3"), c("p1", "p2", "p3")))

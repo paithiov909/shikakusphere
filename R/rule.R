@@ -1,6 +1,7 @@
 #' Check if a rule is valid
-#' @param rule List.
-#' @returns Logical.
+#'
+#' @param rule A list.
+#' @returns A logical scalar.
 #' @keywords internal
 is_valid_rule <- function(rule) {
   cond <- identical(names(rule),
@@ -50,8 +51,9 @@ is_valid_rule <- function(rule) {
 
 #' Create default rule set
 #'
-#' @seealso \url{https://github.com/kobalab/majiang-core/wiki/%E3%83%AB%E3%83%BC%E3%83%AB}
-#' @returns List.
+#' @seealso
+#' \url{https://github.com/kobalab/majiang-core/wiki/%E3%83%AB%E3%83%BC%E3%83%AB}
+#' @returns A list.
 #' @export
 default_rule <- function() {
   list(
@@ -89,8 +91,8 @@ default_rule <- function() {
 
 #' Modify the default rule set by patch
 #'
-#' @param patch List.
-#' @returns List.
+#' @param patch A list.
+#' @returns A list.
 #' @export
 modify_rule <- function(patch = list()) {
   purrr::list_modify(default_rule(), !!!patch)

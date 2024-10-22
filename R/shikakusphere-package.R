@@ -8,7 +8,7 @@
 #' List of hupai
 #'
 #' @details
-#' A dataframe that contains the list of hupai.
+#' A data frame that contains the list of hupai.
 #'
 #' The list includes the following columns:
 #' * `id`: The id of the hupai.
@@ -19,10 +19,21 @@
 #' @importFrom utils globalVariables
 utils::globalVariables("hupai")
 
+#' Check if the pai is a valid tile
+#'
+#' @param x A character vector to be checked.
+#' @returns A logical vector.
+#' @keywords internal
+is_valid_pai <- function(x) {
+  stringi::stri_detect_regex(x, "(^(?:[mps]\\d|z[1-7])_?\\*?[\\+\\=\\-]?$)")
+}
+
 #' Line up tiles
 #'
+#' Arrange all tiles from a data frame.
+#'
 #' @param x A data frame with columns `id`, `tile`, and `n`.
-#' @returns Character vector (or factor).
+#' @returns An object of `x$tile` class.
 #' @export
 #' @examples
 #' rand_hands()(3) |>
@@ -41,14 +52,13 @@ lineup <- function(x) {
 #' Compose hands from character vectors
 #'
 #' Compose hands from character vectors
-#' while ignoring invalid pais.
+#' while ignoring invalid tiles.
+#' This function can handle any number of tiles in each hand,
+#' but cannot more than 5 identical tiles.
+#' If there are more than 5 identical tiles, arises an error.
 #'
-#' This function accepts less or more than 14 pais per hand,
-#' however, cannot handle 5th+ pai of each tiles.
-#' If there are any 5th+ pais, arises an error.
-#'
-#' @param x Character vector or a list of character vectors.
-#' @returns Character vector.
+#' @param x A list of character vectors or a character vector.
+#' @returns A character vector.
 #' @export
 #' @examples
 #' lipai(list(c("m1", "m2", "m3"), c("p1", "p2", "p3")))
@@ -70,9 +80,9 @@ lipai <- function(x) {
 #' Parse comma separated chains of hupai ids
 #' into a list of factors.
 #'
-#' @param str Character vector.
-#' @param lang String.
-#' @returns List of factors.
+#' @param str A character vector.
+#' @param lang A string scalar. Either "en" or "jp".
+#' @returns A list of factors.
 #' @export
 parse_hupai <- function(str, lang = c("en", "jp")) {
   lang <- rlang::arg_match(lang)
@@ -87,9 +97,9 @@ parse_hupai <- function(str, lang = c("en", "jp")) {
 
 #' Convert integers to tiles
 #'
-#' @param x Integer vector.
-#' @param origin String. "zero" or "one".
-#' @returns Factor.
+#' @param x An integer vector.
+#' @param origin A string scalar. Either "zero" or "one".
+#' @returns A factor.
 #' @export
 #' @examples
 #' int2tile(c(0, 1, 25, 37))
@@ -115,10 +125,11 @@ int2tile <- function(x = seq_len(38) - 1, origin = c("zero", "one")) {
 
 #' Plot a player's hand as an image
 #'
-#' This function is a short hand for `plot(paistr(pai))`
+#' This function is a short hand for `paistr(pai) |> plot()`
 #'
-#' @param pai Character vector.
-#' @param ... Passed to `plot()`.
+#' @param pai A character vector.
+#' @param ... Other arguments passed to `plot()`.
+#' @seealso \code{\link{paistr}}
 #' @export
 hand2img <- function(pai, ...) {
   paistr(pai) |>

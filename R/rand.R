@@ -1,11 +1,14 @@
 #' Create a function to randomly generate hands
 #'
-#' @param hupai String.
-#' @param zhuangfeng String; "ba-kaze" pai.
-#' @param menfeng String; "ji-kaze" pai.
-#' @param rule List; a rule set.
-#' @param seed Integer.
-#' @returns Function inheriting class \code{purrr_function_partial}.
+#' @param hupai A string scalar.
+#' @param zhuangfeng A string scalar; "ba-kaze" tile.
+#' @param menfeng A string scalar; "ji-kaze" tile.
+#' @param rule A list; a rule set. Defaults to `default_rule()`.
+#' @param seed An integer scalar.
+#' Used for initializing the random number generator.
+#' @returns
+#' A function inheriting class \code{purrr_function_partial}
+#' that takes single arguments `n`: number of hands to be generated.
 #' @export
 #' @importFrom purrr partial
 rand_hands <- function(

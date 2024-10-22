@@ -49,33 +49,34 @@ hands <- c(
   "p222345z1234567",
   "p11222345z12345",
   "m055z7z7,m78-9,z5555,z666=",
-  "m055z77,m78-9,z5555,z666=,",
   "m123p055s789z1117*"
 )
 
 # シャンテン数
 n_xiangting <- calc_xiangting(hands)
 n_xiangting
-#> [1]  4  3 -1  0  0
+#> [1]  4  3 -1  0
 
 # 有効牌（シャンテン数が減る牌）
-# すでにテンパイしている or 和了形である場合、エラーになる
-collect_tingpai(hands[n_xiangting > 0])
+collect_tingpai(hands[n_xiangting >= 0])
 #> [[1]]
 #> [1] "z1" "z2" "z3" "z4" "z5" "z6" "z7"
 #> 
 #> [[2]]
 #> [1] "p1" "z1" "z2" "z3" "z4" "z5"
+#> 
+#> [[3]]
+#> [1] "z7"
 
 # 得点. この関数はvectorizeされていないので注意！
 # baopaiはドラ表示牌、libaopaiは裏ドラ表示牌
-score <- calc_defen(hands[n_xiangting == -1][1], baopai = "z1", libaopai = "")
+score <- calc_defen(hands[n_xiangting == -1][1], baopai = "z1")
 score
 #>                      shoupai        hupai fu fanshu damanguan defen menfeng
 #> 1 m055z7z7,m78-9,z5555,z666= 8,9,34,35,12 70      7         0 12000       1
 
 # ロン和了のときはこんなふうに書く
-calc_defen("m345567p234s3378", baopai = "z1", libaopai = "", rongpai = "s9=")
+calc_defen("m345567p234s3378", baopai = "z1", rongpai = "s9=")
 #>               shoupai hupai fu fanshu damanguan defen menfeng
 #> 1 m345567p234s3378s9=    22 30      1         0  1000       1
 

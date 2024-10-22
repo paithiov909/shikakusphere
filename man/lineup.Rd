@@ -10,10 +10,10 @@ lineup(x)
 \item{x}{A data frame with columns \code{id}, \code{tile}, and \code{n}.}
 }
 \value{
-Character vector (or factor).
+An object of \code{x$tile} class.
 }
 \description{
-Line up tiles
+Arrange all tiles from a data frame.
 }
 \examples{
 rand_hands()(3) |>
