@@ -141,17 +141,13 @@ Rcpp::List skksph_tidy_impl(const std::vector<std::string>& pai) {
   ret.reserve(pai.size());
   for (const auto& paistr : pai) {
     Shoupai p = Shoupai{paistr};
-    Rcpp::IntegerVector mp = Rcpp::wrap(p.m());
-    Rcpp::IntegerVector pp = Rcpp::wrap(p.p());
-    Rcpp::IntegerVector sp = Rcpp::wrap(p.s());
-    Rcpp::IntegerVector zp = Rcpp::wrap(p.z());
 
-    Rcpp::IntegerVector cm(mp.size() + pp.size() + sp.size() + zp.size());
-    std::copy(mp.begin(), mp.end(), cm.begin());
-    std::copy(pp.begin(), pp.end(), cm.begin() + mp.size());
-    std::copy(sp.begin(), sp.end(), cm.begin() + mp.size() + pp.size());
-    std::copy(zp.begin(), zp.end(),
-              cm.begin() + mp.size() + pp.size() + sp.size());
+    Rcpp::IntegerVector cm(p.m().size() + p.p().size() + p.s().size() + p.z().size());
+    std::copy(p.m().begin(), p.m().end(), cm.begin());
+    std::copy(p.p().begin(), p.p().end(), cm.begin() + p.m().size());
+    std::copy(p.s().begin(), p.s().end(), cm.begin() + p.m().size() + p.p().size());
+    std::copy(p.z().begin(), p.z().end(),
+              cm.begin() + p.m().size() + p.p().size() + p.s().size());
     // hongpaiがあればそのぶん引く
     if (cm(0) > 0) cm(5) -= cm(0);
     if (cm(10) > 0) cm(15) -= cm(10);
@@ -305,9 +301,9 @@ std::vector<std::string> random_zhuangfeng(const int n, const int zhuangfeng,
                                            Rcpp::List list,
                                            Rcpp::NumericVector rankPoints,
                                            Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p =
         random_setup(rule, [zhuangfeng](std::vector<std::string>& pai,
@@ -326,9 +322,9 @@ std::vector<std::string> random_menfeng(const int n, const int menfeng,
                                         const std::size_t seed, Rcpp::List list,
                                         Rcpp::NumericVector rankPoints,
                                         Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p =
         random_setup(rule, [menfeng](std::vector<std::string>& pai,
@@ -347,9 +343,9 @@ std::vector<std::string> random_fanpai(const int n, const std::size_t seed,
                                        Rcpp::List list,
                                        Rcpp::NumericVector rankPoints,
                                        Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_fanpai);
     ret[i] = p.toString();
@@ -363,9 +359,9 @@ std::vector<std::string> random_pinghe(const int n, const int zhuangfeng,
                                        const std::size_t seed, Rcpp::List list,
                                        Rcpp::NumericVector rankPoints,
                                        Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(
         rule, [zhuangfeng, menfeng](std::vector<std::string>& pai,
@@ -384,9 +380,9 @@ std::vector<std::string> random_duanyaojiu(const int n, const std::size_t seed,
                                            Rcpp::List list,
                                            Rcpp::NumericVector rankPoints,
                                            Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(
         rule,
@@ -403,9 +399,9 @@ std::vector<std::string> random_yibeikou(const int n, const std::size_t seed,
                                          Rcpp::List list,
                                          Rcpp::NumericVector rankPoints,
                                          Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(
         rule,
@@ -423,9 +419,9 @@ std::vector<std::string> random_sansetongshun(const int n,
                                               Rcpp::List list,
                                               Rcpp::NumericVector rankPoints,
                                               Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_sansetongshun);
     ret[i] = p.toString();
@@ -439,9 +435,9 @@ std::vector<std::string> random_yiqitongguan(const int n,
                                              Rcpp::List list,
                                              Rcpp::NumericVector rankPoints,
                                              Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_yiqitongguan);
     ret[i] = p.toString();
@@ -455,9 +451,9 @@ std::vector<std::string> random_hunquandaiyaojiu(const int n,
                                                  Rcpp::List list,
                                                  Rcpp::NumericVector rankPoints,
                                                  Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_hunquandaiyaojiu);
     ret[i] = p.toString();
@@ -470,9 +466,9 @@ std::vector<std::string> random_qiduizi(const int n, const std::size_t seed,
                                         Rcpp::List list,
                                         Rcpp::NumericVector rankPoints,
                                         Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(
         rule,
@@ -489,9 +485,9 @@ std::vector<std::string> random_duiduihu(const int n, const std::size_t seed,
                                          Rcpp::List list,
                                          Rcpp::NumericVector rankPoints,
                                          Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_duiduihu);
     ret[i] = p.toString();
@@ -504,9 +500,9 @@ std::vector<std::string> random_sananke(const int n, const std::size_t seed,
                                         Rcpp::List list,
                                         Rcpp::NumericVector rankPoints,
                                         Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_sananke);
     ret[i] = p.toString();
@@ -519,9 +515,9 @@ std::vector<std::string> random_sangangzi(const int n, const std::size_t seed,
                                           Rcpp::List list,
                                           Rcpp::NumericVector rankPoints,
                                           Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_sangangzi);
     ret[i] = p.toString();
@@ -534,9 +530,9 @@ std::vector<std::string> random_sansetongke(const int n, const std::size_t seed,
                                             Rcpp::List list,
                                             Rcpp::NumericVector rankPoints,
                                             Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_sansetongke);
     ret[i] = p.toString();
@@ -549,9 +545,9 @@ std::vector<std::string> random_hunlaotou(const int n, const std::size_t seed,
                                           Rcpp::List list,
                                           Rcpp::NumericVector rankPoints,
                                           Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_hunlaotou);
     ret[i] = p.toString();
@@ -564,9 +560,9 @@ std::vector<std::string> random_xiaosanyuan(const int n, const std::size_t seed,
                                             Rcpp::List list,
                                             Rcpp::NumericVector rankPoints,
                                             Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_xiaosanyuan);
     ret[i] = p.toString();
@@ -579,9 +575,9 @@ std::vector<std::string> random_hunyise(const int n, const std::size_t seed,
                                         Rcpp::List list,
                                         Rcpp::NumericVector rankPoints,
                                         Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_hunyise);
     ret[i] = p.toString();
@@ -590,12 +586,13 @@ std::vector<std::string> random_hunyise(const int n, const std::size_t seed,
 }
 
 // [[Rcpp::export]]
-std::vector<std::string> random_chunquandaiyaojiu(
-    const int n, const std::size_t seed, Rcpp::List list,
-    Rcpp::NumericVector rankPoints, Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
+std::vector<std::string> random_chunquandaiyaojiu(const int n, const std::size_t seed,
+                                                  Rcpp::List list,
+                                                  Rcpp::NumericVector rankPoints,
+                                                  Rcpp::IntegerVector hongpai) {
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_chunquandaiyaojiu);
     ret[i] = p.toString();
@@ -608,9 +605,9 @@ std::vector<std::string> random_erbeikou(const int n, const std::size_t seed,
                                          Rcpp::List list,
                                          Rcpp::NumericVector rankPoints,
                                          Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_erbeikou);
     ret[i] = p.toString();
@@ -623,9 +620,9 @@ std::vector<std::string> random_qingyise(const int n, const std::size_t seed,
                                          Rcpp::List list,
                                          Rcpp::NumericVector rankPoints,
                                          Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_qingyise);
     ret[i] = p.toString();
@@ -639,9 +636,9 @@ std::vector<std::string> random_guoshiwushuang(const int n,
                                                Rcpp::List list,
                                                Rcpp::NumericVector rankPoints,
                                                Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(
         rule,
@@ -658,9 +655,9 @@ std::vector<std::string> random_sianke(const int n, const std::size_t seed,
                                        Rcpp::List list,
                                        Rcpp::NumericVector rankPoints,
                                        Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(
         rule,
@@ -677,9 +674,9 @@ std::vector<std::string> random_dasanyuan(const int n, const std::size_t seed,
                                           Rcpp::List list,
                                           Rcpp::NumericVector rankPoints,
                                           Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_dasanyuan);
     ret[i] = p.toString();
@@ -692,9 +689,9 @@ std::vector<std::string> random_xiaosixi(const int n, const std::size_t seed,
                                          Rcpp::List list,
                                          Rcpp::NumericVector rankPoints,
                                          Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_xiaosixi);
     ret[i] = p.toString();
@@ -707,9 +704,9 @@ std::vector<std::string> random_dasixi(const int n, const std::size_t seed,
                                        Rcpp::List list,
                                        Rcpp::NumericVector rankPoints,
                                        Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_dasixi);
     ret[i] = p.toString();
@@ -722,9 +719,9 @@ std::vector<std::string> random_ziyise(const int n, const std::size_t seed,
                                        Rcpp::List list,
                                        Rcpp::NumericVector rankPoints,
                                        Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_ziyise);
     ret[i] = p.toString();
@@ -737,9 +734,9 @@ std::vector<std::string> random_lvyise(const int n, const std::size_t seed,
                                        Rcpp::List list,
                                        Rcpp::NumericVector rankPoints,
                                        Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_lvyise);
     ret[i] = p.toString();
@@ -752,9 +749,9 @@ std::vector<std::string> random_qinglaotou(const int n, const std::size_t seed,
                                            Rcpp::List list,
                                            Rcpp::NumericVector rankPoints,
                                            Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_qinglaotou);
     ret[i] = p.toString();
@@ -767,9 +764,9 @@ std::vector<std::string> random_sigangzi(const int n, const std::size_t seed,
                                          Rcpp::List list,
                                          Rcpp::NumericVector rankPoints,
                                          Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(rule, setup_sigangzi);
     ret[i] = p.toString();
@@ -782,10 +779,10 @@ std::vector<std::string> random_jiulianbaodeng(const int n,
                                                const std::size_t seed,
                                                Rcpp::List list,
                                                Rcpp::NumericVector rankPoints,
-                                               Rcpp::IntegerVector hongpai) {
-  std::mt19937_64 mt(seed);
+                                               Rcpp::IntegerVector hongpai) {;
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
+  set_seed(seed);
   for (int i = 0; i < n; i++) {
     Shoupai p = random_setup(
         rule,
