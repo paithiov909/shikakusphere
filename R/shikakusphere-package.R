@@ -1,9 +1,12 @@
 ## usethis namespace: start
 #' @import Rcpp
+#' @importFrom utils globalVariables
 #' @useDynLib shikakusphere, .registration = TRUE
 #' @keywords internal
 ## usethis namespace: end
 "_PACKAGE"
+
+utils::globalVariables("hupai")
 
 #' Check if the pai is a valid tile
 #'
