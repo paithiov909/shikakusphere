@@ -1,6 +1,40 @@
 test_that("rand_hands works", {
-  expect_type(
-    rand_hands("fanpai")(1),
-    "character"
+  availables <- c(
+    "pinghe",
+    "zhuangfeng",
+    "menfeng",
+    "fanpai",
+    "duanyaojiu",
+    "yibeikou",
+    "sansetongshun",
+    "yiqitongguan",
+    "hunquandaiyaojiu",
+    "qiduizi",
+    "duiduihu",
+    "sananke",
+    "sangangzi",
+    "sansetongke",
+    "hunlaotou",
+    "xiaosanyuan",
+    "hunyise",
+    "chunquandaiyaojiu",
+    "erbeikou",
+    "qingyise",
+    "guoshiwushuang",
+    "sianke",
+    "dasanyuan",
+    "xiaosixi",
+    "dasixi",
+    "ziyise",
+    "lvyise",
+    "qinglaotou",
+    "sigangzi",
+    "jiulianbaodeng"
+  )
+  expect_length(
+    unlist(lapply(availables, function(x) {
+      rand_hands(hupai = x)(1)
+    }), use.names = FALSE),
+    length(availables)
   )
 })

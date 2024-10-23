@@ -6,7 +6,7 @@
 \alias{shikakusphere-package}
 \title{shikakusphere: Miscellaneous Functions for Japanese Mahjong}
 \description{
-A collection of miscellaneous functions for Japanese Mahjong that wraps C++ sources of 'cmajiang' \url{https://github.com/TadaoYamaoka/cmajiang}.
+A collection of miscellaneous functions for Japanese mahjong that wraps C++ sources of 'cmajiang' \url{https://github.com/TadaoYamaoka/cmajiang}.
 }
 \seealso{
 Useful links:

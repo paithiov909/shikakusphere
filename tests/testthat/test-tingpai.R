@@ -1,9 +1,9 @@
-test_that("get_tingpai works", {
+test_that("collect_tingpai works", {
   tingpai <- \(paistr) unlist(collect_tingpai(paistr), use.names = FALSE)
 
   # 打牌可能な状態のとき、エラー
-  expect_error(get_tingpai("m123p456s789z12345"))
-  expect_error(get_tingpai("m123p456z12345,s789-,"))
+  expect_error(tingpai("m123p456s789z12345"))
+  expect_error(tingpai("m123p456z12345,s789-,"))
 
   # 副露なし
   expect_equal(

@@ -5,20 +5,6 @@
 ## usethis namespace: end
 "_PACKAGE"
 
-#' List of hupai
-#'
-#' @details
-#' A data frame that contains the list of hupai.
-#'
-#' The list includes the following columns:
-#' * `id`: The id of the hupai.
-#' * `en`: The English name of the hupai.
-#' * `jp`: The Japanese name of the hupai.
-"hupai"
-
-#' @importFrom utils globalVariables
-utils::globalVariables("hupai")
-
 #' Check if the pai is a valid tile
 #'
 #' @param x A character vector to be checked.
