@@ -199,7 +199,7 @@ inline int index_of(const char s) {
 
 inline int replace_honpai(std::string& m) {
   int n_hongpai = 0;
-  for (size_t i = 1; i < m.size(); i++) {
+  for (std::size_t i = 1; i < m.size(); i++) {
     if (m[i] == '0') {
       m[i] = '5';
       n_hongpai++;

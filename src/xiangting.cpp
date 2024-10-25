@@ -103,9 +103,9 @@ int mianzi_all(const Shoupai& shoupai, const bool jiangpai) {
 
   int min = 13;
 
-  for (auto& m : {m_a, m_b}) {
-    for (auto& p : {p_a, p_b}) {
-      for (auto& s : {s_a, s_b}) {
+  for (const auto& m : {m_a, m_b}) {
+    for (const auto& p : {p_a, p_b}) {
+      for (const auto& s : {s_a, s_b}) {
         int x[] = {n_fulou, 0, 0};
         for (int i = 0; i < 3; i++) {
           x[i] += m[i] + p[i] + s[i] + z[i];
@@ -123,9 +123,9 @@ int xiangting_yiban(const Shoupai& shoupai) {
   auto shoupai_ = shoupai;
   int min = mianzi_all(shoupai_, false);
 
-  for (auto s : {'m', 'p', 's', 'z'}) {
+  for (const auto s : {'m', 'p', 's', 'z'}) {
     auto& bingpai = shoupai_._bingpai(s);
-    for (int n = 1; n < bingpai.size(); n++) {
+    for (std::size_t n = 1; n < bingpai.size(); n++) {
       if (bingpai[n] >= 2) {
         bingpai[n] -= 2;
         int n_xiangting = mianzi_all(shoupai_, (bingpai[n] != 2));
@@ -151,7 +151,7 @@ int xiangting_guoshi(const Shoupai& shoupai) {
 
   for (const auto s : {'m', 'p', 's', 'z'}) {
     const auto& bingpai = shoupai.bingpai(s);
-    for (const auto n : (s == 'z') ? zipai_n : yaojiu_n) {
+    for (const auto n : (s == 'z') ? zipai_n() : yaojiu_n()) {
       if (bingpai[n] >= 1) n_yaojiu++;
       if (bingpai[n] >= 2) n_duizi++;
     }
@@ -169,7 +169,7 @@ int xiangting_qidui(const Shoupai& shoupai) {
 
   for (const auto s : {'m', 'p', 's', 'z'}) {
     const auto& bingpai = shoupai.bingpai(s);
-    for (int n = 1; n < bingpai.size(); n++) {
+    for (std::size_t n = 1; n < bingpai.size(); n++) {
       if (bingpai[n] >= 2)
         n_duizi++;
       else if (bingpai[n] == 1)
@@ -208,11 +208,12 @@ std::vector<std::string> tingpai(const Shoupai& shoupai,
   const int n_xiangting = f_xiangting(shoupai_);
   for (const auto s : {'m', 'p', 's', 'z'}) {
     auto& bingpai = shoupai_._bingpai(s);
-    for (int n = 1; n < bingpai.size(); n++) {
+    for (std::size_t n = 1; n < bingpai.size(); n++) {
       if (bingpai[n] >= 4) continue;
       bingpai[n]++;
-      if (f_xiangting(shoupai_) < n_xiangting)
+      if (f_xiangting(shoupai_) < n_xiangting) {
         pai.emplace_back(to_string(s, n));
+      }
       bingpai[n]--;
     }
   }

@@ -7,6 +7,7 @@
 
 #include <iterator>
 
+/*
 const std::regex re_ling{R"(0)"};
 const std::regex re_wu{R"(5)"};
 const std::regex re_digit{R"(\d)"};
@@ -41,21 +42,22 @@ const std::regex Shoupai::_re_get_dapai1{R"(\d(?=[\+\=\-]))"};
 const std::regex Shoupai::_re_get_dapai2{R"(^[mpsz](\d)\1\1)"};
 const std::regex Shoupai::_re_get_dapai3{R"(^[mps]\d\-\d\d$)"};
 const std::regex Shoupai::_re_get_dapai4{R"(^[mps]\d\d\d\-$)"};
+*/
 
 // 牌文字列検証
 bool Shoupai::valid_pai(const std::string& p) {
-  return std::regex_match(p, _re_valid_pai);
+  return std::regex_match(p, _re_valid_pai());
 }
 
 // 面子文字列検証
 std::string Shoupai::valid_mianzi(const std::string& m) {
-  if (std::regex_search(m, _re_valid_mianzi1)) return {};
-  const auto h = std::regex_replace(m, re_ling, "5");
-  if (std::regex_match(h, _re_valid_mianzi3)) {
-    return std::regex_replace(m, _re_valid_mianzi4, "$0150");
-  } else if (std::regex_match(h, _re_valid_mianzi5)) {
+  if (std::regex_search(m, _re_valid_mianzi1())) return {};
+  const auto h = std::regex_replace(m, re_ling(), "5");
+  if (std::regex_match(h, _re_valid_mianzi3())) {
+    return std::regex_replace(m, _re_valid_mianzi4(), "$0150");
+  } else if (std::regex_match(h, _re_valid_mianzi5())) {
     std::vector<std::string> matches;
-    for (std::sregex_iterator it(m.begin(), m.end(), _re_valid_mianzi6), end; it != end; ++it) {
+    for (std::sregex_iterator it(m.begin(), m.end(), _re_valid_mianzi6()), end; it != end; ++it) {
       matches.emplace_back(it->str());
     }
     std::sort(matches.rbegin(), matches.rend());
@@ -64,20 +66,20 @@ std::string Shoupai::valid_mianzi(const std::string& m) {
     std::copy(matches.begin(), matches.end(),
               std::ostream_iterator<std::string>(os));
     std::smatch match;
-    if (std::regex_search(m, match, _re_valid_mianzi7)) {
+    if (std::regex_search(m, match, _re_valid_mianzi7())) {
       os << match.str();
     }
     return os.str();
-  } else if (std::regex_match(h, _re_valid_mianzi8)) {
+  } else if (std::regex_match(h, _re_valid_mianzi8())) {
     std::vector<std::string> nn;
-    for (std::sregex_iterator it(h.begin(), h.end(), re_digit), end; it != end; ++it) {
+    for (std::sregex_iterator it(h.begin(), h.end(), re_digit()), end; it != end; ++it) {
       nn.emplace_back(it->str());
     }
     std::sort(nn.begin(), nn.end());
     if (nn.size() != 3) return {};
     if (nn[0][0] + 1 != nn[1][0] || nn[1][0] + 1 != nn[2][0]) return {};
     std::vector<std::string> matches;
-    for (std::sregex_iterator it(h.begin(), h.end(), _re_valid_mianzi9), end; it != end; ++it) {
+    for (std::sregex_iterator it(h.begin(), h.end(), _re_valid_mianzi9()), end; it != end; ++it) {
       matches.emplace_back(it->str());
     }
     std::sort(matches.begin(), matches.end());
@@ -86,9 +88,9 @@ std::string Shoupai::valid_mianzi(const std::string& m) {
     std::copy(matches.begin(), matches.end(),
               std::ostream_iterator<std::string>(os));
     // 红牌(赤牌)
-    const auto hongpai = std::regex_search(m, re_ling);
+    const auto hongpai = std::regex_search(m, re_ling());
     if (hongpai) {
-      return std::regex_replace(os.str(), re_wu, "0");
+      return std::regex_replace(os.str(), re_wu(), "0");
     } else {
       return os.str();
     }
@@ -146,12 +148,12 @@ Shoupai::Shoupai(const std::string& paistr)
     if (p == '_') qipai.emplace_back("_");
   }
   for (std::regex_iterator<std::string_view::iterator>
-           it = std::regex_iterator(bingpai.begin(), bingpai.end(), _re_qipai),
+           it = std::regex_iterator(bingpai.begin(), bingpai.end(), _re_qipai()),
            end;
        it != end; ++it) {
     const auto suitstr = it->str();
     const auto s = suitstr[0];
-    for (size_t i = 1; i < suitstr.size(); ++i) {
+    for (std::size_t i = 1; i < suitstr.size(); ++i) {
       if (std::isdigit(suitstr[i])) {
         const auto n = to_int(suitstr[i]);
         if (s == 'z' && (n < 1 || 7 < n)) continue;
@@ -198,7 +200,7 @@ std::string Shoupai::toString() const {
     std::string suitstr(1, s);
     const auto& bingpai = this->bingpai(s);
     auto n_hongpai = s == 'z' ? 0 : bingpai[0];
-    for (int n = 1; n < bingpai.size(); n++) {
+    for (std::size_t n = 1; n < bingpai.size(); n++) {
       auto n_pai = bingpai[n];
       if (!_zimo.empty()) {
         if (_zimo.size() == 2 && _zimo[0] == s && to_int(_zimo[1]) == n) {
@@ -285,15 +287,15 @@ Shoupai& Shoupai::dapai(const std::string& p, bool check) {
 Shoupai& Shoupai::fulou(const std::string& m, bool check) {
   if (check && !_zimo.empty()) throw std::runtime_error("zimo must be empty");
   if (m != valid_mianzi(m)) throw std::invalid_argument(m);
-  if (std::regex_search(m, _re_fulou1)) throw std::invalid_argument(m);
-  if (std::regex_search(m, _re_fulou2)) throw std::invalid_argument(m);
+  if (std::regex_search(m, _re_fulou1())) throw std::invalid_argument(m);
+  if (std::regex_search(m, _re_fulou2())) throw std::invalid_argument(m);
   const auto s = m[0];
-  for (std::sregex_iterator it(m.begin(), m.end(), _re_fulou3), end; it != end;
+  for (std::sregex_iterator it(m.begin(), m.end(), _re_fulou3()), end; it != end;
        ++it) {
     decrease(s, to_int(it->str()[0]));
   }
   _fulou.emplace_back(m);
-  if (!std::regex_search(m, _re_fulou4)) _zimo = m;
+  if (!std::regex_search(m, _re_fulou4())) _zimo = m;
   return *this;
 }
 
@@ -305,13 +307,13 @@ Shoupai& Shoupai::gang(const std::string& m, bool check) {
     throw std::runtime_error("unexpected zimo " + _zimo);
   if (m != valid_mianzi(m)) throw std::invalid_argument(m);
   const auto s = m[0];
-  if (std::regex_search(m, _re_fulou1)) {
-    for (std::sregex_iterator it(m.begin(), m.end(), re_digit), end; it != end;
+  if (std::regex_search(m, _re_fulou1())) {
+    for (std::sregex_iterator it(m.begin(), m.end(), re_digit()), end; it != end;
          ++it) {
       decrease(s, to_int(it->str()[0]));
     }
     _fulou.emplace_back(m);
-  } else if (std::regex_search(m, _re_fulou2)) {
+  } else if (std::regex_search(m, _re_fulou2())) {
     const auto m1 = m.substr(0, 5);
     auto it = std::find(_fulou.begin(), _fulou.end(), m1);
     if (it == _fulou.end()) throw std::invalid_argument(m);
@@ -326,7 +328,7 @@ Shoupai& Shoupai::gang(const std::string& m, bool check) {
 // 门前(門前)
 bool Shoupai::menqian() const {
   return !std::any_of(_fulou.begin(), _fulou.end(), [](const auto& m) {
-    return std::regex_search(m, re_menqian);
+    return std::regex_search(m, re_menqian());
   });
 }
 
@@ -339,15 +341,15 @@ std::vector<std::string> Shoupai::get_dapai(bool check) const {
     auto m = _zimo;
     const auto s = m[0];
     std::smatch match;
-    std::regex_search(m, match, _re_get_dapai1);
+    std::regex_search(m, match, _re_get_dapai1());
     auto n = to_int(match.str()[0]);
     if (n == 0) n = 5;
     deny[to_string(s, n)] = true;
-    if (!std::regex_search(std::regex_replace(m, re_ling, "5"),
-                           _re_get_dapai2)) {
-      if (n < 7 && std::regex_match(m, _re_get_dapai3))
+    if (!std::regex_search(std::regex_replace(m, re_ling(), "5"),
+                           _re_get_dapai2())) {
+      if (n < 7 && std::regex_match(m, _re_get_dapai3()))
         deny[to_string(s, n + 3)] = true;
-      if (3 < n && std::regex_match(m, _re_get_dapai4))
+      if (3 < n && std::regex_match(m, _re_get_dapai4()))
         deny[to_string(s, n - 3)] = true;
     }
   }
@@ -356,7 +358,7 @@ std::vector<std::string> Shoupai::get_dapai(bool check) const {
   if (!_lizhi) {
     for (const auto s : {'m', 'p', 's', 'z'}) {
       const auto& bingpai = this->bingpai(s);
-      for (int n = 1; n < bingpai.size(); n++) {
+      for (std::size_t n = 1; n < bingpai.size(); n++) {
         if (bingpai[n] == 0) continue;
         const char sn[] = {s, to_char(n)};
         std::string pai(sn, 2);
@@ -388,7 +390,7 @@ std::vector<std::string> Shoupai::get_chi_mianzi(const std::string& p,
   auto n = to_int(p[1]);
   if (n == 0) n = 5;
   std::smatch match;
-  if (!std::regex_search(p, match, re_menqian_end))
+  if (!std::regex_search(p, match, re_menqian_end()))
     throw std::invalid_argument(p);
   const auto d = match.str();
   if (s == 'z' || d != "-") return {};
@@ -440,7 +442,7 @@ std::vector<std::string> Shoupai::get_peng_mianzi(const std::string& p) const {
   auto n = to_int(p[1]);
   if (n == 0) n = 5;
   std::smatch match;
-  if (!std::regex_search(p, match, re_menqian_end))
+  if (!std::regex_search(p, match, re_menqian_end()))
     throw std::invalid_argument(p);
   const auto d = match.str();
   if (_lizhi) return {};
@@ -468,7 +470,7 @@ std::vector<std::string> Shoupai::get_gang_mianzi(const std::string& p) const {
     auto n = to_int(p[1]);
     if (n == 0) n = 5;
     std::smatch match;
-    if (!std::regex_search(p, match, re_menqian_end))
+    if (!std::regex_search(p, match, re_menqian_end()))
       throw std::invalid_argument(p);
     const auto d = match.str();
     if (_lizhi) return {};
@@ -485,12 +487,12 @@ std::vector<std::string> Shoupai::get_gang_mianzi(const std::string& p) const {
   } else {
     if (_zimo.empty()) throw std::runtime_error("zimo must not be empty");
     if (_zimo.size() > 2) throw std::runtime_error("unexpected zimo " + _zimo);
-    const auto p = std::regex_replace(_zimo, re_ling, "5");
+    const auto p = std::regex_replace(_zimo, re_ling(), "5");
 
     std::vector<std::string> mianzi;
     for (const auto s : {'m', 'p', 's', 'z'}) {
       const auto& bingpai = this->bingpai(s);
-      for (int n = 1; n < bingpai.size(); n++) {
+      for (std::size_t n = 1; n < bingpai.size(); n++) {
         if (bingpai[n] == 0) continue;
         if (bingpai[n] == 4) {
           if (_lizhi && to_string(s, n) != p) continue;
@@ -498,11 +500,11 @@ std::vector<std::string> Shoupai::get_gang_mianzi(const std::string& p) const {
             mianzi.emplace_back(s + std::string(4 - bingpai[0], '5') +
                                 std::string(bingpai[0], '0'));
           else
-            mianzi.emplace_back(to_string(s, n, n, n, n));
+            mianzi.emplace_back(to_string(s, (int)n, (int)n, (int)n, (int)n)); // FIXME: fix
         } else {
           if (_lizhi) continue;
           for (const auto& m : _fulou) {
-            if (std::regex_replace(m, re_ling, "5").substr(0, 4) ==
+            if (std::regex_replace(m, re_ling(), "5").substr(0, 4) ==
                 to_string(s, n, n, n)) {
               if (n == 5 && bingpai[0] > 0)
                 mianzi.emplace_back(m + '0');

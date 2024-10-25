@@ -34,7 +34,7 @@ void shoupai_features(const Shoupai& shoupai, channel_t* data) {
   for (const auto s : {'m', 'p', 's', 'z'}) {
     const auto& bingpai = shoupai.bingpai(s);
     auto n_hongpai = s == 'z' ? 0 : bingpai[0];
-    for (int n = 1; n < bingpai.size(); n++) {
+    for (std::size_t n = 1; n < bingpai.size(); n++) {
       auto n_pai = bingpai[n];
       if (!shoupai.zimo_().empty()) {
         if (zimo.size() == 2 && zimo[0] == s && to_int(zimo[1]) == n) {
@@ -68,15 +68,15 @@ void fulou_features(const Shoupai& shoupai, channel_t* data) {
     const int suit = index_of(s);
     int n_hongpai = replace_honpai(m);
     // 暗槓
-    if (std::regex_match(m, re_angang)) {
+    if (std::regex_match(m, re_angang())) {
       const auto n = to_int(m[1]);
       std::fill_n(data[3 + 4 + suit][n - 1], 4, 1.0f);
     }
     // ポン、明槓
-    else if (std::regex_match(m, re_peng_gang)) {
+    else if (std::regex_match(m, re_peng_gang())) {
       int n = to_int(m[1]);
       int n_pai = 0;
-      for (std::sregex_iterator it(m.begin() + 1, m.end(), re_digit), end;
+      for (std::sregex_iterator it(m.begin() + 1, m.end(), re_digit()), end;
            it != end; ++it) {
         n_pai++;
       }

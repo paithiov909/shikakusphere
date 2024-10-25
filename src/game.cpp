@@ -6,17 +6,47 @@
 #include <sstream>
 
 namespace {
-const std::regex re_dapai{R"(^z[1234])"};
-const std::regex re_fulou{R"(^[mpsz]\d{4})"};
-const std::regex re_gangzimo{R"(^[mpsz]\d{4}$)"};
-const std::regex re_pingju1{R"(^z)"};
-const std::regex re_pingju2{R"(^[mps][19])"};
-const std::regex re_reply_zimo{R"(\*$)"};
-const std::regex re_reply_dapai1{R"(^[mpsz](\d)\1\1\1)"};
-const std::regex re_reply_dapai2{R"(^[mpsz](\d)\1\1)"};
-const std::regex re_reply_gang{R"(^[mpsz]\d{4}$)"};
-const std::regex re_get_dapai{R"(\d(?=[\+\=\-]))"};
-}  // namespace
+const std::regex& re_dapai() {
+  static const std::regex v{R"(^z[1234])"};
+  return v;
+}
+const std::regex& re_fulou() {
+  static const std::regex v{R"(^[mpsz]\d{4})"};
+  return v;
+}
+const std::regex& re_gangzimo() {
+  static const std::regex v{R"(^[mpsz]\d{4}$)"};
+  return v;
+}
+const std::regex& re_pingju1() {
+  static const std::regex v{R"(^z)"};
+  return v;
+}
+const std::regex& re_pingju2() {
+  static const std::regex v{R"(^[mps][19])"};
+  return v;
+}
+const std::regex& re_reply_zimo() {
+  static const std::regex v{R"(\*$)"};
+  return v;
+}
+const std::regex& re_reply_dapai1() {
+  static const std::regex v{R"(^[mpsz](\d)\1\1\1)"};
+  return v;
+}
+const std::regex& re_reply_dapai2() {
+  static const std::regex v{R"(^[mpsz](\d)\1\1)"};
+  return v;
+}
+const std::regex& re_reply_gang() {
+  static const std::regex v{R"(^[mpsz]\d{4}$)"};
+  return v;
+}
+const std::regex& re_get_dapai() {
+  static const std::regex v{R"(\d(?=[\+\=\-]))"};
+  return v;
+}
+} // namespace
 
 inline std::string match(const std::string& m, const std::regex& regex) {
   std::smatch match;
@@ -70,16 +100,16 @@ void Game::set(const std::array<Shoupai, 4>& shoupai,
   _n_gang = {
       (int)std::count_if(
           shoupai[0].fulou_().begin(), shoupai[0].fulou_().end(),
-          [](const auto& m) { return std::regex_match(m, re_gang); }),
+          [](const auto& m) { return std::regex_match(m, re_gang()); }),
       (int)std::count_if(
           shoupai[1].fulou_().begin(), shoupai[1].fulou_().end(),
-          [](const auto& m) { return std::regex_match(m, re_gang); }),
+          [](const auto& m) { return std::regex_match(m, re_gang()); }),
       (int)std::count_if(
           shoupai[2].fulou_().begin(), shoupai[2].fulou_().end(),
-          [](const auto& m) { return std::regex_match(m, re_gang); }),
+          [](const auto& m) { return std::regex_match(m, re_gang()); }),
       (int)std::count_if(
           shoupai[3].fulou_().begin(), shoupai[3].fulou_().end(),
-          [](const auto& m) { return std::regex_match(m, re_gang); }),
+          [](const auto& m) { return std::regex_match(m, re_gang()); }),
   };
   _neng_rong = {true, true, true, true};
 
@@ -167,6 +197,8 @@ void Game::kaiju(const int qijia) {
   _model.defen = {_rule.startingPoints, _rule.startingPoints,
                   _rule.startingPoints, _rule.startingPoints};
 
+  std::random_device seed_gen;
+  std::mt19937_64 engine(seed_gen());
   // 起家
   std::uniform_int_distribution<int> dist(0, 3);
   _model.qijia = (qijia < 0) ? dist(engine) : qijia;
@@ -248,7 +280,7 @@ void Game::dapai(const std::string& p) {
   _model.he[_model.lunban].dapai(p);
 
   if (_diyizimo) {
-    if (!std::regex_search(p, re_dapai)) _fengpai = false;
+    if (!std::regex_search(p, re_dapai())) _fengpai = false;
     if (!_dapai.empty() && _dapai.substr(0, 2) != p.substr(0, 2))
       _fengpai = false;
   } else
@@ -285,12 +317,12 @@ void Game::fulou(const std::string& m) {
 
   _model.he[_model.lunban].fulou(m);
 
-  const auto d = match(m, re_menqian);
+  const auto d = match(m, re_menqian());
   _model.lunban = (_model.lunban + (int)std::string("_-=+").find(d[0])) % 4;
 
   _model.shoupai[_model.lunban].fulou(m);
 
-  if (std::regex_search(m, re_fulou)) {
+  if (std::regex_search(m, re_fulou())) {
     _gang = m;
     _n_gang[_model.lunban]++;
   }
@@ -325,7 +357,7 @@ void Game::gangzimo() {
   auto zimo = _model.shan.gangzimo();
   _model.shoupai[_model.lunban].zimo(zimo);
 
-  if (!_rule.gangbaopaiPostAddition || std::regex_search(_gang, re_gangzimo))
+  if (!_rule.gangbaopaiPostAddition || std::regex_search(_gang, re_gangzimo()))
     kaigang();
 
   call_players(Status::GANGZIMO);
@@ -419,12 +451,12 @@ void Game::pingju(Pingju::Name name, std::array<std::string, 4> shoupai) {
       for (int l = 0; l < 4; l++) {
         bool all_yaojiu = true;
         for (const auto& p : _model.he[l].pai()) {
-          if (std::regex_search(p, re_menqian_end)) {
+          if (std::regex_search(p, re_menqian_end())) {
             all_yaojiu = false;
             break;
           }
-          if (std::regex_search(p, re_pingju1)) continue;
-          if (std::regex_search(p, re_pingju2)) continue;
+          if (std::regex_search(p, re_pingju1())) continue;
+          if (std::regex_search(p, re_pingju2())) continue;
           all_yaojiu = false;
           break;
         }
@@ -575,7 +607,7 @@ void Game::reply_zimo() {
       return gang(reply.arg);
     }
   } else if (reply.msg == Message::DAPAI) {
-    auto dapai_ = std::regex_replace(reply.arg, re_reply_zimo, "");
+    auto dapai_ = std::regex_replace(reply.arg, re_reply_zimo(), "");
     if (find(get_dapai(), dapai_)) {
       if (reply.arg.back() == '*' && allow_lizhi(dapai_).first) {
         return dapai(reply.arg);
@@ -656,12 +688,12 @@ void Game::reply_dapai() {
     int l = (_model.lunban + i) % 4;
     const auto& reply = get_reply(l);
     if (reply.msg == Message::FULOU) {
-      auto m = std::regex_replace(reply.arg, re_ling, "5");
-      if (std::regex_search(m, re_reply_dapai1)) {
+      auto m = std::regex_replace(reply.arg, re_ling(), "5");
+      if (std::regex_search(m, re_reply_dapai1())) {
         if (find(get_gang_mianzi(l), reply.arg)) {
           return fulou(reply.arg);
         }
-      } else if (std::regex_search(m, re_reply_dapai2)) {
+      } else if (std::regex_search(m, re_reply_dapai2())) {
         if (find(get_peng_mianzi(l), reply.arg)) {
           return fulou(reply.arg);
         }
@@ -698,7 +730,7 @@ void Game::reply_fulou() {
 
 // 杠(槓)の応答
 void Game::reply_gang() {
-  if (std::regex_match(_gang, re_reply_gang)) {
+  if (std::regex_match(_gang, re_reply_gang())) {
     return gangzimo();
   }
 
@@ -820,10 +852,10 @@ std::vector<std::string> Game::_get_dapai(const Rule& rule,
     return shoupai.get_dapai(true);
   if (rule.canChangePermissionLevel /*喰い替え許可レベル*/ == 1 &&
       !shoupai.zimo_().empty() && shoupai.zimo_().size() > 2) {
-    const auto d = match(shoupai.zimo_(), re_get_dapai)[0];
+    const auto d = match(shoupai.zimo_(), re_get_dapai())[0];
     const auto deny = shoupai.zimo_().substr(0, 1) + (d == '0' ? '5' : d);
     return filter(shoupai.get_dapai(false), [&deny](const auto& p) {
-      return std::regex_replace(p, re_ling, "5") != deny;
+      return std::regex_replace(p, re_ling(), "5") != deny;
     });
   }
   return shoupai.get_dapai(false);
@@ -961,7 +993,7 @@ bool Game::_allow_pingju(const Rule& rule, const Shoupai& shoupai,
   int n_yaojiu = 0;
   for (const auto s : {'m', 'p', 's', 'z'}) {
     const auto& bingpai = shoupai.bingpai(s);
-    const auto& nn = (s == 'z') ? zipai_n : yaojiu_n;
+    const auto& nn = (s == 'z') ? zipai_n() : yaojiu_n();
     for (const auto n : nn) {
       if (bingpai[n] > 0) n_yaojiu++;
     }
