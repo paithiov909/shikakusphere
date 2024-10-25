@@ -7,12 +7,12 @@ urls <- c(
   "https://github.com/TadaoYamaoka/cmajiang/raw/refs/heads/main/tests_cpp/data/xiangting_4.json"
 )
 
-test_xiangting <-
-  purrr::map(urls, function(url) {
+testdat_xiangting <-
+  purrr::imap(urls, function(url, i) {
     jsonlite::read_json(url, simplifyVector = TRUE) |>
-      dplyr::slice_sample(n = 1000) |>
       dplyr::rowwise() |>
       dplyr::mutate(
+        type = i,
         q = lipai(q),
         n = min(unlist(x, use.names = FALSE))
       ) |>
@@ -20,4 +20,4 @@ test_xiangting <-
   }) |>
   dplyr::bind_rows()
 
-usethis::use_data(test_xiangting, overwrite = TRUE)
+usethis::use_data(testdat_xiangting, overwrite = TRUE)

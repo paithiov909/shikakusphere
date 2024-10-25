@@ -37,4 +37,8 @@ test_that("rand_hands works", {
     }), use.names = FALSE),
     length(availables)
   )
+  expect_equal(
+    length(unique(rand_hands()(50))),
+    50
+  )
 })

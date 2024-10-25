@@ -1,6 +1,6 @@
 Package: shikakusphere
 Title: Miscellaneous Functions for Japanese Mahjong
-Version: 0.0.3.9004
+Version: 0.0.3.9005
 Authors@R: c(
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
     person("Tadao", "Yamaoka", role = "ctb"),
@@ -21,11 +21,14 @@ Imports:
     Rcpp,
     rlang,
     stringi,
+    tibble,
     vctrs
 Suggests:
-    rsvg,
+    dplyr,
     patrick,
-    testthat (>= 3.0.0)
+    rsvg,
+    testthat (>= 3.0.0),
+    withr
 LinkingTo:
     Rcpp
 Config/testthat/edition: 3
