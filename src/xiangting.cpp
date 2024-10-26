@@ -4,10 +4,10 @@
 
 namespace {
 std::vector<int> shoupai_to_table(const Shoupai& shoupai) {
-  Rcpp::IntegerVector m = Rcpp::wrap(shoupai.m());
-  Rcpp::IntegerVector p = Rcpp::wrap(shoupai.p());
-  Rcpp::IntegerVector s = Rcpp::wrap(shoupai.s());
-  Rcpp::IntegerVector z = Rcpp::wrap(shoupai.z());
+  auto& m = shoupai.m();
+  auto& p = shoupai.p();
+  auto& s = shoupai.s();
+  auto& z = shoupai.z();
   // m5, p5, s5の枚数にはhongpaiも含まれているので、足さなくてよい
   std::vector<int> ret;
   ret.reserve(m.size() + p.size() + s.size() + z.size() - 4);
@@ -21,7 +21,6 @@ std::vector<int> shoupai_to_table(const Shoupai& shoupai) {
 
 // 一般形
 int xiangting_yiban(const Shoupai& shoupai, const Calsht& calsht) {
-  auto shoupai_ = shoupai;
   const std::vector<int> hand = shoupai_to_table(shoupai);
   auto [sht, mode] =
       calsht(hand, std::accumulate(hand.begin(), hand.end(), 0) / 3, 1);
@@ -65,7 +64,7 @@ std::vector<std::string> tingpai(
   if (!shoupai.zimo_().empty()) throw std::runtime_error("zimo must be empty");
 
   const int n_xiangting = f_xiangting(shoupai, calsht);
-  Shoupai shoupai_ = shoupai;
+  Shoupai shoupai_ = shoupai.clone();
 
   std::vector<std::string> pai;
   for (const auto s : {'m', 'p', 's', 'z'}) {
