@@ -10,13 +10,122 @@
 #include <ostream>
 #include <istream>
 
+inline const std::regex& re_ling() {
+  static const std::regex v{R"(0)"};
+  return v;
+}
+inline const std::regex& re_wu() {
+  static const std::regex v{R"(5)"};
+  return v;
+}
+inline const std::regex& re_digit() {
+  static const std::regex v{R"(\d)"};
+  return v;
+}
+inline const std::regex& re_menqian() {
+  static const std::regex v{R"([\+\=\-])"};
+  return v;
+}
+inline const std::regex& re_menqian_end() {
+  static const std::regex v{R"([\+\=\-]$)"};
+  return v;
+}
+
+inline const std::regex& re_angang() {
+  static const std::regex v{R"(^[mpsz](\d)\1\1\1$)"};
+  return v;
+}
+inline const std::regex& re_peng_gang() {
+  static const std::regex v{R"(^[mpsz](\d)\1\1\1?[\+\=\-]\1?$)"};
+  return v;
+}
+inline const std::regex& re_jiagang() {
+  static const std::regex v{R"([\+\=\-]\d$)"};
+  return v;
+}
+inline const std::regex& re_chi1() {
+  static const std::regex v{R"(\d(?=\-))"};
+  return v;
+}
+inline const std::regex& re_chi2() {
+  static const std::regex v{R"(\d(?!\-))"};
+  return v;
+}
+inline const std::regex& re_gang() {
+  static const std::regex v{R"(^[mpsz]\d\d\d[\+\=\-]?\d[\+\=\-]?$)"};
+  return v;
+}
+
+inline const std::vector<int>& zipai_n() {
+  static const std::vector<int> v{1, 2, 3, 4, 5, 6, 7};
+  return v;
+}
+inline const std::vector<int>& yaojiu_n() {
+  static const std::vector<int> v{1, 9};
+  return v;
+}
+
 // 手牌
 class Shoupai {
  public:
   // 牌文字列検証
-  static bool valid_pai(const std::string& p);
+  static inline bool valid_pai(const std::string& p) {
+    return std::regex_match(p, _re_valid_pai());
+  }
+
   // 面子文字列検証
-  static std::string valid_mianzi(const std::string& m);
+  static inline std::string valid_mianzi(const std::string& m) {
+    if (std::regex_search(m, _re_valid_mianzi1())) return {};
+    const auto h = std::regex_replace(m, re_ling(), "5");
+    if (std::regex_match(h, _re_valid_mianzi3())) {
+      return std::regex_replace(m, _re_valid_mianzi4(), "$0150");
+    } else if (std::regex_match(h, _re_valid_mianzi5())) {
+      std::vector<std::string> matches;
+      for (std::sregex_iterator it(m.begin(), m.end(), _re_valid_mianzi6()),
+           end;
+           it != end; ++it) {
+        matches.emplace_back(it->str());
+      }
+      std::sort(matches.rbegin(), matches.rend());
+      std::ostringstream os;
+      os << m[0];
+      std::copy(matches.begin(), matches.end(),
+                std::ostream_iterator<std::string>(os));
+      std::smatch match;
+      if (std::regex_search(m, match, _re_valid_mianzi7())) {
+        os << match.str();
+      }
+      return os.str();
+    } else if (std::regex_match(h, _re_valid_mianzi8())) {
+      std::vector<std::string> nn;
+      for (std::sregex_iterator it(h.begin(), h.end(), re_digit()), end;
+           it != end; ++it) {
+        nn.emplace_back(it->str());
+      }
+      std::sort(nn.begin(), nn.end());
+      if (nn.size() != 3) return {};
+      if (nn[0][0] + 1 != nn[1][0] || nn[1][0] + 1 != nn[2][0]) return {};
+      std::vector<std::string> matches;
+      for (std::sregex_iterator it(h.begin(), h.end(), _re_valid_mianzi9()),
+           end;
+           it != end; ++it) {
+        matches.emplace_back(it->str());
+      }
+      std::sort(matches.begin(), matches.end());
+      std::ostringstream os;
+      os << h[0];
+      std::copy(matches.begin(), matches.end(),
+                std::ostream_iterator<std::string>(os));
+      // 红牌(赤牌)
+      const auto hongpai = std::regex_search(m, re_ling());
+      if (hongpai) {
+        return std::regex_replace(os.str(), re_wu(), "0");
+      } else {
+        return os.str();
+      }
+    }
+    return {};
+  }
 
   Shoupai();
   Shoupai(const std::vector<std::string>& qipai);
@@ -232,58 +341,3 @@ inline std::string to_string(const char s, const int n1, const int n2,
 
 inline int to_int(const char s) { return s - '0'; }
 inline char to_char(const int n) { return (char)(n + '0'); }
-
-inline const std::regex& re_ling() {
-  static const std::regex v{R"(0)"};
-  return v;
-}
-inline const std::regex& re_wu() {
-  static const std::regex v{R"(5)"};
-  return v;
-}
-inline const std::regex& re_digit() {
-  static const std::regex v{R"(\d)"};
-  return v;
-}
-inline const std::regex& re_menqian() {
-  static const std::regex v{R"([\+\=\-])"};
-  return v;
-}
-inline const std::regex& re_menqian_end() {
-  static const std::regex v{R"([\+\=\-]$)"};
-  return v;
-}
-
-inline const std::regex& re_angang() {
-  static const std::regex v{R"(^[mpsz](\d)\1\1\1$)"};
-  return v;
-}
-inline const std::regex& re_peng_gang() {
-  static const std::regex v{R"(^[mpsz](\d)\1\1\1?[\+\=\-]\1?$)"};
-  return v;
-}
-inline const std::regex& re_jiagang() {
-  static const std::regex v{R"([\+\=\-]\d$)"};
-  return v;
-}
-inline const std::regex& re_chi1() {
-  static const std::regex v{R"(\d(?=\-))"};
-  return v;
-}
-inline const std::regex& re_chi2() {
-  static const std::regex v{R"(\d(?!\-))"};
-  return v;
-}
-inline const std::regex& re_gang() {
-  static const std::regex v{R"(^[mpsz]\d\d\d[\+\=\-]?\d[\+\=\-]?$)"};
-  return v;
-}
-
-inline const std::vector<int>& zipai_n() {
-  static const std::vector<int> v{1, 2, 3, 4, 5, 6, 7};
-  return v;
-}
-inline const std::vector<int>& yaojiu_n() {
-  static const std::vector<int> v{1, 9};
-  return v;
-}

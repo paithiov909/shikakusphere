@@ -7,60 +7,6 @@
 
 #include <iterator>
 
-// 牌文字列検証
-bool Shoupai::valid_pai(const std::string& p) {
-  return std::regex_match(p, _re_valid_pai());
-}
-
-// 面子文字列検証
-std::string Shoupai::valid_mianzi(const std::string& m) {
-  if (std::regex_search(m, _re_valid_mianzi1())) return {};
-  const auto h = std::regex_replace(m, re_ling(), "5");
-  if (std::regex_match(h, _re_valid_mianzi3())) {
-    return std::regex_replace(m, _re_valid_mianzi4(), "$0150");
-  } else if (std::regex_match(h, _re_valid_mianzi5())) {
-    std::vector<std::string> matches;
-    for (std::sregex_iterator it(m.begin(), m.end(), _re_valid_mianzi6()), end; it != end; ++it) {
-      matches.emplace_back(it->str());
-    }
-    std::sort(matches.rbegin(), matches.rend());
-    std::ostringstream os;
-    os << m[0];
-    std::copy(matches.begin(), matches.end(),
-              std::ostream_iterator<std::string>(os));
-    std::smatch match;
-    if (std::regex_search(m, match, _re_valid_mianzi7())) {
-      os << match.str();
-    }
-    return os.str();
-  } else if (std::regex_match(h, _re_valid_mianzi8())) {
-    std::vector<std::string> nn;
-    for (std::sregex_iterator it(h.begin(), h.end(), re_digit()), end; it != end; ++it) {
-      nn.emplace_back(it->str());
-    }
-    std::sort(nn.begin(), nn.end());
-    if (nn.size() != 3) return {};
-    if (nn[0][0] + 1 != nn[1][0] || nn[1][0] + 1 != nn[2][0]) return {};
-    std::vector<std::string> matches;
-    for (std::sregex_iterator it(h.begin(), h.end(), _re_valid_mianzi9()), end; it != end; ++it) {
-      matches.emplace_back(it->str());
-    }
-    std::sort(matches.begin(), matches.end());
-    std::ostringstream os;
-    os << h[0];
-    std::copy(matches.begin(), matches.end(),
-              std::ostream_iterator<std::string>(os));
-    // 红牌(赤牌)
-    const auto hongpai = std::regex_search(m, re_ling());
-    if (hongpai) {
-      return std::regex_replace(os.str(), re_wu(), "0");
-    } else {
-      return os.str();
-    }
-  }
-  return {};
-}
-
 void Shoupai::_set(const std::vector<std::string>& qipai) {
   for (const auto& p : qipai) {
     if (p == "_") {

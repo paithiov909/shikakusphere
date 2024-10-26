@@ -3,7 +3,7 @@
 #include <climits>
 
 namespace {
-std::vector<int> shoupai_to_hand(const Shoupai& shoupai) {
+std::vector<int> shoupai_to_table(const Shoupai& shoupai) {
   Rcpp::IntegerVector m = Rcpp::wrap(shoupai.m());
   Rcpp::IntegerVector p = Rcpp::wrap(shoupai.p());
   Rcpp::IntegerVector s = Rcpp::wrap(shoupai.s());
@@ -22,7 +22,7 @@ std::vector<int> shoupai_to_hand(const Shoupai& shoupai) {
 // 一般形
 int xiangting_yiban(const Shoupai& shoupai, const Calsht& calsht) {
   auto shoupai_ = shoupai;
-  const std::vector<int> hand = shoupai_to_hand(shoupai);
+  const std::vector<int> hand = shoupai_to_table(shoupai);
   auto [sht, mode] =
       calsht(hand, std::accumulate(hand.begin(), hand.end(), 0) / 3, 1);
   return sht;
@@ -31,7 +31,7 @@ int xiangting_yiban(const Shoupai& shoupai, const Calsht& calsht) {
 // 国士無双形
 int xiangting_guoshi(const Shoupai& shoupai, const Calsht& calsht) {
   if (shoupai.fulou_().size()) return INT_MAX;
-  const std::vector<int> hand = shoupai_to_hand(shoupai);
+  const std::vector<int> hand = shoupai_to_table(shoupai);
   auto [sht, mode] =
       calsht(hand, std::accumulate(hand.begin(), hand.end(), 0) / 3, 4);
   return sht;
@@ -40,7 +40,7 @@ int xiangting_guoshi(const Shoupai& shoupai, const Calsht& calsht) {
 // 七対子形
 int xiangting_qidui(const Shoupai& shoupai, const Calsht& calsht) {
   if (shoupai.fulou_().size()) return INT_MAX;
-  const std::vector<int> hand = shoupai_to_hand(shoupai);
+  const std::vector<int> hand = shoupai_to_table(shoupai);
   auto [sht, mode] =
       calsht(hand, std::accumulate(hand.begin(), hand.end(), 0) / 3, 2);
   return sht;
@@ -48,7 +48,7 @@ int xiangting_qidui(const Shoupai& shoupai, const Calsht& calsht) {
 
 // 実際のシャンテン数(一般形、国士無双形、七対子形の最小値)
 int xiangting(const Shoupai& shoupai, const Calsht& calsht) {
-  std::vector<int> hand = shoupai_to_hand(shoupai);
+  std::vector<int> hand = shoupai_to_table(shoupai);
   auto [sht, mode] =
       calsht(hand, std::accumulate(hand.begin(), hand.end(), 0) / 3, 7);
   // 副露直後なら1を足す
