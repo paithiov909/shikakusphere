@@ -7,43 +7,6 @@
 
 #include <iterator>
 
-/*
-const std::regex re_ling{R"(0)"};
-const std::regex re_wu{R"(5)"};
-const std::regex re_digit{R"(\d)"};
-const std::regex re_menqian{R"([\+\=\-])"};
-const std::regex re_menqian_end{R"([\+\=\-]$)"};
-
-const std::regex re_angang{R"(^[mpsz](\d)\1\1\1$)"};  // 暗槓
-const std::regex re_peng_gang{R"(^[mpsz](\d)\1\1\1?[\+\=\-]\1?$)"};
-const std::regex re_jiagang{R"([\+\=\-]\d$)"};  // 加槓
-const std::regex re_chi1{R"(\d(?=\-))"};
-const std::regex re_chi2{R"(\d(?!\-))"};
-const std::regex re_gang{R"(^[mpsz]\d\d\d[\+\=\-]?\d[\+\=\-]?$)"};
-
-const std::vector<int> zipai_n = {1, 2, 3, 4, 5, 6, 7};
-const std::vector<int> yaojiu_n = {1, 9};
-
-const std::regex Shoupai::_re_valid_pai{R"(^(?:[mps]\d|z[1-7])_?\*?[\+\=\-]?$)"};
-const std::regex Shoupai::_re_qipai{R"([mpsz]\d+)"};
-const std::regex Shoupai::_re_valid_mianzi1{R"(^z.*[089])"};
-const std::regex Shoupai::_re_valid_mianzi3{R"(^[mpsz](\d)\1\1[\+\=\-]\1?$)"};
-const std::regex Shoupai::_re_valid_mianzi4{R"(([mps])05)"};
-const std::regex Shoupai::_re_valid_mianzi5{R"(^[mpsz](\d)\1\1\1[\+\=\-]?$)"};
-const std::regex Shoupai::_re_valid_mianzi6{R"(\d(?![\+\=\-]))"};
-const std::regex Shoupai::_re_valid_mianzi7{R"(\d[\+\=\-]$)"};
-const std::regex Shoupai::_re_valid_mianzi8{R"(^[mps]\d+\-\d*$)"};
-const std::regex Shoupai::_re_valid_mianzi9{R"(\d[\+\=\-]?)"};
-const std::regex Shoupai::_re_fulou1{R"(\d{4}$)"};
-const std::regex Shoupai::_re_fulou2{R"(\d{3}[\+\=\-]\d$)"};
-const std::regex Shoupai::_re_fulou3{R"(\d(?![\+\=\-]))"};
-const std::regex Shoupai::_re_fulou4{R"(\d{4})"};
-const std::regex Shoupai::_re_get_dapai1{R"(\d(?=[\+\=\-]))"};
-const std::regex Shoupai::_re_get_dapai2{R"(^[mpsz](\d)\1\1)"};
-const std::regex Shoupai::_re_get_dapai3{R"(^[mps]\d\-\d\d$)"};
-const std::regex Shoupai::_re_get_dapai4{R"(^[mps]\d\d\d\-$)"};
-*/
-
 // 牌文字列検証
 bool Shoupai::valid_pai(const std::string& p) {
   return std::regex_match(p, _re_valid_pai());

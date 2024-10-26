@@ -3,20 +3,20 @@
     {
       "type": "list",
       "attributes": {
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "tile", "n"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
         },
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["data.frame"]
+          "value": ["id", "tile", "n"]
         }
       },
       "value": [

@@ -20,8 +20,9 @@ Useful links:
 
 Other contributors:
 \itemize{
-  \item Tadao Yamaoka [contributor]
-  \item Lee Thomason [contributor]
+  \item tomo hxx (shanten-number) [contributor]
+  \item Tadao Yamaoka (cmajiang) [contributor]
+  \item Lee Thomason (tinyxml2) [contributor]
 }
 
 }

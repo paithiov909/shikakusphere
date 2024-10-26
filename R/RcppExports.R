@@ -17,12 +17,12 @@ skksph_get_defen <- function(paistr, baopai, libaopai, list, rankPoints, hongpai
     .Call(`_shikakusphere_skksph_get_defen`, paistr, baopai, libaopai, list, rankPoints, hongpai, rongpai, zhuangfeng, menfeng, lizhi, yifa, qianggang, lingshang, haidi, tianhu, changbang, lizhibang)
 }
 
-skksph_get_xiangting <- function(shoupai) {
-    .Call(`_shikakusphere_skksph_get_xiangting`, shoupai)
+skksph_get_xiangting <- function(shoupai, index_s, index_h) {
+    .Call(`_shikakusphere_skksph_get_xiangting`, shoupai, index_s, index_h)
 }
 
-skksph_get_tingpai <- function(shoupai) {
-    .Call(`_shikakusphere_skksph_get_tingpai`, shoupai)
+skksph_get_tingpai <- function(shoupai, index_s, index_h) {
+    .Call(`_shikakusphere_skksph_get_tingpai`, shoupai, index_s, index_h)
 }
 
 skksph_feat_pai <- function(pai) {

@@ -1,8 +1,6 @@
 #include "xiangting.h"
-#include "game.h"
 #include "feature.h"
 #include "random.h"
-#include "paipu.h"
 #include "svg.h"
 
 namespace {
@@ -252,23 +250,36 @@ Rcpp::DataFrame skksph_get_defen(
 }
 
 // [[Rcpp::export]]
-std::vector<int> skksph_get_xiangting(const std::vector<std::string>& shoupai) {
+std::vector<int> skksph_get_xiangting(const std::vector<std::string>& shoupai,
+                                      Rcpp::IntegerMatrix& index_s,
+                                      Rcpp::IntegerMatrix& index_h) {
+  Calsht calsht;
+  calsht.initialize(index_s, index_h);
   std::vector<int> ret;
   ret.reserve(shoupai.size());
   for (const auto& paistr : shoupai) {
     Shoupai p = Shoupai{paistr};
-    ret.push_back(xiangting(p));
+    ret.push_back(xiangting(p, calsht));
   }
   return ret;
 }
 
 // [[Rcpp::export]]
-Rcpp::List skksph_get_tingpai(const std::vector<std::string>& shoupai) {
+Rcpp::List skksph_get_tingpai(const std::vector<std::string>& shoupai,
+                              Rcpp::IntegerMatrix& index_s,
+                              Rcpp::IntegerMatrix& index_h) {
+  Calsht calsht;
+  calsht.initialize(index_s, index_h);
   std::vector<std::vector<std::string>> ret;
   ret.reserve(shoupai.size());
   for (const auto& paistr : shoupai) {
     Shoupai p = Shoupai{paistr};
-    ret.push_back(tingpai(p, xiangting));
+    if (!p.zimo_().empty()) {
+      Rcpp::warning("zimo must be empty at: %s", p.toString().c_str());
+      ret.push_back(std::vector<std::string>{});
+    } else {
+      ret.push_back(tingpai(p, calsht, xiangting));
+    }
   }
   return Rcpp::wrap(ret);
 }
@@ -783,7 +794,6 @@ std::vector<std::string> random_jiulianbaodeng(const int n,
                                                Rcpp::List list,
                                                Rcpp::NumericVector rankPoints,
                                                Rcpp::IntegerVector hongpai) {
-  ;
   Rule rule = set_rule(list, rankPoints, hongpai);
   std::vector<std::string> ret(n);
   std::mt19937_64 engine(seed);

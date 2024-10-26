@@ -1,30 +1,30 @@
 ﻿#include "feature.h"
-#include "xiangting.h"
+// #include "xiangting.h"
 
 #include <cassert>
 
 // 状態の特徴量
-void status_featuers(const Game& game, const int lunban, channel_t* data) {
-  // 打牌、副露x3他家
-  const auto status = game.status();
-  switch (status) {
-    case Game::Status::ZIMO:
-    case Game::Status::GANGZIMO:
-      fill_channel(data, 1.0f);
-      break;
-    case Game::Status::DAPAI: {
-      const int i = (game.lunban() + 4 - lunban) % 4;
-      assert(i < 4);
-      fill_channel(data + i, 1.0f);
-      break;
-    }
-    case Game::Status::FULOU:
-      fill_channel(data + 4, 1.0f);
-      break;
-    default:
-      break;
-  }
-}
+// void status_featuers(const Game& game, const int lunban, channel_t* data) {
+//   // 打牌、副露x3他家
+//   const auto status = game.status();
+//   switch (status) {
+//     case Game::Status::ZIMO:
+//     case Game::Status::GANGZIMO:
+//       fill_channel(data, 1.0f);
+//       break;
+//     case Game::Status::DAPAI: {
+//       const int i = (game.lunban() + 4 - lunban) % 4;
+//       assert(i < 4);
+//       fill_channel(data + i, 1.0f);
+//       break;
+//     }
+//     case Game::Status::FULOU:
+//       fill_channel(data + 4, 1.0f);
+//       break;
+//     default:
+//       break;
+//   }
+// }
 
 // 手牌の特徴量
 void shoupai_features(const Shoupai& shoupai, channel_t* data) {
@@ -136,22 +136,23 @@ void he_features(const He& he, channel_t* data) {
 }
 
 // 他家の直前の捨て牌の特徴量
-void tajiadapai_features(const Game& game, const int lunban, channel_t* data) {
-  // 他家の通った捨て牌をロンするとフリテンになるため必要な特徴量
-  for (int i = 1; i < 4; i++) {
-    int l = (lunban + i) % 4;
-    if (game.lunban() == l) break;
-    if (game.he_(l).pai().size() == 0) break;
-    const auto& pai = game.he_(l).pai().back();
-    const auto s = pai[0];
-    const int suit = index_of(s);
-    int n = to_int(pai[1]);
-    if (n == 0) {
-      n = 5;
-    }
-    data[suit][n - 1][0] = 1.0f;
-  }
-}
+// void tajiadapai_features(const Game& game, const int lunban, channel_t* data)
+// {
+//   // 他家の通った捨て牌をロンするとフリテンになるため必要な特徴量
+//   for (int i = 1; i < 4; i++) {
+//     int l = (lunban + i) % 4;
+//     if (game.lunban() == l) break;
+//     if (game.he_(l).pai().size() == 0) break;
+//     const auto& pai = game.he_(l).pai().back();
+//     const auto s = pai[0];
+//     const int suit = index_of(s);
+//     int n = to_int(pai[1]);
+//     if (n == 0) {
+//       n = 5;
+//     }
+//     data[suit][n - 1][0] = 1.0f;
+//   }
+// }
 
 // ドラの特徴量
 void baopai_features(const std::vector<std::string>& baopai, channel_t* data) {
@@ -170,76 +171,76 @@ void baopai_features(const std::vector<std::string>& baopai, channel_t* data) {
   }
 }
 
-void public_features(const Game& game, const int lunban, channel_t* data) {
-  // 状態
-  status_featuers(game, lunban, data);
-  data += N_CHANNELS_STATUS;
+// void public_features(const Game& game, const int lunban, channel_t* data) {
+//   // 状態
+//   status_featuers(game, lunban, data);
+//   data += N_CHANNELS_STATUS;
 
-  // 手牌
-  const auto& shoupai = game.shoupai_(lunban);
-  shoupai_features(shoupai, data);
-  data += N_CHANNELS_SHOUPAI;
+//   // 手牌
+//   const auto& shoupai = game.shoupai_(lunban);
+//   shoupai_features(shoupai, data);
+//   data += N_CHANNELS_SHOUPAI;
 
-  // 副露
-  for (int i = 0; i < 4; i++) {
-    int l = (lunban + i) % 4;
-    fulou_features(game.shoupai_(l), data);
-    data += N_CHANNELS_FULOU;
-  }
+//   // 副露
+//   for (int i = 0; i < 4; i++) {
+//     int l = (lunban + i) % 4;
+//     fulou_features(game.shoupai_(l), data);
+//     data += N_CHANNELS_FULOU;
+//   }
 
-  // 自摸牌
-  if (game.lunban() == lunban && (game.status() == Game::Status::ZIMO ||
-                                  game.status() == Game::Status::GANGZIMO)) {
-    pai_features(shoupai.zimo_(), data);
-  }
-  data += N_CHANNELS_PAI;
+//   // 自摸牌
+//   if (game.lunban() == lunban && (game.status() == Game::Status::ZIMO ||
+//                                   game.status() == Game::Status::GANGZIMO)) {
+//     pai_features(shoupai.zimo_(), data);
+//   }
+//   data += N_CHANNELS_PAI;
 
-  // 他家打牌
-  if (game.lunban() != lunban) {
-    pai_features(game.dapai_(), data);
-  }
-  data += N_CHANNELS_PAI;
+//   // 他家打牌
+//   if (game.lunban() != lunban) {
+//     pai_features(game.dapai_(), data);
+//   }
+//   data += N_CHANNELS_PAI;
 
-  // 聴牌
-  if (xiangting(shoupai) == 0) {
-    fill_channel(data, 1.0f);
-  }
-  data += N_CHANNELS_TINGPAI;
+//   // 聴牌
+//   if (xiangting(shoupai) == 0) {
+//     fill_channel(data, 1.0f);
+//   }
+//   data += N_CHANNELS_TINGPAI;
 
-  // 立直
-  for (int i = 0; i < 4; i++) {
-    int l = (lunban + i) % 4;
-    if (game.lizhi_(l)) fill_channel(data, 1.0f);
-    data += N_CHANNELS_LIZHI;
-  }
+//   // 立直
+//   for (int i = 0; i < 4; i++) {
+//     int l = (lunban + i) % 4;
+//     if (game.lizhi_(l)) fill_channel(data, 1.0f);
+//     data += N_CHANNELS_LIZHI;
+//   }
 
-  // 河牌
-  for (int i = 0; i < 4; i++) {
-    int l = (lunban + i) % 4;
-    he_features(game.he_(l), data);
-    data += N_CHANNELS_HE;
-  }
+//   // 河牌
+//   for (int i = 0; i < 4; i++) {
+//     int l = (lunban + i) % 4;
+//     he_features(game.he_(l), data);
+//     data += N_CHANNELS_HE;
+//   }
 
-  // 他家の直前の捨て牌
-  tajiadapai_features(game, lunban, data);
-  data += N_CHANNELS_TAJIADAPAI;
+//   // 他家の直前の捨て牌
+//   tajiadapai_features(game, lunban, data);
+//   data += N_CHANNELS_TAJIADAPAI;
 
-  // ドラ
-  baopai_features(game.shan().baopai(), data);
-  data += N_CHANNELS_BAOPAI;
+//   // ドラ
+//   baopai_features(game.shan().baopai(), data);
+//   data += N_CHANNELS_BAOPAI;
 
-  // 自風
-  fill_channel(data + lunban, 1.0f);
-  data += N_CHANNELS_MENFENG;
+//   // 自風
+//   fill_channel(data + lunban, 1.0f);
+//   data += N_CHANNELS_MENFENG;
 
-  // 場風
-  fill_channel(data + game.zhuangfeng(), 1.0f);
-  data += N_CHANNELS_ZHUANGFENG;
+//   // 場風
+//   fill_channel(data + game.zhuangfeng(), 1.0f);
+//   data += N_CHANNELS_ZHUANGFENG;
 
-  // 残り牌数
-  fill_channel(data, (float)game.shan().paishu() / MAX_PAISHU);
-  data += N_CHANNELS_PAISHU;
-}
+//   // 残り牌数
+//   fill_channel(data, (float)game.shan().paishu() / MAX_PAISHU);
+//   data += N_CHANNELS_PAISHU;
+// }
 
 // 残り牌の特徴量
 void shan_features(const Shan& shan, channel_t* data) {
@@ -258,29 +259,29 @@ void shan_features(const Shan& shan, channel_t* data) {
   }
 }
 
-void private_features(const Game& game, const int lunban, channel_t* data) {
-  // 他家の手牌
-  for (int i = 1; i < 4; i++) {
-    int l = (lunban + i) % 4;
-    const auto& shoupai = game.shoupai_(l);
-    shoupai_features(shoupai, data);
-    data += N_CHANNELS_SHOUPAI;
-  }
+// void private_features(const Game& game, const int lunban, channel_t* data) {
+//   // 他家の手牌
+//   for (int i = 1; i < 4; i++) {
+//     int l = (lunban + i) % 4;
+//     const auto& shoupai = game.shoupai_(l);
+//     shoupai_features(shoupai, data);
+//     data += N_CHANNELS_SHOUPAI;
+//   }
 
-  // 他家の聴牌
-  for (int i = 1; i < 4; i++) {
-    int l = (lunban + i) % 4;
-    const auto& shoupai = game.shoupai_(l);
-    if (xiangting(shoupai) == 0) {
-      fill_channel(data, 1.0f);
-    }
-    data += N_CHANNELS_TINGPAI;
-  }
+//   // 他家の聴牌
+//   for (int i = 1; i < 4; i++) {
+//     int l = (lunban + i) % 4;
+//     const auto& shoupai = game.shoupai_(l);
+//     if (xiangting(shoupai) == 0) {
+//       fill_channel(data, 1.0f);
+//     }
+//     data += N_CHANNELS_TINGPAI;
+//   }
 
-  // 残り牌
-  shan_features(game.shan(), data);
-  data += N_CHANNELS_SHAN;
+//   // 残り牌
+//   shan_features(game.shan(), data);
+//   data += N_CHANNELS_SHAN;
 
-  // 裏ドラ
-  baopai_features(game.shan().libaopai_(), data);
-}
+//   // 裏ドラ
+//   baopai_features(game.shan().libaopai_(), data);
+// }

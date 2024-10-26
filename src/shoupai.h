@@ -1,8 +1,6 @@
 ﻿#pragma once
-#define R_NO_REMAP
-#define STRICT_R_HEADERS
 
-#include <Rcpp.h>
+#include "calsht.h"
 
 #include <vector>
 #include <string>
@@ -73,10 +71,11 @@ class Shoupai {
   const std::vector<std::string>& fulou_() const { return _fulou; };
   const std::string& zimo_() const { return _zimo; }
 
-  friend int xiangting_yiban(const Shoupai& shoupai);
+  // friend int xiangting_yiban(const Shoupai& shoupai);
   friend std::vector<std::string> tingpai(
-      const Shoupai& shoupai,
-      const std::function<int(const Shoupai&)>& f_xiangting);
+      const Shoupai& shoupai, const Calsht& calsht,
+      const std::function<int(const Shoupai&, const Calsht& calsht)>&
+          f_xiangting);
   friend std::vector<std::vector<std::string>> hule_mianzi_yiban(
       Shoupai& shoupai, const std::string& hulepai);
 

@@ -11,8 +11,9 @@ badge](https://paithiov909.r-universe.dev/badges/shikakusphere)](https://paithio
 <!-- badges: end -->
 
 shikakusphere is a collection of miscellaneous funcitons for Japanese
-mahjong that wraps C++ sources of
-[cmajiang](https://github.com/TadaoYamaoka/cmajiang).
+mahjong that wraps C++ sources derived from
+[tomohxx/shanten-number](https://github.com/tomohxx/shanten-number) and
+[TadaoYamaoka/cmajiang](https://github.com/TadaoYamaoka/cmajiang).
 
 The name “shikakusphere” is a compound word of “shikaku” + “sphere”.
 “shikaku” means “square” in Japanese. It comes from “Shikakui Uchuu De
@@ -45,6 +46,8 @@ pak::pak("paithiov909/shikakusphere")
   koba::blog](https://blog.kobalab.net/entry/20170722/1500688645)
 
 ``` r
+library(shikakusphere)
+
 hands <- c(
   "p222345z1234567",
   "p11222345z12345",
@@ -94,5 +97,6 @@ hand2img(score$shoupai[1])
 
 # License
 
-MIT license. This package contains modified code based on the
-[tinyxml2](https://github.com/leethomason/tinyxml2).
+GPL (\>= 3). This package contains the
+[tinyxml2](https://github.com/leethomason/tinyxml2) code released under
+the zlib license.

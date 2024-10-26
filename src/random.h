@@ -1,6 +1,10 @@
 ﻿#pragma once
 
-#include "game.h"
+// #include "game.h"
+#include "shan.h"
+#include "he.h"
+#include "hule.h"
+
 #include <map>
 #include <random>
 
@@ -147,4 +151,4 @@ void make_n_xiangting(std::vector<std::string>& pai,
                       std::map<std::string, int>& rest,
                       std::vector<std::string>& fulou,
                       BetaDistribution& xiangting_dist, std::mt19937_64& mt);
-void random_game_state(Game& game, const int n_xiangting, std::mt19937_64& mt);
+// void random_game_state(Game& game, const int n_xiangting, std::mt19937_64& mt);

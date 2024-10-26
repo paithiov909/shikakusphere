@@ -21,6 +21,8 @@ test_that("calc_xiangting works", {
   expect_equal(calc_xiangting("p2234556788z123"), 2L)
   # 副露直後の牌姿が和了形
   expect_equal(calc_xiangting("m11122,p123-,s12-3,z111=,"), 0L)
+  # 赤牌（紅牌, hongpai）あり
+  expect_equal(calc_xiangting("m055z7z7,m78-9,z5555,z666="), -1L)
 })
 
 # https://github.com/paithiov909/shikakusphere/issues/1

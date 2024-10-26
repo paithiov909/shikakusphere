@@ -35,7 +35,7 @@ is_paistr(x)
 \item For \code{is_paistr()}: A logical scalar.
 \item For \code{plot()}: A bitmap image that internally converted
 by \code{magick::image_read_svg()} is invisibly returned.
-\item For \code{tidy()}: A data frame (not a tibble).
+\item For \code{tidy()}: A tibble.
 }
 }
 \description{
@@ -46,7 +46,7 @@ that represents player's hands.
 Note that the validation of this function is not so strict.
 For example, \code{paistr("z0")} still produces a valid \code{paistr} vector
 even though "z0" is not a tile that actually exists.
-These \code{paistr} are simply ignored by the `cmajiang' function wrapper.
+These \code{paistr} are simply ignored by the 'cmajiang' function wrapper.
 
 The number of tiles displayed when \code{print()} is not always accurate,
 so if you need to count the actual number of tiles, use \code{tidy()}.

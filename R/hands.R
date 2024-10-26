@@ -122,14 +122,15 @@ calc_defen <- function(
 #' @examples
 #' calc_xiangting(c("m345567p234s3378", "p222345z1234567"))
 calc_xiangting <- function(pai) {
-  skksph_get_xiangting(pai)
+  skksph_get_xiangting(pai, index_s, index_h) - 1L
 }
 
 #' Collect tingpais for hands
 #'
 #' Collect tiles that can decrease the xiangting number of hands
 #' if they are drawn.
-#' In case of already winning hands, corresponding vectors will be `NA`.
+#' In case there are no tingpais for the hand, the function warns about it
+#' and returns an empty character vector.
 #'
 #' @param pai A character vector.
 #' @returns A list of character vectors.
@@ -137,9 +138,5 @@ calc_xiangting <- function(pai) {
 #' @examples
 #' collect_tingpai(c("m345567p234s3378", "p222345z1234567"))
 collect_tingpai <- function(pai) {
-  n_xiangting <- skksph_get_xiangting(pai)
-  pai[n_xiangting < 0] <- ""
-  ret <- skksph_get_tingpai(pai)
-  ret[n_xiangting < 0] <- NA_character_
-  ret
+  skksph_get_tingpai(pai, index_s, index_h)
 }

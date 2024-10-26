@@ -71,24 +71,28 @@ BEGIN_RCPP
 END_RCPP
 }
 // skksph_get_xiangting
-std::vector<int> skksph_get_xiangting(const std::vector<std::string>& shoupai);
-RcppExport SEXP _shikakusphere_skksph_get_xiangting(SEXP shoupaiSEXP) {
+std::vector<int> skksph_get_xiangting(const std::vector<std::string>& shoupai, Rcpp::IntegerMatrix& index_s, Rcpp::IntegerMatrix& index_h);
+RcppExport SEXP _shikakusphere_skksph_get_xiangting(SEXP shoupaiSEXP, SEXP index_sSEXP, SEXP index_hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<std::string>& >::type shoupai(shoupaiSEXP);
-    rcpp_result_gen = Rcpp::wrap(skksph_get_xiangting(shoupai));
+    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix& >::type index_s(index_sSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix& >::type index_h(index_hSEXP);
+    rcpp_result_gen = Rcpp::wrap(skksph_get_xiangting(shoupai, index_s, index_h));
     return rcpp_result_gen;
 END_RCPP
 }
 // skksph_get_tingpai
-Rcpp::List skksph_get_tingpai(const std::vector<std::string>& shoupai);
-RcppExport SEXP _shikakusphere_skksph_get_tingpai(SEXP shoupaiSEXP) {
+Rcpp::List skksph_get_tingpai(const std::vector<std::string>& shoupai, Rcpp::IntegerMatrix& index_s, Rcpp::IntegerMatrix& index_h);
+RcppExport SEXP _shikakusphere_skksph_get_tingpai(SEXP shoupaiSEXP, SEXP index_sSEXP, SEXP index_hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<std::string>& >::type shoupai(shoupaiSEXP);
-    rcpp_result_gen = Rcpp::wrap(skksph_get_tingpai(shoupai));
+    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix& >::type index_s(index_sSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix& >::type index_h(index_hSEXP);
+    rcpp_result_gen = Rcpp::wrap(skksph_get_tingpai(shoupai, index_s, index_h));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -563,8 +567,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_shikakusphere_skksph_lipai_impl", (DL_FUNC) &_shikakusphere_skksph_lipai_impl, 1},
     {"_shikakusphere_skksph_hand_to_svg", (DL_FUNC) &_shikakusphere_skksph_hand_to_svg, 1},
     {"_shikakusphere_skksph_get_defen", (DL_FUNC) &_shikakusphere_skksph_get_defen, 17},
-    {"_shikakusphere_skksph_get_xiangting", (DL_FUNC) &_shikakusphere_skksph_get_xiangting, 1},
-    {"_shikakusphere_skksph_get_tingpai", (DL_FUNC) &_shikakusphere_skksph_get_tingpai, 1},
+    {"_shikakusphere_skksph_get_xiangting", (DL_FUNC) &_shikakusphere_skksph_get_xiangting, 3},
+    {"_shikakusphere_skksph_get_tingpai", (DL_FUNC) &_shikakusphere_skksph_get_tingpai, 3},
     {"_shikakusphere_skksph_feat_pai", (DL_FUNC) &_shikakusphere_skksph_feat_pai, 1},
     {"_shikakusphere_random_zhuangfeng", (DL_FUNC) &_shikakusphere_random_zhuangfeng, 6},
     {"_shikakusphere_random_menfeng", (DL_FUNC) &_shikakusphere_random_menfeng, 6},

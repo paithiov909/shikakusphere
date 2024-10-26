@@ -29,7 +29,7 @@ methods::setOldClass(c("skksph_paistr", "vctrs_vctr"))
 #' Note that the validation of this function is not so strict.
 #' For example, `paistr("z0")` still produces a valid `paistr` vector
 #' even though "z0" is not a tile that actually exists.
-#' These `paistr` are simply ignored by the `cmajiang' function wrapper.
+#' These `paistr` are simply ignored by the 'cmajiang' function wrapper.
 #'
 #' The number of tiles displayed when `print()` is not always accurate,
 #' so if you need to count the actual number of tiles, use `tidy()`.
@@ -47,7 +47,7 @@ methods::setOldClass(c("skksph_paistr", "vctrs_vctr"))
 #' * For `is_paistr()`: A logical scalar.
 #' * For `plot()`: A bitmap image that internally converted
 #' by `magick::image_read_svg()` is invisibly returned.
-#' * For `tidy()`: A data frame (not a tibble).
+#' * For `tidy()`: A tibble.
 #' @export
 #' @examples
 #' pai <- paistr(c("m055z7z7,m78-9,z5555,z666=", "m123s789z1117*,p5550"))
@@ -120,7 +120,7 @@ tidy.skksph_paistr <- function(x, ...) {
     })()
 
   df[["tile"]] <- int2tile(df[["tile"]], origin = "zero")
-  vctrs::vec_slice(df, which(df[["n"]] > 0))
+  tibble::as_tibble(vctrs::vec_slice(df, which(df[["n"]] > 0)))
 }
 
 #' @export

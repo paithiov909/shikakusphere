@@ -1,10 +1,11 @@
 Package: shikakusphere
 Title: Miscellaneous Functions for Japanese Mahjong
-Version: 0.0.3.9005
+Version: 0.0.3.9006
 Authors@R: c(
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
-    person("Tadao", "Yamaoka", role = "ctb"),
-    person("Lee", "Thomason", role = "ctb")
+    person("tomo","hxx", role = "ctb", comment = "shanten-number"),
+    person("Tadao", "Yamaoka", role = "ctb", comment = "cmajiang"),
+    person("Lee", "Thomason", role = "ctb", comment = "tinyxml2")
   )
 Description: A collection of miscellaneous functions for Japanese mahjong
     that wraps C++ sources of 'cmajiang'

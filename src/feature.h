@@ -1,6 +1,9 @@
 ﻿#pragma once
 
-#include "game.h"
+// #include "game.h"
+#include "shan.h"
+#include "he.h"
+#include "hule.h"
 
 constexpr int N_CHANNELS_STATUS = 5;
 constexpr int N_CHANNELS_SHOUPAI = 4 + 3;
@@ -164,23 +167,23 @@ enum class Action {
   // 和了
   HULE,
 };
-constexpr size_t N_ACTIONS = (size_t)Action::HULE + 1;
+constexpr std::size_t N_ACTIONS = (std::size_t)Action::HULE + 1;
 inline Action operator+(const Action action, const int i) {
   return (Action)((const int)action + i);
 }
 
 typedef float channel_t[9][4];
 
-void status_featuers(const Game& game, const int lunban, channel_t* data);
+// void status_featuers(const Game& game, const int lunban, channel_t* data);
 void shoupai_features(const Shoupai& shoupai, channel_t* data);
 void fulou_features(const Shoupai& shoupai, channel_t* data);
 void pai_features(const std::string& pai, channel_t* data);
 void he_features(const He& he, channel_t* data);
-void tajiadapai_features(const Game& game, const int lunban, channel_t* data);
+// void tajiadapai_features(const Game& game, const int lunban, channel_t* data);
 void baopai_features(const std::vector<std::string>& baopai, channel_t* data);
-void public_features(const Game& game, const int lunban, channel_t* data);
+// void public_features(const Game& game, const int lunban, channel_t* data);
 void shan_features(const Shan& shan, channel_t* data);
-void private_features(const Game& game, const int lunban, channel_t* data);
+// void private_features(const Game& game, const int lunban, channel_t* data);
 
 inline int index_of(const char s) {
   switch (s) {
