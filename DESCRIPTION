@@ -10,7 +10,7 @@ Authors@R: c(
 Description: A collection of miscellaneous functions for Japanese mahjong
     that wraps C++ sources of 'cmajiang'
     <https://github.com/TadaoYamaoka/cmajiang>.
-License: MIT + file LICENSE
+License: GPL (>= 3)
 BugReports: https://github.com/paithiov909/shikakusphere/issues
 Depends:
     R (>= 2.10)
