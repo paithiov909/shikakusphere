@@ -37,7 +37,9 @@ pak::pak("paithiov909/shikakusphere")
 
 ## Example
 
-手牌（`hands`）は[kobalab/majiang-core](https://github.com/kobalab/majiang-core)の記法で表現する。
+### 手牌の表現
+
+手牌は[kobalab/majiang-core](https://github.com/kobalab/majiang-core)の記法で文字列として表現します。
 
 **参考**
 
@@ -45,6 +47,8 @@ pak::pak("paithiov909/shikakusphere")
 - [面子 · kobalab/majiang-core Wiki](https://github.com/kobalab/majiang-core/wiki/%E9%9D%A2%E5%AD%90)
 - [牌姿 · kobalab/majiang-core Wiki](https://github.com/kobalab/majiang-core/wiki/%E7%89%8C%E5%A7%BF)
 - [電脳麻将のプログラム中の中国語一覧 - koba::blog](https://blog.kobalab.net/entry/20170722/1500688645)
+
+`paistr()`は、こうした手牌の文字列表現を扱いやすくするためのS3クラス（`<skksph_paistr>`）です。`print()`したときに、その文字列に含まれる牌の枚数を表示します。また、`plot(<skksph_paistr>)`で牌姿を画像としてプロットできます。
 
 ```{r}
 library(shikakusphere)
@@ -56,15 +60,51 @@ hands <- c(
   "m123p055s789z1117*"
 )
 
+hands <- paistr(hands)
+hands
+
+plot(hands[3])
+```
+
+`<skksph_paistr>`を`print()`したときに表示される牌の枚数は不正確な場合があります。手牌の表現にどの牌が何枚含まれるかを正確に確認するには、`tidy(<skksph_paistr>)`を使うことができます。
+
+```{r}
+tidy(hands)
+```
+
+このかたちの表現は`lineup()`でlist of factorsにすることができます。
+
+```{r}
+tidy(hands) |>
+  lineup()
+```
+
+さらに、このかたちのlist of factors（またはlist of characters）は`lipai()`で文字列表現に変換できます（ただし、`lipai()`では`_*+=-,`は扱えません）。
+
+```{r}
+c(paste0("m", 1:9), paste0("s", 4:6), paste0("z", c(1, 1))) |>
+  lipai()
+```
+
+### シャンテン数・有効牌の確認
+
+「有効牌」については、ない場合`character(0)`を返します。
+
+```{r}
 # シャンテン数
 n_xiangting <- calc_xiangting(hands)
 n_xiangting
 
-# 有効牌（シャンテン数が減る牌）
+# 有効牌
 collect_tingpai(hands[n_xiangting >= 0])
+```
 
-# 得点. この関数はvectorizeされていないので注意！
-# baopaiはドラ表示牌、libaopaiは裏ドラ表示牌
+### 得点・あがり役の確認
+
+`calc_defen()`はvectorizeされていないため、必ず、長さが1の文字列表現を渡してください。
+
+```{r}
+# 得点
 score <- calc_defen(hands[n_xiangting == -1][1], baopai = "z1")
 score
 
@@ -73,9 +113,6 @@ calc_defen("m345567p234s3378", baopai = "z1", rongpai = "s9=")
 
 # あがり役の表示
 parse_hupai(score$hupai, "jp")
-
-# 牌姿を表示する
-hand2img(score$shoupai[1])
 ```
 
 # License
