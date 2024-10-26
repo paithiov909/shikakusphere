@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">shikakusphere</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3.9006</span>
       </span>
     </div>
 
@@ -68,7 +68,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>shikakusphere is a collection of miscellaneous funcitons for Japanese mahjong that wraps C++ sources of <a href="https://github.com/TadaoYamaoka/cmajiang" class="external-link">cmajiang</a>.</p>
+<p>shikakusphere is a collection of miscellaneous funcitons for Japanese mahjong that wraps C++ sources derived from <a href="https://github.com/tomohxx/shanten-number" class="external-link">tomohxx/shanten-number</a> and <a href="https://github.com/TadaoYamaoka/cmajiang" class="external-link">TadaoYamaoka/cmajiang</a>.</p>
 <p>The name “shikakusphere” is a compound word of “shikaku” + “sphere”. “shikaku” means “square” in Japanese. It comes from “Shikakui Uchuu De Matteru Yo”, which is the third ED of the anime “Saki”, and sounds exactly like mahjong games.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -90,7 +90,9 @@
 <li><a href="https://blog.kobalab.net/entry/20170722/1500688645" class="external-link">電脳麻将のプログラム中の中国語一覧 - koba::blog</a></li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hands</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">shikakusphere</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">hands</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"p222345z1234567"</span>,</span>
 <span>  <span class="st">"p11222345z12345"</span>,</span>
 <span>  <span class="st">"m055z7z7,m78-9,z5555,z666="</span>,</span>
@@ -139,7 +141,7 @@
 <div class="section level1">
 <h1 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
 </h1>
-<p>MIT license. This package contains modified code based on the <a href="https://github.com/leethomason/tinyxml2" class="external-link">tinyxml2</a>.</p>
+<p>GPL (&gt;= 3). This package contains the <a href="https://github.com/leethomason/tinyxml2" class="external-link">tinyxml2</a> code released under the zlib license.</p>
 </div>
 
   </div>
@@ -157,7 +159,7 @@
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small>GPL (&gt;= 3)</small></li>
 </ul>
 </div>
 

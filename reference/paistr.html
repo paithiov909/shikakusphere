@@ -18,7 +18,7 @@ that represents player's hands."><!-- mathjax --><script src="https://cdnjs.clou
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shikakusphere</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3.9006</span>
       </span>
     </div>
 
@@ -91,14 +91,14 @@ that represents player's hands.</p>
 <li><p>For <code>is_paistr()</code>: A logical scalar.</p></li>
 <li><p>For <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>: A bitmap image that internally converted
 by <code><a href="https://docs.ropensci.org/magick/reference/editing.html" class="external-link">magick::image_read_svg()</a></code> is invisibly returned.</p></li>
-<li><p>For <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code>: A data frame (not a tibble).</p></li>
+<li><p>For <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code>: A tibble.</p></li>
 </ul></div>
     <div id="details">
     <h2>Details</h2>
     <p>Note that the validation of this function is not so strict.
 For example, <code>paistr("z0")</code> still produces a valid <code>paistr</code> vector
 even though "z0" is not a tile that actually exists.
-These <code>paistr</code> are simply ignored by the `cmajiang' function wrapper.</p>
+These <code>paistr</code> are simply ignored by the 'cmajiang' function wrapper.</p>
 <p>The number of tiles displayed when <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> is not always accurate,
 so if you need to count the actual number of tiles, use <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code>.</p>
     </div>
@@ -112,24 +112,26 @@ so if you need to count the actual number of tiles, use <code><a href="https://g
 <span class="r-in"><span><span class="fu">is_paistr</span><span class="op">(</span><span class="va">pai</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">pai</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id tile n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1   m0 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1   m5 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1   m7 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1   m8 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1   z5 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   1   z6 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   1   z7 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2   m1 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   2   m2 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  2   m3 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  2   p0 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  2   p5 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  2   s7 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  2   s8 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  2   s9 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  2   z1 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  2   z7 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 17 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       id tile      n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     1 m0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     1 m5        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>     1 m7        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     1 m8        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>     1 z5        4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     1 z6        3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>     1 z7        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>     2 m1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     2 m2        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     2 m3        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>     2 p0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>     2 p5        3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span>     2 s7        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span>     2 s8        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span>     2 s9        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span>     2 z1        3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span>     2 z7        1</span>
 </code></pre></div>
     </div>
   </div>
