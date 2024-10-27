@@ -12,7 +12,7 @@ new_paistr <- function(x = character()) {
     rlang::abort("`x` must be a character vector.")
   }
   x |>
-    stringi::stri_replace_first_regex("[^mpsz_,\\*\\+\\=\\-\\d]", "") |>
+    stringi::stri_replace_all_regex("[^mpsz_,\\*\\+\\=\\-\\d]", "") |>
     vctrs::new_vctr(class = "skksph_paistr")
 }
 

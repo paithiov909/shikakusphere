@@ -62,6 +62,7 @@ hupai <- data.frame(
   id = seq_along(hupai) - 1,
   en = names(hupai),
   jp = unname(hupai)
-)
+) |>
+  dplyr::as_tibble()
 
 usethis::use_data(hupai, overwrite = TRUE)

@@ -54,16 +54,17 @@ pak::pak("paithiov909/shikakusphere")
 library(shikakusphere)
 
 hands <- c(
-  "p222345z1234567",
-  "p11222345z12345",
+  "m11p234s555z11122*",
+  "p1122334455667",
+  "m19p19s19z1234567",
   "m055z7z7,m78-9,z5555,z666=",
-  "m123p055s789z1117*"
+  "m055z7z7,m78-9,z5555,z666=,"
 )
 
 hands <- paistr(hands)
 hands
 
-plot(hands[3])
+plot(hands[4])
 ```
 
 `<skksph_paistr>`を`print()`したときに表示される牌の枚数は不正確な場合があります。手牌の表現にどの牌が何枚含まれるかを正確に確認するには、`tidy(<skksph_paistr>)`を使うことができます。
@@ -88,7 +89,9 @@ c(paste0("m", 1:9), paste0("s", 4:6), paste0("z", c(1, 1))) |>
 
 ### シャンテン数・有効牌の確認
 
-「有効牌」については、ない場合`character(0)`を返します。
+このパッケージで使用している実装における「シャンテン数」は、大まかには「その手牌を和了形（聴牌形）に変形させるために必要なツモの最小数」のことを指しています。そのため、少牌だったりして素朴な意味での和了形になっていないかたちであっても、n雀頭n面子のかたちになってさえいれば、ここでのシャンテン数は`-1`を返します。
+
+また、ここでの「有効牌」というのは、その牌を新たにツモったときに、この意味でのシャンテン数が減少する牌のことです。手牌の枚数が14, 11, 8, 5, 2枚の場合や、すでに和了形であって有効牌が定義できないときには、`character(0)`を返します。ただし、打牌可能な手牌のなかに4枚ある場合についてのみ、有効牌であっても待ち牌としません。
 
 ```{r}
 # シャンテン数
@@ -96,7 +99,8 @@ n_xiangting <- calc_xiangting(hands)
 n_xiangting
 
 # 有効牌
-collect_tingpai(hands[n_xiangting >= 0])
+collect_tingpai(hands[n_xiangting$num >= 0])
+collect_tingpai(c("m1234444p456s789", "m13p456s789z11,m2222"))
 ```
 
 ### 得点・あがり役の確認
@@ -105,7 +109,7 @@ collect_tingpai(hands[n_xiangting >= 0])
 
 ```{r}
 # 得点
-score <- calc_defen(hands[n_xiangting == -1][1], baopai = "z1")
+score <- calc_defen(hands[n_xiangting$num == -1][1], baopai = "z1")
 score
 
 # ロン和了のときはこんなふうに書く

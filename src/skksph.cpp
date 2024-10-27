@@ -170,7 +170,7 @@ std::vector<std::string> skksph_lipai_impl(
                              }),
               pai.end());
     Shoupai p = Shoupai{pai};
-    ret.push_back(p.toString());
+    ret.emplace_back(p.toString());
   }
   return ret;
 }
@@ -182,7 +182,7 @@ std::vector<std::string> skksph_hand_to_svg(
   ret.reserve(pai.size());
   for (const auto& paistr : pai) {
     Shoupai p = Shoupai{paistr};
-    ret.push_back(shoupai_to_svg(p));
+    ret.emplace_back(shoupai_to_svg(p));
   }
   return ret;
 }
@@ -232,7 +232,7 @@ Rcpp::DataFrame skksph_get_defen(
     }
     hupai += std::to_string(static_cast<int>(h.name));
   }
-  sp.push_back(paistr + rongpai);
+  sp.emplace_back(paistr + rongpai);
   hp.push_back(hupai);
   fu.push_back(defen.fu);
   fanshu.push_back(defen.fanshu);
@@ -250,18 +250,22 @@ Rcpp::DataFrame skksph_get_defen(
 }
 
 // [[Rcpp::export]]
-std::vector<int> skksph_get_xiangting(const std::vector<std::string>& shoupai,
-                                      Rcpp::IntegerMatrix& index_s,
-                                      Rcpp::IntegerMatrix& index_h) {
+Rcpp::DataFrame skksph_get_xiangting(const std::vector<std::string>& shoupai,
+                                     Rcpp::IntegerMatrix& index_s,
+                                     Rcpp::IntegerMatrix& index_h) {
   Calsht calsht;
   calsht.initialize(index_s, index_h);
-  std::vector<int> ret;
-  ret.reserve(shoupai.size());
+  std::vector<int> sht, mode;
+  sht.reserve(shoupai.size());
+  mode.reserve(shoupai.size());
   for (const auto& paistr : shoupai) {
     Shoupai p = Shoupai{paistr};
-    ret.push_back(xiangting(p, calsht));
+    auto ret = xiangting(p, calsht);
+    sht.push_back(ret.first);
+    mode.push_back(ret.second);
   }
-  return ret;
+  return Rcpp::DataFrame::create(Rcpp::Named("num") = Rcpp::wrap(sht),
+                                 Rcpp::Named("mode") = Rcpp::wrap(mode));
 }
 
 // [[Rcpp::export]]
@@ -276,9 +280,9 @@ Rcpp::List skksph_get_tingpai(const std::vector<std::string>& shoupai,
     Shoupai p = Shoupai{paistr};
     if (!p.zimo_().empty()) {
       Rcpp::warning("zimo must be empty at: %s", p.toString().c_str());
-      ret.push_back(std::vector<std::string>{});
+      ret.emplace_back(std::vector<std::string>{});
     } else {
-      ret.push_back(tingpai(p, calsht, xiangting));
+      ret.emplace_back(tingpai(p, calsht, xiangting));
     }
   }
   return Rcpp::wrap(ret);

@@ -10,7 +10,7 @@ calc_xiangting(pai)
 \item{pai}{A character vector.}
 }
 \value{
-An integer vector.
+A tibble.
 }
 \description{
 Calculate xiangting number of hands

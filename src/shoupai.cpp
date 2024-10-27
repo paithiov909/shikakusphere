@@ -409,7 +409,7 @@ std::vector<std::string> Shoupai::get_gang_mianzi(const std::string& p) const {
             mianzi.emplace_back(s + std::string(4 - bingpai[0], '5') +
                                 std::string(bingpai[0], '0'));
           else
-            mianzi.emplace_back(to_string(s, (int)n, (int)n, (int)n, (int)n)); // FIXME: fix
+            mianzi.emplace_back(to_string(s, (int)n, (int)n, (int)n, (int)n));
         } else {
           if (_lizhi) continue;
           for (const auto& m : _fulou) {

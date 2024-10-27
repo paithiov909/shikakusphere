@@ -13,8 +13,8 @@
 
 class Calsht {
 private:
-  using LVec = Rcpp::IntegerVector; // std::vector<int64_t>;
-  using RVec = Rcpp::IntegerVector; // std::vector<int32_t>;
+  using LVec = Rcpp::IntegerVector; // std::vector<int32_t>;
+  using RVec = Rcpp::IntegerVector; // std::vector<int8_t>;
   using Iter = std::vector<RVec>::iterator;
 
   Rcpp::IntegerMatrix mp1; // std::vector<RVec> mp1;

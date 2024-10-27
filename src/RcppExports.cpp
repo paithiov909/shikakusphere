@@ -71,7 +71,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // skksph_get_xiangting
-std::vector<int> skksph_get_xiangting(const std::vector<std::string>& shoupai, Rcpp::IntegerMatrix& index_s, Rcpp::IntegerMatrix& index_h);
+Rcpp::DataFrame skksph_get_xiangting(const std::vector<std::string>& shoupai, Rcpp::IntegerMatrix& index_s, Rcpp::IntegerMatrix& index_h);
 RcppExport SEXP _shikakusphere_skksph_get_xiangting(SEXP shoupaiSEXP, SEXP index_sSEXP, SEXP index_hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

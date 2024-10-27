@@ -183,7 +183,7 @@ class Shoupai {
   // friend int xiangting_yiban(const Shoupai& shoupai);
   friend std::vector<std::string> tingpai(
       const Shoupai& shoupai, const Calsht& calsht,
-      const std::function<int(const Shoupai&, const Calsht& calsht)>&
+      const std::function<std::pair<int, int>(const Shoupai&, const Calsht& calsht)>&
           f_xiangting);
   friend std::vector<std::vector<std::string>> hule_mianzi_yiban(
       Shoupai& shoupai, const std::string& hulepai);

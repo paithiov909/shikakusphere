@@ -8,7 +8,7 @@ std::vector<int> shoupai_to_table(const Shoupai& shoupai) {
   auto& p = shoupai.p();
   auto& s = shoupai.s();
   auto& z = shoupai.z();
-  // m5, p5, s5の枚数にはhongpaiも含まれているので、足さなくてよい
+  // NOTE: m5, p5, s5の枚数にはhongpaiも含まれているので、足さなくてよい
   std::vector<int> ret;
   ret.reserve(m.size() + p.size() + s.size() + z.size() - 4);
   std::copy(m.begin() + 1, m.end(), std::back_inserter(ret));
@@ -46,24 +46,25 @@ int xiangting_qidui(const Shoupai& shoupai, const Calsht& calsht) {
 }
 
 // 実際のシャンテン数(一般形、国士無双形、七対子形の最小値)
-int xiangting(const Shoupai& shoupai, const Calsht& calsht) {
-  std::vector<int> hand = shoupai_to_table(shoupai);
+std::pair<int, int> xiangting(const Shoupai& shoupai, const Calsht& calsht) {
+  const std::vector<int> hand = shoupai_to_table(shoupai);
   auto [sht, mode] =
       calsht(hand, std::accumulate(hand.begin(), hand.end(), 0) / 3, 7);
-  // 副露直後なら1を足す
+  // 副露直後（手牌の末尾に","が付く）なら1を足す
+  // NOTE: 副露の記法が省略されると`toString()`したとき無視されるため、意図した文字列にならない
   if (std::regex_search(shoupai.toString(), std::regex(",$"))) {
     sht++;
   }
-  return sht;
+  return std::pair<int, int>{sht, mode};
 }
 
 // 听牌(向聴数が減る牌)
 std::vector<std::string> tingpai(
     const Shoupai& shoupai, const Calsht& calsht,
-    const std::function<int(const Shoupai&, const Calsht& calsht)>& f_xiangting) {
+    const std::function<std::pair<int, int>(const Shoupai&, const Calsht& calsht)>& f_xiangting) {
   if (!shoupai.zimo_().empty()) throw std::runtime_error("zimo must be empty");
 
-  const int n_xiangting = f_xiangting(shoupai, calsht);
+  const auto [n_xiangting, _] = f_xiangting(shoupai, calsht);
   Shoupai shoupai_ = shoupai.clone();
 
   std::vector<std::string> pai;
@@ -72,7 +73,8 @@ std::vector<std::string> tingpai(
     for (std::size_t n = 1; n < bingpai.size(); n++) {
       if (bingpai[n] >= 4) continue;
       bingpai[n]++;
-      if (f_xiangting(shoupai_, calsht) < n_xiangting) {
+      const auto [sht, _] = f_xiangting(shoupai_, calsht);
+      if (sht < n_xiangting) {
         pai.emplace_back(to_string(s, n));
       }
       bingpai[n]--;

@@ -53,19 +53,21 @@ pak::pak("paithiov909/shikakusphere")
 library(shikakusphere)
 
 hands <- c(
-  "p222345z1234567",
-  "p11222345z12345",
+  "m11p234s555z11122*",
+  "p1122334455667",
+  "m19p19s19z1234567",
   "m055z7z7,m78-9,z5555,z666=",
-  "m123p055s789z1117*"
+  "m055z7z7,m78-9,z5555,z666=,"
 )
 
 hands <- paistr(hands)
 hands
-#> <skksph_paistr[4]>
-#> [1] <13>'p222345z1234567'            <13>'p11222345z12345'           
-#> [3] <15>'m055z7z7,m78-9,z5555,z666=' <13>'m123p055s789z1117*'
+#> <skksph_paistr[5]>
+#> [1] <13>'m11p234s555z11122*'          <13>'p1122334455667'             
+#> [3] <13>'m19p19s19z1234567'           <15>'m055z7z7,m78-9,z5555,z666=' 
+#> [5] <15>'m055z7z7,m78-9,z5555,z666=,'
 
-plot(hands[3])
+plot(hands[4])
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
@@ -74,20 +76,20 @@ plot(hands[3])
 
 ``` r
 tidy(hands)
-#> # A tibble: 38 × 3
+#> # A tibble: 41 × 3
 #>       id tile      n
 #>    <int> <fct> <int>
-#>  1     1 p2        3
-#>  2     1 p3        1
-#>  3     1 p4        1
-#>  4     1 p5        1
-#>  5     1 z1        1
-#>  6     1 z2        1
-#>  7     1 z3        1
-#>  8     1 z4        1
-#>  9     1 z5        1
-#> 10     1 z6        1
-#> # ℹ 28 more rows
+#>  1     1 m1        2
+#>  2     1 p2        1
+#>  3     1 p3        1
+#>  4     1 p4        1
+#>  5     1 s5        3
+#>  6     1 z1        3
+#>  7     1 z2        2
+#>  8     2 p1        2
+#>  9     2 p2        2
+#> 10     2 p3        2
+#> # ℹ 31 more rows
 ```
 
 このかたちの表現は`lineup()`でlist of factorsにすることができます。
@@ -96,19 +98,23 @@ tidy(hands)
 tidy(hands) |>
   lineup()
 #> [[1]]
-#>  [1] p2 p2 p2 p3 p4 p5 z1 z2 z3 z4 z5 z6 z7
+#>  [1] m1 m1 p2 p3 p4 s5 s5 s5 z1 z1 z1 z2 z2
 #> 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7
 #> 
 #> [[2]]
-#>  [1] p1 p1 p2 p2 p2 p3 p4 p5 z1 z2 z3 z4 z5
+#>  [1] p1 p1 p2 p2 p3 p3 p4 p4 p5 p5 p6 p6 p7
 #> 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7
 #> 
 #> [[3]]
-#>  [1] m0 m5 m5 m7 m8 z5 z5 z5 z5 z6 z6 z6 z7 z7
+#>  [1] m1 m9 p1 p9 s1 s9 z1 z2 z3 z4 z5 z6 z7
 #> 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7
 #> 
 #> [[4]]
-#>  [1] m1 m2 m3 p0 p5 p5 s7 s8 s9 z1 z1 z1 z7
+#>  [1] m0 m5 m5 m7 m8 z5 z5 z5 z5 z6 z6 z6 z7 z7
+#> 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7
+#> 
+#> [[5]]
+#>  [1] m0 m5 m5 m7 m8 z5 z5 z5 z5 z6 z6 z6 z7 z7
 #> 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7
 ```
 
@@ -123,24 +129,46 @@ c(paste0("m", 1:9), paste0("s", 4:6), paste0("z", c(1, 1))) |>
 
 ### シャンテン数・有効牌の確認
 
-「有効牌」については、ない場合`character(0)`を返します。
+このパッケージで使用している実装における「シャンテン数」は、大まかには「その手牌を和了形（聴牌形）に変形させるために必要なツモの最小数」のことを指しています。そのため、少牌だったりして素朴な意味での和了形になっていないかたちであっても、n雀頭n面子のかたちになってさえいれば、ここでのシャンテン数は`-1`を返します。
+
+また、ここでの「有効牌」というのは、その牌を新たにツモったときに、この意味でのシャンテン数が減少する牌のことです。手牌の枚数が14,
+11, 8, 5,
+2枚の場合や、すでに和了形であって有効牌が定義できないときには、`character(0)`を返します。ただし、打牌可能な手牌のなかに4枚ある場合についてのみ、有効牌であっても待ち牌としません。
 
 ``` r
 # シャンテン数
 n_xiangting <- calc_xiangting(hands)
 n_xiangting
-#> [1]  4  3 -1  0
+#> # A tibble: 5 × 2
+#>     num mode  
+#>   <int> <fct> 
+#> 1     0 yiban 
+#> 2     0 qidui 
+#> 3     0 guoshi
+#> 4    -1 yiban 
+#> 5     0 yiban
 
 # 有効牌
-collect_tingpai(hands[n_xiangting >= 0])
+collect_tingpai(hands[n_xiangting$num >= 0])
+#> Warning in skksph_get_tingpai(pai, index_s, index_h): zimo must be empty at:
+#> m055z77,m78-9,z5555,z666=,
 #> [[1]]
-#> [1] "z1" "z2" "z3" "z4" "z5" "z6" "z7"
+#> [1] "m1" "z2"
 #> 
 #> [[2]]
-#> [1] "p1" "z1" "z2" "z3" "z4" "z5"
+#> [1] "p1" "p4" "p7"
 #> 
 #> [[3]]
-#> [1] "z7"
+#>  [1] "m1" "m9" "p1" "p9" "s1" "s9" "z1" "z2" "z3" "z4" "z5" "z6" "z7"
+#> 
+#> [[4]]
+#> character(0)
+collect_tingpai(c("m1234444p456s789", "m13p456s789z11,m2222"))
+#> [[1]]
+#> [1] "m1"
+#> 
+#> [[2]]
+#> [1] "m2"
 ```
 
 ### 得点・あがり役の確認
@@ -149,7 +177,7 @@ collect_tingpai(hands[n_xiangting >= 0])
 
 ``` r
 # 得点
-score <- calc_defen(hands[n_xiangting == -1][1], baopai = "z1")
+score <- calc_defen(hands[n_xiangting$num == -1][1], baopai = "z1")
 score
 #>                      shoupai        hupai fu fanshu damanguan defen menfeng
 #> 1 m055z7z7,m78-9,z5555,z666= 8,9,34,35,12 70      7         0 12000       1

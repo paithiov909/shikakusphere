@@ -117,12 +117,16 @@ calc_defen <- function(
 #' Calculate xiangting number of hands
 #'
 #' @param pai A character vector.
-#' @returns An integer vector.
+#' @returns A tibble.
 #' @export
 #' @examples
 #' calc_xiangting(c("m345567p234s3378", "p222345z1234567"))
 calc_xiangting <- function(pai) {
-  skksph_get_xiangting(pai, index_s, index_h) - 1L
+  ret <- skksph_get_xiangting(pai, index_s, index_h)
+  tibble::tibble(
+    num = ret$num - 1L,
+    mode = factor(ret$mode, levels = c(1, 3, 4), labels = c("yiban", "qidui", "guoshi"))
+  )
 }
 
 #' Collect tingpais for hands
