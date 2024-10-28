@@ -98,7 +98,7 @@ calculate.skksph_paistr <- function(x, ...) {
   bingpai <-
     skksph_bingpai_to_table(dat) |>
     unlist(use.names = FALSE) |>
-    matrix(length(x), 34)
+    matrix(length(x), 34, byrow = TRUE)
   tibble::tibble(
     id = seq_along(x),
     n_fulou = skksph_get_n_fulou(dat),
