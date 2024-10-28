@@ -26,3 +26,8 @@ inline std::ostream& operator<<(std::ostream& os, const He& he) {
   for (const auto& p : he.pai()) os << p;
   return os;
 }
+
+inline const std::regex& re_fulou() {
+  static const std::regex v{R"(\d(?=[\+\=\-]))"};
+  return v;
+}

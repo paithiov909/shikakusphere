@@ -22,18 +22,18 @@ BEGIN_RCPP
 END_RCPP
 }
 // skksph_lipai_impl
-std::vector<std::string> skksph_lipai_impl(const std::vector<std::vector<std::string>>& s);
-RcppExport SEXP _shikakusphere_skksph_lipai_impl(SEXP sSEXP) {
+Rcpp::CharacterVector skksph_lipai_impl(const std::vector<std::vector<std::string>>& x);
+RcppExport SEXP _shikakusphere_skksph_lipai_impl(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<std::vector<std::string>>& >::type s(sSEXP);
-    rcpp_result_gen = Rcpp::wrap(skksph_lipai_impl(s));
+    Rcpp::traits::input_parameter< const std::vector<std::vector<std::string>>& >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(skksph_lipai_impl(x));
     return rcpp_result_gen;
 END_RCPP
 }
 // skksph_hand_to_svg
-std::vector<std::string> skksph_hand_to_svg(const std::vector<std::string>& pai);
+Rcpp::CharacterVector skksph_hand_to_svg(const std::vector<std::string>& pai);
 RcppExport SEXP _shikakusphere_skksph_hand_to_svg(SEXP paiSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -71,28 +71,50 @@ BEGIN_RCPP
 END_RCPP
 }
 // skksph_get_xiangting
-Rcpp::DataFrame skksph_get_xiangting(const std::vector<std::string>& shoupai, Rcpp::IntegerMatrix& index_s, Rcpp::IntegerMatrix& index_h);
-RcppExport SEXP _shikakusphere_skksph_get_xiangting(SEXP shoupaiSEXP, SEXP index_sSEXP, SEXP index_hSEXP) {
+Rcpp::DataFrame skksph_get_xiangting(const std::vector<std::string>& pai, const Rcpp::IntegerMatrix& index_s, const Rcpp::IntegerMatrix& index_h);
+RcppExport SEXP _shikakusphere_skksph_get_xiangting(SEXP paiSEXP, SEXP index_sSEXP, SEXP index_hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type shoupai(shoupaiSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix& >::type index_s(index_sSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix& >::type index_h(index_hSEXP);
-    rcpp_result_gen = Rcpp::wrap(skksph_get_xiangting(shoupai, index_s, index_h));
+    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type pai(paiSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type index_s(index_sSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type index_h(index_hSEXP);
+    rcpp_result_gen = Rcpp::wrap(skksph_get_xiangting(pai, index_s, index_h));
     return rcpp_result_gen;
 END_RCPP
 }
 // skksph_get_tingpai
-Rcpp::List skksph_get_tingpai(const std::vector<std::string>& shoupai, Rcpp::IntegerMatrix& index_s, Rcpp::IntegerMatrix& index_h);
-RcppExport SEXP _shikakusphere_skksph_get_tingpai(SEXP shoupaiSEXP, SEXP index_sSEXP, SEXP index_hSEXP) {
+Rcpp::List skksph_get_tingpai(const std::vector<std::string>& pai, const Rcpp::IntegerMatrix& index_s, const Rcpp::IntegerMatrix& index_h);
+RcppExport SEXP _shikakusphere_skksph_get_tingpai(SEXP paiSEXP, SEXP index_sSEXP, SEXP index_hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type shoupai(shoupaiSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix& >::type index_s(index_sSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix& >::type index_h(index_hSEXP);
-    rcpp_result_gen = Rcpp::wrap(skksph_get_tingpai(shoupai, index_s, index_h));
+    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type pai(paiSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type index_s(index_sSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type index_h(index_hSEXP);
+    rcpp_result_gen = Rcpp::wrap(skksph_get_tingpai(pai, index_s, index_h));
+    return rcpp_result_gen;
+END_RCPP
+}
+// skksph_bingpai_to_table
+Rcpp::List skksph_bingpai_to_table(const std::vector<std::string>& pai);
+RcppExport SEXP _shikakusphere_skksph_bingpai_to_table(SEXP paiSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type pai(paiSEXP);
+    rcpp_result_gen = Rcpp::wrap(skksph_bingpai_to_table(pai));
+    return rcpp_result_gen;
+END_RCPP
+}
+// skksph_get_n_fulou
+Rcpp::IntegerVector skksph_get_n_fulou(const std::vector<std::string>& pai);
+RcppExport SEXP _shikakusphere_skksph_get_n_fulou(SEXP paiSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type pai(paiSEXP);
+    rcpp_result_gen = Rcpp::wrap(skksph_get_n_fulou(pai));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -569,6 +591,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_shikakusphere_skksph_get_defen", (DL_FUNC) &_shikakusphere_skksph_get_defen, 17},
     {"_shikakusphere_skksph_get_xiangting", (DL_FUNC) &_shikakusphere_skksph_get_xiangting, 3},
     {"_shikakusphere_skksph_get_tingpai", (DL_FUNC) &_shikakusphere_skksph_get_tingpai, 3},
+    {"_shikakusphere_skksph_bingpai_to_table", (DL_FUNC) &_shikakusphere_skksph_bingpai_to_table, 1},
+    {"_shikakusphere_skksph_get_n_fulou", (DL_FUNC) &_shikakusphere_skksph_get_n_fulou, 1},
     {"_shikakusphere_skksph_feat_pai", (DL_FUNC) &_shikakusphere_skksph_feat_pai, 1},
     {"_shikakusphere_random_zhuangfeng", (DL_FUNC) &_shikakusphere_random_zhuangfeng, 6},
     {"_shikakusphere_random_menfeng", (DL_FUNC) &_shikakusphere_random_menfeng, 6},

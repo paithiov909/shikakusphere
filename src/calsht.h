@@ -29,7 +29,7 @@ private:
 
 public:
   Calsht() {}
-  void initialize(Rcpp::IntegerMatrix& index_s, Rcpp::IntegerMatrix& index_h);
+  void initialize(const Rcpp::IntegerMatrix& index_s, const Rcpp::IntegerMatrix& index_h);
   int calc_lh(const int* t, int m) const;
   int calc_sp(const int* t) const;
   int calc_to(const int* t) const;

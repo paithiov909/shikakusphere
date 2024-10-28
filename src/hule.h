@@ -133,3 +133,88 @@ std::vector<std::vector<std::string>> hule_mianzi(
     const Shoupai& shoupai, const std::string& rongpai = {});
 Defen hule(const Shoupai& shoupai, std::string rongpai = {},
            const Param& param = {});
+
+inline const std::regex& re_add_hulepai() {
+  static const std::regex v{R"([\+\=\-]|\d{4})"};
+  return v;
+}
+inline const std::regex& re_sanyuanpai() {
+  static const std::regex v{R"(^z[567].*$)"};
+  return v;
+}
+inline const std::regex& re_yaojiu() {
+  static const std::regex v{R"(^.*[z19].*$)"};
+  return v;
+}
+inline const std::regex& re_zipai() {
+  static const std::regex v{R"(^z.*$)"};
+  return v;
+}
+inline const std::regex& re_kezi() {
+  static const std::regex v{R"(^[mpsz](\d)\1\1.*$)"};
+  return v;
+}
+inline const std::regex& re_ankezi() {
+  static const std::regex v{R"(^[mpsz](\d)\1\1(?:\1|_\!)?$)"};
+  return v;
+}
+inline const std::regex& re_gangzi() {
+  static const std::regex v{R"(^[mpsz](\d)\1\1.*\1.*$)"};
+  return v;
+}
+inline const std::regex& re_danqi() {
+  static const std::regex v{R"(^[mpsz](\d)\1[\+\=\-_]\!$)"};
+  return v;
+}
+inline const std::regex& re_kanzhang() {
+  static const std::regex v{R"(^[mps]\d\d[\+\=\-_]\!\d$)"};
+  return v;
+}
+inline const std::regex& re_bianzhang() {
+  static const std::regex v{R"(^[mps](123[\+\=\-_]\!|7[\+\=\-_]\!89)$)"};
+  return v;
+}
+inline const std::regex& re_get_hudi1() {
+  static const std::regex v{R"([\+\=\-](?!\!))"};
+  return v;
+}
+inline const std::regex& re_get_hudi2() {
+  static const std::regex v{R"([\+\=\-]\!)"};
+  return v;
+}
+inline const std::regex& re_xiaosanyuan() {
+  static const std::regex v{R"(^z[567])"};
+  return v;
+}
+inline const std::regex& re_dasanyuan() {
+  static const std::regex v{R"(^z([567])\1\1(?:[\+\=\-]|\1)(?!\!))"};
+  return v;
+}
+inline const std::regex& re_sixihu1() {
+  static const std::regex v{R"(^z([1234])\1\1(?:[\+\=\-]|\1)(?!\!))"};
+  return v;
+}
+inline const std::regex& re_sixihu2() {
+  static const std::regex v{R"(^z[1234])"};
+  return v;
+}
+inline const std::regex& re_lvyise1() {
+  static const std::regex v{R"(^[mp])"};
+  return v;
+}
+inline const std::regex& re_lvyise2() {
+  static const std::regex v{R"(^z[^6])"};
+  return v;
+}
+inline const std::regex& re_lvyise3() {
+  static const std::regex v{R"(^s.*[1579])"};
+  return v;
+}
+inline const std::regex& re_jiulianbaodeng() {
+  static const std::regex v{R"(^[mpsz]1112345678999)"};
+  return v;
+}
+inline const std::regex& re_get_post_hupai() {
+  static const std::regex v{R"([mpsz][^mpsz,]*)"};
+  return v;
+}

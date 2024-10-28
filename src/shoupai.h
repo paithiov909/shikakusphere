@@ -69,12 +69,12 @@ inline const std::vector<int>& yaojiu_n() {
 class Shoupai {
  public:
   // 牌文字列検証
-  static inline bool valid_pai(const std::string& p) {
+  static bool valid_pai(const std::string& p) {
     return std::regex_match(p, _re_valid_pai());
   }
 
   // 面子文字列検証
-  static inline std::string valid_mianzi(const std::string& m) {
+  static std::string valid_mianzi(const std::string& m) {
     if (std::regex_search(m, _re_valid_mianzi1())) return {};
     const auto h = std::regex_replace(m, re_ling(), "5");
     if (std::regex_match(h, _re_valid_mianzi3())) {

@@ -37,14 +37,16 @@ methods::setOldClass(c("skksph_paistr", "vctrs_vctr"))
 #' @param x
 #' * For `paistr()`: A character vector.
 #' * For `is_paistr()`: An object to test.
+#' * For `calculate()`: An object to summarize.
 #' * For `plot()`: An object to plot as an image.
 #' * For `tidy()`: An object to tidy up.
 #' @param y
 #' * For `plot()`: Not used.
-#' @param ... Other arguments for `plot()` or `tidy()`.
+#' @param ... Other arguments for `calculate()`, `plot()` or `tidy()`.
 #' @returns
 #' * For `paistr()`: An object of class `skksph_paistr`.
 #' * For `is_paistr()`: A logical scalar.
+#' * For `calculate()`: A tibble.
 #' * For `plot()`: A bitmap image that internally converted
 #' by `magick::image_read_svg()` is invisibly returned.
 #' * For `tidy()`: A tibble.
@@ -53,6 +55,7 @@ methods::setOldClass(c("skksph_paistr", "vctrs_vctr"))
 #' pai <- paistr(c("m055z7z7,m78-9,z5555,z666=", "m123s789z1117*,p5550"))
 #' print(pai)
 #' is_paistr(pai)
+#' calculate(pai)
 #' tidy(pai)
 paistr <- function(x = character()) {
   x <- vctrs::vec_cast(x, character()) |>
@@ -82,6 +85,25 @@ format.skksph_paistr <- function(x, ...) {
   dat <- vctrs::vec_data(x)
   counts <- stringi::stri_count_regex(dat, "\\d")
   paste0("<", counts, ">\'", dat, "\'")
+}
+
+#' @importFrom generics calculate
+#' @export
+generics::calculate
+
+#' @rdname paistr
+#' @export
+calculate.skksph_paistr <- function(x, ...) {
+  dat <- vctrs::vec_data(x)
+  bingpai <-
+    skksph_bingpai_to_table(dat) |>
+    unlist(use.names = FALSE) |>
+    matrix(length(x), 34)
+  tibble::tibble(
+    id = seq_along(x),
+    n_fulou = skksph_get_n_fulou(dat),
+    bingpai
+  )
 }
 
 #' @rdname paistr

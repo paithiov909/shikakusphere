@@ -3,6 +3,7 @@
 \name{paistr}
 \alias{paistr}
 \alias{is_paistr}
+\alias{calculate.skksph_paistr}
 \alias{plot.skksph_paistr}
 \alias{tidy.skksph_paistr}
 \title{\code{paistr} vector}
@@ -10,6 +11,8 @@
 paistr(x = character())
 
 is_paistr(x)
+
+\method{calculate}{skksph_paistr}(x, ...)
 
 \method{plot}{skksph_paistr}(x, y, ...)
 
@@ -19,20 +22,22 @@ is_paistr(x)
 \item{x}{\itemize{
 \item For \code{paistr()}: A character vector.
 \item For \code{is_paistr()}: An object to test.
+\item For \code{calculate()}: An object to summarize.
 \item For \code{plot()}: An object to plot as an image.
 \item For \code{tidy()}: An object to tidy up.
 }}
 
+\item{...}{Other arguments for \code{calculate()}, \code{plot()} or \code{tidy()}.}
+
 \item{y}{\itemize{
 \item For \code{plot()}: Not used.
 }}
-
-\item{...}{Other arguments for \code{plot()} or \code{tidy()}.}
 }
 \value{
 \itemize{
 \item For \code{paistr()}: An object of class \code{skksph_paistr}.
 \item For \code{is_paistr()}: A logical scalar.
+\item For \code{calculate()}: A tibble.
 \item For \code{plot()}: A bitmap image that internally converted
 by \code{magick::image_read_svg()} is invisibly returned.
 \item For \code{tidy()}: A tibble.
@@ -55,5 +60,6 @@ so if you need to count the actual number of tiles, use \code{tidy()}.
 pai <- paistr(c("m055z7z7,m78-9,z5555,z666=", "m123s789z1117*,p5550"))
 print(pai)
 is_paistr(pai)
+calculate(pai)
 tidy(pai)
 }

@@ -1,3 +1,7 @@
+// `.hpp`にすると、なぜかR CMD checkで怒られる
+#include "calsht.h"
+#include "constant.h"
+
 #include <algorithm>
 #include <fstream>
 #include <numeric>
@@ -5,9 +9,6 @@
 #include <sstream>
 #include <stdexcept>
 #endif
-// `.hpp`にすると、なぜかR CMD checkで怒られる
-#include "calsht.h"
-#include "constant.h"
 
 using namespace Rcpp;
 
@@ -74,7 +75,7 @@ void Calsht::add2(LVec& lhs, const RVec& rhs, const int m) const
 //   return first;
 // }
 
-void Calsht::initialize(Rcpp::IntegerMatrix& index_s, Rcpp::IntegerMatrix& index_h)
+void Calsht::initialize(const Rcpp::IntegerMatrix& index_s, const Rcpp::IntegerMatrix& index_h)
 {
   if (index_s.nrow() != 1953125 || index_h.nrow() != 78125) {
     throw std::runtime_error("Invalid index matrix");

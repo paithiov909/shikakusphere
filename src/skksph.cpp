@@ -3,7 +3,44 @@
 #include "random.h"
 #include "svg.h"
 
-namespace {
+Rule set_rule(const Rcpp::List& list, const Rcpp::NumericVector& rankPoints,
+              const Rcpp::IntegerVector& hongpai) {
+  const std::array<float, 4> rp = {
+      static_cast<float>(rankPoints(0)), static_cast<float>(rankPoints(1)),
+      static_cast<float>(rankPoints(2)), static_cast<float>(rankPoints(3))};
+  const std::array<int, 3> hp = {hongpai(0), hongpai(1), hongpai(2)};
+
+  return Rule{Rcpp::as<bool>(list["startingPoints"]),
+              rp,
+              Rcpp::as<bool>(list["roundRankPoints"]),
+              Rcpp::as<bool>(list["doubleWindTileScore"]),
+              hp,
+              Rcpp::as<bool>(list["canduan"]),
+              Rcpp::as<int>(list["canChangePermissionLevel"]),
+              Rcpp::as<int>(list["roundsType"]),
+              Rcpp::as<bool>(list["abortiveDraw"]),
+              Rcpp::as<bool>(list["liujumanguan"]),
+              Rcpp::as<bool>(list["notenDeclaration"]),
+              Rcpp::as<bool>(list["notenPenalty"]),
+              Rcpp::as<int>(list["maxSimultaneousWinners"]),
+              Rcpp::as<int>(list["dealerContinuationType"]),
+              Rcpp::as<bool>(list["bankruptcyEndAll"]),
+              Rcpp::as<bool>(list["lastRoundStop"]),
+              Rcpp::as<int>(list["overtimeType"]),
+              Rcpp::as<bool>(list["yifa"]),
+              Rcpp::as<bool>(list["libaopai"]),
+              Rcpp::as<bool>(list["gangbaopai"]),
+              Rcpp::as<bool>(list["ganglibaopai"]),
+              Rcpp::as<bool>(list["gangbaopaiPostAddition"]),
+              Rcpp::as<bool>(list["lizhiWithoutTsumoBonus"]),
+              Rcpp::as<int>(list["lizhiPostClosedGangPermissionLevel"]),
+              Rcpp::as<bool>(list["damanguanCombination"]),
+              Rcpp::as<bool>(list["doubleDamanguan"]),
+              Rcpp::as<bool>(list["countedDamanguan"]),
+              Rcpp::as<bool>(list["damanguanPao"]),
+              Rcpp::as<bool>(list["roundUpManguan"])};
+}
+
 Defen create_defen(const Shoupai& shoupai, const std::string& rongpai,
                    const Rule& rule, const int zhuangfeng, const int menfeng,
                    const int lizhi, const bool yifa, const bool qianggang,
@@ -16,88 +53,6 @@ Defen create_defen(const Shoupai& shoupai, const std::string& rongpai,
       Param{rule, zhuangfeng, menfeng,
             Param::Hupai{lizhi, yifa, qianggang, lingshang, haidi, tianhu},
             baopai, libaopai, Param::Jicun{changbang, lizhibang}});
-}
-
-Rule create_rule(const int startingPoints,
-                 const std::array<float, 4>& rankPoints,
-                 const bool roundRankPoints, const bool doubleWindTileScore,
-                 const std::array<int, 3>& hongpai, const bool canduan,
-                 const int canChangePermissionLevel, const int roundsType,
-                 const bool abortiveDraw, const bool liujumanguan,
-                 const bool notenDeclaration, const bool notenPenalty,
-                 const int maxSimultaneousWinners,
-                 const int dealerContinuationType, const bool bankruptcyEndAll,
-                 const bool lastRoundStop, const int overtimeType,
-                 const bool yifa, const bool libaopai, const bool gangbaopai,
-                 const bool ganglibaopai, const bool gangbaopaiPostAddition,
-                 const bool lizhiWithoutTsumoBonus,
-                 const int lizhiPostClosedGangPermissionLevel,
-                 const bool damanguanCombination, const bool doubleDamanguan,
-                 const bool countedDamanguan, const bool damanguanPao,
-                 const bool roundUpManguan) {
-  return Rule{startingPoints,
-              rankPoints,
-              roundRankPoints,
-              doubleWindTileScore,
-              hongpai,
-              canduan,
-              canChangePermissionLevel,
-              roundsType,
-              abortiveDraw,
-              liujumanguan,
-              notenDeclaration,
-              notenPenalty,
-              maxSimultaneousWinners,
-              dealerContinuationType,
-              bankruptcyEndAll,
-              lastRoundStop,
-              overtimeType,
-              yifa,
-              libaopai,
-              gangbaopai,
-              ganglibaopai,
-              gangbaopaiPostAddition,
-              lizhiWithoutTsumoBonus,
-              lizhiPostClosedGangPermissionLevel,
-              damanguanCombination,
-              doubleDamanguan,
-              countedDamanguan,
-              damanguanPao,
-              roundUpManguan};
-}
-
-Rule set_rule(const Rcpp::List& list, const Rcpp::NumericVector& rankPoints,
-              const Rcpp::IntegerVector& hongpai) {
-  const std::array<float, 4> rp = {
-      static_cast<float>(rankPoints(0)), static_cast<float>(rankPoints(1)),
-      static_cast<float>(rankPoints(2)), static_cast<float>(rankPoints(3))};
-  const std::array<int, 3> hp = {hongpai(0), hongpai(1), hongpai(2)};
-  Rule rule = create_rule(
-      Rcpp::as<bool>(list["startingPoints"]), rp,
-      Rcpp::as<bool>(list["roundRankPoints"]),
-      Rcpp::as<bool>(list["doubleWindTileScore"]), hp,
-      Rcpp::as<bool>(list["canduan"]),
-      Rcpp::as<int>(list["canChangePermissionLevel"]),
-      Rcpp::as<int>(list["roundsType"]), Rcpp::as<bool>(list["abortiveDraw"]),
-      Rcpp::as<bool>(list["liujumanguan"]),
-      Rcpp::as<bool>(list["notenDeclaration"]),
-      Rcpp::as<bool>(list["notenPenalty"]),
-      Rcpp::as<int>(list["maxSimultaneousWinners"]),
-      Rcpp::as<int>(list["dealerContinuationType"]),
-      Rcpp::as<bool>(list["bankruptcyEndAll"]),
-      Rcpp::as<bool>(list["lastRoundStop"]),
-      Rcpp::as<int>(list["overtimeType"]), Rcpp::as<bool>(list["yifa"]),
-      Rcpp::as<bool>(list["libaopai"]), Rcpp::as<bool>(list["gangbaopai"]),
-      Rcpp::as<bool>(list["ganglibaopai"]),
-      Rcpp::as<bool>(list["gangbaopaiPostAddition"]),
-      Rcpp::as<int>(list["lizhiWithoutTsumoBonus"]),
-      Rcpp::as<int>(list["lizhiPostClosedGangPermissionLevel"]),
-      Rcpp::as<int>(list["damanguanCombination"]),
-      Rcpp::as<bool>(list["doubleDamanguan"]),
-      Rcpp::as<bool>(list["countedDamanguan"]),
-      Rcpp::as<bool>(list["damanguanPao"]),
-      Rcpp::as<bool>(list["roundUpManguan"]));
-  return rule;
 }
 
 std::map<std::string, int> init_rest(const Rule& rule) {
@@ -127,12 +82,14 @@ Shoupai random_setup(
   std::vector<std::string> fulou;
   std::map<std::string, int> rest = init_rest(rule);
   setup_func(pai, rest, fulou, rule, engine);
-  std::shuffle(pai.begin(), pai.end(), engine);
   return Shoupai{pai, fulou};
 }
-}  // namespace
 
-// Shoupai ----
+//' Internal function for `tidy(<skksph_paistr>)`
+//'
+//' @param pai hand
+//' @returns list of integers
+//' @keywords internal
 // [[Rcpp::export]]
 Rcpp::List skksph_tidy_impl(const std::vector<std::string>& pai) {
   std::vector<Rcpp::IntegerVector> ret;
@@ -158,36 +115,64 @@ Rcpp::List skksph_tidy_impl(const std::vector<std::string>& pai) {
   return Rcpp::wrap(ret);
 }
 
+//' Internal function to lipai
+//'
+//' @param x list of characters
+//' @returns list of hands
+//' @keywords internal
 // [[Rcpp::export]]
-std::vector<std::string> skksph_lipai_impl(
-    const std::vector<std::vector<std::string>>& s) {
+Rcpp::CharacterVector skksph_lipai_impl(const std::vector<std::vector<std::string>>& x) {
   std::vector<std::string> ret;
-  ret.reserve(s.size());
-  for (auto pai : s) {
-    pai.erase(std::remove_if(pai.begin(), pai.end(),
-                             [](const std::string& st) {
-                               return !Shoupai::valid_pai(st);
+  ret.reserve(x.size());
+  for (auto tiles : x) {
+    tiles.erase(std::remove_if(tiles.begin(), tiles.end(),
+                             [](const std::string& tile) {
+                               return !Shoupai::valid_pai(tile);
                              }),
-              pai.end());
-    Shoupai p = Shoupai{pai};
+               tiles.end());
+    Shoupai p = Shoupai{tiles};
     ret.emplace_back(p.toString());
   }
-  return ret;
+  return Rcpp::wrap(ret);
 }
 
+//' Internal function to convert hand to SVG
+//'
+//' @param pai hand
+//' @returns SVG strings
+//' @keywords internal
 // [[Rcpp::export]]
-std::vector<std::string> skksph_hand_to_svg(
-    const std::vector<std::string>& pai) {
+Rcpp::CharacterVector skksph_hand_to_svg(const std::vector<std::string>& pai) {
   std::vector<std::string> ret;
   ret.reserve(pai.size());
   for (const auto& paistr : pai) {
     Shoupai p = Shoupai{paistr};
     ret.emplace_back(shoupai_to_svg(p));
   }
-  return ret;
+  return Rcpp::wrap(ret);
 }
 
-// Defen ----
+//' Internal function to get defen
+//'
+//' @param paistr hand
+//' @param baopai baopai
+//' @param libaopai libaopai
+//' @param list rule set
+//' @param rankPoints rank points (numeric vector of length 4)
+//' @param hongpai hongpai (numeric vector of length 3)
+//' @param rongpai rongpai
+//' @param zhuangfeng zhuangfeng (0-3)
+//' @param menfeng menfeng (0-3)
+//' @param lizhi lizhi (0-2)
+//' @param yifa flag for "ippatsu"
+//' @param qianggang flag for "chankan"
+//' @param lingshang flag for "lingshang"
+//' @param haidi haidi (0-2)
+//' @param tianhu tianhu (0-2)
+//' @param changbang changbang
+//' @param lizhibang lizhibang
+//' @returns A data frame
+//' @keywords internal
 // [[Rcpp::export]]
 Rcpp::DataFrame skksph_get_defen(
     const std::string& paistr,
@@ -209,7 +194,7 @@ Rcpp::DataFrame skksph_get_defen(
                   [](const std::string& str) { return str.empty(); })
           ? std::vector<std::string>{}
           : libaopai;
-  const std::string rp = rongpai.empty() ? std::string{} : rongpai;
+  std::string rp = rongpai.empty() ? std::string{} : rongpai;
 
   std::vector<std::string> sp;
   std::vector<std::string> hp;
@@ -225,6 +210,7 @@ Rcpp::DataFrame skksph_get_defen(
   Defen defen = create_defen(p, rp, rule, zhuangfeng, menfeng, lizhi, yifa,
                              qianggang, lingshang, haidi, tianhu, baopai, libao,
                              changbang, lizhibang);
+
   std::string hupai;
   for (const auto& h : defen.hupai) {
     if (!hupai.empty()) {
@@ -249,16 +235,23 @@ Rcpp::DataFrame skksph_get_defen(
       Rcpp::Named("menfeng") = Rcpp::wrap(mf));
 }
 
+//' Internal function to get xiangting number
+//'
+//' @param pai hand
+//' @param index_s internal data (integer matrix)
+//' @param index_h internal data (integer matrix)
+//' @returns A data frame
+//' @keywords internal
 // [[Rcpp::export]]
-Rcpp::DataFrame skksph_get_xiangting(const std::vector<std::string>& shoupai,
-                                     Rcpp::IntegerMatrix& index_s,
-                                     Rcpp::IntegerMatrix& index_h) {
+Rcpp::DataFrame skksph_get_xiangting(const std::vector<std::string>& pai,
+                                     const Rcpp::IntegerMatrix& index_s,
+                                     const Rcpp::IntegerMatrix& index_h) {
   Calsht calsht;
   calsht.initialize(index_s, index_h);
   std::vector<int> sht, mode;
-  sht.reserve(shoupai.size());
-  mode.reserve(shoupai.size());
-  for (const auto& paistr : shoupai) {
+  sht.reserve(pai.size());
+  mode.reserve(pai.size());
+  for (const auto& paistr : pai) {
     Shoupai p = Shoupai{paistr};
     auto ret = xiangting(p, calsht);
     sht.push_back(ret.first);
@@ -268,15 +261,22 @@ Rcpp::DataFrame skksph_get_xiangting(const std::vector<std::string>& shoupai,
                                  Rcpp::Named("mode") = Rcpp::wrap(mode));
 }
 
+//' Internal function to get tingpai
+//'
+//' @param pai hand
+//' @param index_s internal data (integer matrix)
+//' @param index_h internal data (integer matrix)
+//' @returns A data frame
+//' @keywords internal
 // [[Rcpp::export]]
-Rcpp::List skksph_get_tingpai(const std::vector<std::string>& shoupai,
-                              Rcpp::IntegerMatrix& index_s,
-                              Rcpp::IntegerMatrix& index_h) {
+Rcpp::List skksph_get_tingpai(const std::vector<std::string>& pai,
+                              const Rcpp::IntegerMatrix& index_s,
+                              const Rcpp::IntegerMatrix& index_h) {
   Calsht calsht;
   calsht.initialize(index_s, index_h);
   std::vector<std::vector<std::string>> ret;
-  ret.reserve(shoupai.size());
-  for (const auto& paistr : shoupai) {
+  ret.reserve(pai.size());
+  for (const auto& paistr : pai) {
     Shoupai p = Shoupai{paistr};
     if (!p.zimo_().empty()) {
       Rcpp::warning("zimo must be empty at: %s", p.toString().c_str());
@@ -288,7 +288,43 @@ Rcpp::List skksph_get_tingpai(const std::vector<std::string>& shoupai,
   return Rcpp::wrap(ret);
 }
 
-// Features ----
+//' Internal function to convert bingpai to table
+//'
+//' @param pai hand
+//' @returns A list of integer vectors
+//' @keywords internal
+// [[Rcpp::export]]
+Rcpp::List skksph_bingpai_to_table(const std::vector<std::string>& pai) {
+  std::vector<std::vector<int>> ret;
+  ret.reserve(pai.size());
+  for (const auto& paistr : pai) {
+    Shoupai p = Shoupai{paistr};
+    ret.emplace_back(shoupai_to_table(p));
+  }
+  return Rcpp::wrap(ret);
+}
+
+//' Internal function to get number of fulou mianzi
+//'
+//' @param pai hand
+//' @returns An integer vector
+//' @keywords internal
+// [[Rcpp::export]]
+Rcpp::IntegerVector skksph_get_n_fulou(const std::vector<std::string>& pai) {
+  std::vector<int> ret;
+  ret.reserve(pai.size());
+  for (const auto& paistr : pai) {
+    Shoupai p = Shoupai{paistr};
+    ret.push_back(p.fulou_().size());
+  }
+  return Rcpp::wrap(ret);
+}
+
+//' Internal function to get pai features
+//'
+//' @param pai hand
+//' @returns A list of numeric vectors
+//' @keywords internal
 // [[Rcpp::export]]
 Rcpp::List skksph_feat_pai(const std::vector<std::string>& pai) {
   std::vector<std::vector<float>> ret;
@@ -310,7 +346,6 @@ Rcpp::List skksph_feat_pai(const std::vector<std::string>& pai) {
   return Rcpp::wrap(ret);
 }
 
-// Random ----
 // [[Rcpp::export]]
 std::vector<std::string> random_zhuangfeng(const int n, const int zhuangfeng,
                                            const std::size_t seed,

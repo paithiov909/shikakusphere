@@ -1,12 +1,5 @@
 ﻿#include "he.h"
 
-namespace {
-const std::regex& re_fulou() {
-  static const std::regex v{R"(\d(?=[\+\=\-]))"};
-  return v;
-}
-}  // namespace
-
 // 打牌
 He& He::dapai(const std::string& p) {
   if (!Shoupai::valid_pai(p)) throw std::invalid_argument(p);
