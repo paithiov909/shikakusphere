@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">shikakusphere</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.6.9000</span>
       </span>
     </div>
 
@@ -162,19 +162,19 @@
 <div class="section level3">
 <h3 id="シャンテン数有効牌の確認">シャンテン数・有効牌の確認<a class="anchor" aria-label="anchor" href="#%E3%82%B7%E3%83%A3%E3%83%B3%E3%83%86%E3%83%B3%E6%95%B0%E6%9C%89%E5%8A%B9%E7%89%8C%E3%81%AE%E7%A2%BA%E8%AA%8D"></a>
 </h3>
-<p>このパッケージで使用している実装における「シャンテン数」は、大まかには「その手牌を和了形（聴牌形）に変形させるために必要なツモの最小数」のことを指しています。そのため、少牌だったりして素朴な意味での和了形になっていないかたちであっても、n面子1雀頭のかたちになってさえいれば、ここでのシャンテン数は<code>-1</code>を返します。</p>
-<p>また、ここでの「有効牌」というのは、その牌を新たにツモったときに、この意味でのシャンテン数が減少する牌のことです。手牌の枚数が14, 11, 8, 5, 2枚の場合や、すでに和了形であって有効牌が定義できないときには、<code>character(0)</code>を返します。ただし、打牌可能な手牌のなかに4枚ある場合についてのみ、有効牌であっても待ち牌としません。</p>
+<p>手牌のうちでも、副露面子を除いた打牌可能な部分のことを兵牌（bingpai）と呼びます。このパッケージで使用している実装における「シャンテン数」は、大まかには「その手牌の表現を兵牌と見なしたとき、手牌を聴牌形（和了形）に変形させるために必要なツモの最小数」のことを指しています。そのため、少牌だったりして素朴な意味での和了形になっていないかたちであっても、n面子1雀頭のかたちになってさえいれば、ここでのシャンテン数は<code>-1</code>を返します。</p>
+<p>また、ここでの「有効牌」というのは、その牌を新たにツモったときに、この意味でのシャンテン数が減少する牌のことです。兵牌の枚数が14, 11, 8, 5, 2枚の場合や、すでに和了形であって有効牌が定義できないときには、<code>character(0)</code>を返します。なお、兵牌のなかに同じ牌が4枚ある場合についてのみ、有効牌であっても待ち牌としません。</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># シャンテン数</span></span>
 <span><span class="va">n_xiangting</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_xiangting.html">calc_xiangting</a></span><span class="op">(</span><span class="va">hands</span><span class="op">)</span></span>
 <span><span class="va">n_xiangting</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 2</span></span>
-<span><span class="co">#&gt;     num mode  </span></span>
-<span><span class="co">#&gt;   &lt;int&gt; &lt;fct&gt; </span></span>
-<span><span class="co">#&gt; 1     0 yiban </span></span>
-<span><span class="co">#&gt; 2     0 qidui </span></span>
-<span><span class="co">#&gt; 3     0 guoshi</span></span>
-<span><span class="co">#&gt; 4    -1 yiban </span></span>
+<span><span class="co">#&gt;     num mode       </span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;fct&gt;      </span></span>
+<span><span class="co">#&gt; 1     0 yiban      </span></span>
+<span><span class="co">#&gt; 2     0 yiban-qidui</span></span>
+<span><span class="co">#&gt; 3     0 guoshi     </span></span>
+<span><span class="co">#&gt; 4    -1 yiban      </span></span>
 <span><span class="co">#&gt; 5     0 yiban</span></span>
 <span></span>
 <span><span class="co"># 有効牌</span></span>
@@ -198,12 +198,35 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[2]]</span></span>
 <span><span class="co">#&gt; [1] "m2"</span></span></code></pre></div>
+<p>「あと何枚ツモれば手牌全体として聴牌形にできるか」という意味でのシャンテン数は、たとえば次のようにして計算できると思います。</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>  hand <span class="op">=</span> <span class="fu"><a href="reference/paistr.html">paistr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m1"</span>, <span class="st">"m1134"</span>, <span class="st">"m1,m45-6"</span>, <span class="st">"m1122p334455,s6-78"</span>, <span class="st">"m19p19s19z112345"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  n_xtg <span class="op">=</span> <span class="fu"><a href="reference/calc_xiangting.html">calc_xiangting</a></span><span class="op">(</span><span class="va">hand</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://generics.r-lib.org/reference/calculate.html" class="external-link">calculate</a></span><span class="op">(</span><span class="va">hand</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu">unpack</span><span class="op">(</span><span class="va">n_xtg</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    bingpai <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">bingpai</span><span class="op">)</span>,</span>
+<span>    n_zimo_to_hule <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
+<span>      <span class="va">mode</span> <span class="op">==</span> <span class="st">"yiban"</span> <span class="op">&amp;</span> <span class="va">bingpai</span> <span class="op">+</span> <span class="va">n_fulou</span> <span class="op">*</span> <span class="fl">3</span> <span class="op">&lt;</span> <span class="fl">13</span> <span class="op">~</span> <span class="fl">13</span> <span class="op">-</span> <span class="va">bingpai</span> <span class="op">-</span> <span class="va">n_fulou</span> <span class="op">*</span> <span class="fl">3</span>,</span>
+<span>      .default <span class="op">=</span> <span class="va">num</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 5 × 7</span></span>
+<span><span class="co">#&gt;   hand                       num mode      id n_fulou bingpai n_zimo_to_hule</span></span>
+<span><span class="co">#&gt;   &lt;paistr&gt;                 &lt;int&gt; &lt;fct&gt;  &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;          &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 &lt;1&gt;'m1'                      0 yiban      1       0       1             12</span></span>
+<span><span class="co">#&gt; 2 &lt;4&gt;'m1134'                   0 yiban      2       0       4              9</span></span>
+<span><span class="co">#&gt; 3 &lt;4&gt;'m1,m45-6'                0 yiban      3       1       1              9</span></span>
+<span><span class="co">#&gt; 4 &lt;13&gt;'m1122p334455,s6-78'     0 yiban      4       1      10              0</span></span>
+<span><span class="co">#&gt; 5 &lt;12&gt;'m19p19s19z112345'       1 guoshi     5       0      12              1</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="得点あがり役の確認">得点・あがり役の確認<a class="anchor" aria-label="anchor" href="#%E5%BE%97%E7%82%B9%E3%81%82%E3%81%8C%E3%82%8A%E5%BD%B9%E3%81%AE%E7%A2%BA%E8%AA%8D"></a>
 </h3>
 <p><code><a href="reference/calc_defen.html">calc_defen()</a></code>はvectorizeされていないため、必ず、長さが1の文字列表現を渡してください。</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 得点</span></span>
 <span><span class="va">score</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_defen.html">calc_defen</a></span><span class="op">(</span><span class="va">hands</span><span class="op">[</span><span class="va">n_xiangting</span><span class="op">$</span><span class="va">num</span> <span class="op">==</span> <span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, baopai <span class="op">=</span> <span class="st">"z1"</span><span class="op">)</span></span>
 <span><span class="va">score</span></span>
