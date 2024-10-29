@@ -125,7 +125,10 @@ calc_xiangting <- function(pai) {
   ret <- skksph_get_xiangting(pai, index_s, index_h)
   tibble::tibble(
     num = ret$num - 1L,
-    mode = factor(ret$mode, levels = c(1, 3, 4), labels = c("yiban", "qidui", "guoshi"))
+    mode = factor(ret$mode,
+      levels = seq_len(7),
+      labels = c("yiban", "qidui", "yiban-qidui", "guoshi", "yiban-guoshi", "qidui-guoshi", "yiban-qidui-guoshi")
+    )
   )
 }
 
