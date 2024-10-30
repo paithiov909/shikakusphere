@@ -244,10 +244,12 @@ Rcpp::DataFrame skksph_get_defen(
 //' @keywords internal
 // [[Rcpp::export]]
 Rcpp::DataFrame skksph_get_xiangting(const std::vector<std::string>& pai,
-                                     const Rcpp::IntegerMatrix& index_s,
-                                     const Rcpp::IntegerMatrix& index_h) {
-  Calsht calsht;
-  calsht.initialize(index_s, index_h);
+                                     Rcpp::IntegerMatrix& index_s,
+                                     Rcpp::IntegerMatrix& index_h) {
+  if (index_s.nrow() != 1953125 || index_h.nrow() != 78125) {
+    throw std::runtime_error("Invalid index matrix");
+  }
+  Calsht calsht(std::move(index_s), std::move(index_h));
   std::vector<int> sht, mode;
   sht.reserve(pai.size());
   mode.reserve(pai.size());
@@ -270,10 +272,12 @@ Rcpp::DataFrame skksph_get_xiangting(const std::vector<std::string>& pai,
 //' @keywords internal
 // [[Rcpp::export]]
 Rcpp::List skksph_get_tingpai(const std::vector<std::string>& pai,
-                              const Rcpp::IntegerMatrix& index_s,
-                              const Rcpp::IntegerMatrix& index_h) {
-  Calsht calsht;
-  calsht.initialize(index_s, index_h);
+                              Rcpp::IntegerMatrix& index_s,
+                              Rcpp::IntegerMatrix& index_h) {
+  if (index_s.nrow() != 1953125 || index_h.nrow() != 78125) {
+    throw std::runtime_error("Invalid index matrix");
+  }
+  Calsht calsht(std::move(index_s), std::move(index_h));
   std::vector<std::vector<std::string>> ret;
   ret.reserve(pai.size());
   for (const auto& paistr : pai) {

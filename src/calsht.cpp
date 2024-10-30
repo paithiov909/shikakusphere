@@ -56,34 +56,6 @@ void Calsht::add2(LVec& lhs, const RVec& rhs, const int m) const
   lhs[j] = sht;
 }
 
-// Calsht::Iter Calsht::read_file(Iter first, Iter last, std::filesystem::path file) const
-// {
-//   std::ifstream fin(file);
-
-//   if (!fin) {
-//     throw std::runtime_error("Reading file does not exist: " + file.string());
-//   }
-
-//   int tmp;
-
-//   for (; first != last; ++first) {
-//     for (int j = 0; j < 10; ++j) {
-//       fin >> tmp;
-//       (*first)[j] = static_cast<int8_t>(tmp);
-//     }
-//   }
-//   return first;
-// }
-
-void Calsht::initialize(const Rcpp::IntegerMatrix& index_s, const Rcpp::IntegerMatrix& index_h)
-{
-  if (index_s.nrow() != 1953125 || index_h.nrow() != 78125) {
-    throw std::runtime_error("Invalid index matrix");
-  }
-  mp1 = std::move(index_s);
-  mp2 = std::move(index_h);
-}
-
 int Calsht::calc_lh(const int* t, const int m) const
 {
 #ifdef THREE_PLAYER

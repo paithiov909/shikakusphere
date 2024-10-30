@@ -71,27 +71,27 @@ BEGIN_RCPP
 END_RCPP
 }
 // skksph_get_xiangting
-Rcpp::DataFrame skksph_get_xiangting(const std::vector<std::string>& pai, const Rcpp::IntegerMatrix& index_s, const Rcpp::IntegerMatrix& index_h);
+Rcpp::DataFrame skksph_get_xiangting(const std::vector<std::string>& pai, Rcpp::IntegerMatrix& index_s, Rcpp::IntegerMatrix& index_h);
 RcppExport SEXP _shikakusphere_skksph_get_xiangting(SEXP paiSEXP, SEXP index_sSEXP, SEXP index_hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<std::string>& >::type pai(paiSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type index_s(index_sSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type index_h(index_hSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix& >::type index_s(index_sSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix& >::type index_h(index_hSEXP);
     rcpp_result_gen = Rcpp::wrap(skksph_get_xiangting(pai, index_s, index_h));
     return rcpp_result_gen;
 END_RCPP
 }
 // skksph_get_tingpai
-Rcpp::List skksph_get_tingpai(const std::vector<std::string>& pai, const Rcpp::IntegerMatrix& index_s, const Rcpp::IntegerMatrix& index_h);
+Rcpp::List skksph_get_tingpai(const std::vector<std::string>& pai, Rcpp::IntegerMatrix& index_s, Rcpp::IntegerMatrix& index_h);
 RcppExport SEXP _shikakusphere_skksph_get_tingpai(SEXP paiSEXP, SEXP index_sSEXP, SEXP index_hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<std::string>& >::type pai(paiSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type index_s(index_sSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type index_h(index_hSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix& >::type index_s(index_sSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix& >::type index_h(index_hSEXP);
     rcpp_result_gen = Rcpp::wrap(skksph_get_tingpai(pai, index_s, index_h));
     return rcpp_result_gen;
 END_RCPP

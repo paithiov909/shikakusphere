@@ -28,8 +28,8 @@ private:
   // Iter read_file(Iter first, Iter last, std::filesystem::path file) const;
 
 public:
-  Calsht() {}
-  void initialize(const Rcpp::IntegerMatrix& index_s, const Rcpp::IntegerMatrix& index_h);
+  Calsht(const Rcpp::IntegerMatrix& index_s, const Rcpp::IntegerMatrix index_h) : mp1(index_s), mp2(index_h) {}
+  Calsht(Rcpp::IntegerMatrix&& index_s, Rcpp::IntegerMatrix&& index_h) : mp1(index_s), mp2(index_h) {}
   int calc_lh(const int* t, int m) const;
   int calc_sp(const int* t) const;
   int calc_to(const int* t) const;
