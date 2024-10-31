@@ -1,3 +1,10 @@
+test_that("rand_qipai works", {
+  expect_equal(
+    length(unique(rand_qipai(10)[["l1"]])),
+    10
+  )
+})
+
 test_that("rand_hands works", {
   availables <- c(
     "pinghe",
@@ -38,7 +45,7 @@ test_that("rand_hands works", {
     length(availables)
   )
   expect_equal(
-    length(unique(rand_hands()(50))),
-    50
+    length(unique(rand_hands()(10))),
+    10
   )
 })

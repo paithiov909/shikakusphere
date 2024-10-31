@@ -1,11 +1,10 @@
 #include "xiangting.h"
-#include "feature.h"
 #include "random.h"
 #include "svg.h"
 
-namespace {
-
 using namespace cmajiang;
+
+namespace {
 
 Rule set_rule(const Rcpp::List& list, const Rcpp::NumericVector& rankPoints,
               const Rcpp::IntegerVector& hongpai) {
@@ -89,12 +88,7 @@ Shoupai random_setup(
   return Shoupai{pai, fulou};
 }
 
-} // namespace
-
-using Shoupai = cmajiang::Shoupai;
-using Rule = cmajiang::Rule;
-using Defen = cmajiang::Defen;
-
+}  // namespace
 
 //' Internal function for `tidy(<skksph_paistr>)`
 //'
@@ -132,15 +126,16 @@ Rcpp::List skksph_tidy_impl(const std::vector<std::string>& pai) {
 //' @returns list of hands
 //' @keywords internal
 // [[Rcpp::export]]
-Rcpp::CharacterVector skksph_lipai_impl(const std::vector<std::vector<std::string>>& x) {
+Rcpp::CharacterVector skksph_lipai_impl(
+    const std::vector<std::vector<std::string>>& x) {
   std::vector<std::string> ret;
   ret.reserve(x.size());
   for (auto tiles : x) {
     tiles.erase(std::remove_if(tiles.begin(), tiles.end(),
-                             [](const std::string& tile) {
-                               return !Shoupai::valid_pai(tile);
-                             }),
-               tiles.end());
+                               [](const std::string& tile) {
+                                 return !Shoupai::valid_pai(tile);
+                               }),
+                tiles.end());
     Shoupai p = Shoupai{tiles};
     ret.emplace_back(p.toString());
   }
@@ -335,28 +330,26 @@ Rcpp::IntegerVector skksph_get_n_fulou(const std::vector<std::string>& pai) {
   return Rcpp::wrap(ret);
 }
 
-//' Internal function to get pai features
-//'
-//' @param pai hand
-//' @returns A list of numeric vectors
-//' @keywords internal
 // [[Rcpp::export]]
-Rcpp::List skksph_feat_pai(const std::vector<std::string>& pai) {
-  std::vector<std::vector<float>> ret;
-  ret.reserve(pai.size());
-
-  channel_t dat;
-
-  for (const auto& paistr : pai) {
-    Shoupai p = Shoupai{paistr};
-    pai_features(p.toString(), &dat);
-    std::vector<float> v;
-    for (int i = 0; i < 9; ++i) {
-      for (int j = 0; j < 4; ++j) {
-        v.push_back(dat[i][j]);
+Rcpp::List skksph_rand_qipai_impl(const int n, const std::size_t seed,
+                                  Rcpp::List list,
+                                  Rcpp::NumericVector rankPoints,
+                                  Rcpp::IntegerVector hongpai) {
+  Rule rule = set_rule(list, rankPoints, hongpai);
+  std::vector<std::vector<std::string>> ret(n);
+  std::mt19937_64 engine(seed);
+  for (int i = 0; i < n; i++) {
+    std::vector<std::string> pai;
+    Shan shan(rule, engine);
+    for (int j = 0; j < 4; j++) {
+      std::vector<std::string> qipai;
+      for (int k = 0; k < 13; k++) {
+        qipai.emplace_back(shan.zimo());
       }
+      Shoupai p(qipai);
+      pai.emplace_back(p.toString());
     }
-    ret.push_back(v);
+    ret[i] = pai;
   }
   return Rcpp::wrap(ret);
 }
@@ -861,5 +854,3 @@ std::vector<std::string> random_jiulianbaodeng(const int n,
   }
   return ret;
 }
-
-// TODO: random state

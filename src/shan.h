@@ -22,7 +22,7 @@ class Shan {
   }
 
   Shan() {}
-  Shan(const Rule& rule);
+  Shan(const Rule& rule, std::mt19937_64& mt);
   Shan(std::vector<std::string>& pai, const Rule& rule = {});
 
   void set(const std::string& shanstr, const Rule& rule);
@@ -70,6 +70,7 @@ class Shan {
   std::vector<std::string> _libaopai;  // 里宝牌(裏ドラ)
   bool _weikaigang;                    // 未开杠(未開槓)
   bool _closed;
+  std::mt19937_64* _engine;
 };
 
 inline std::ostream& operator<<(std::ostream& os, const Shan& shan) {

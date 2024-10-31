@@ -93,13 +93,8 @@ skksph_get_n_fulou <- function(pai) {
     .Call(`_shikakusphere_skksph_get_n_fulou`, pai)
 }
 
-#' Internal function to get pai features
-#'
-#' @param pai hand
-#' @returns A list of numeric vectors
-#' @keywords internal
-skksph_feat_pai <- function(pai) {
-    .Call(`_shikakusphere_skksph_feat_pai`, pai)
+skksph_rand_qipai_impl <- function(n, seed, list, rankPoints, hongpai) {
+    .Call(`_shikakusphere_skksph_rand_qipai_impl`, n, seed, list, rankPoints, hongpai)
 }
 
 random_zhuangfeng <- function(n, zhuangfeng, seed, list, rankPoints, hongpai) {

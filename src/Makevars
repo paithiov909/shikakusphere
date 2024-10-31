@@ -1,6 +1,6 @@
 SOURCES = tinyxml2.cpp calsht.cpp shoupai.cpp \
-  shan.cpp he.cpp hule.cpp svg.cpp \
-  feature.cpp xiangting.cpp \
+  shan.cpp hule.cpp svg.cpp \
+  xiangting.cpp \
   random.cpp skksph.cpp RcppExports.cpp
 
 OBJ = $(SOURCES:.cpp=.o)

@@ -4,7 +4,8 @@
 
 namespace cmajiang {
 
-Shan::Shan(const Rule& rule) : _rule(rule), _weikaigang(false), _closed(false) {
+Shan::Shan(const Rule& rule, std::mt19937_64& mt)
+    : _rule(rule), _weikaigang(false), _closed(false), _engine(&mt) {
   for (const auto s : {'m', 'p', 's', 'z'}) {
     for (int n = 1; n <= (s == 'z' ? 7 : 9); n++) {
       for (int i = 0; i < 4; i++) {
@@ -15,10 +16,7 @@ Shan::Shan(const Rule& rule) : _rule(rule), _weikaigang(false), _closed(false) {
       }
     }
   }
-  std::random_device seed_gen;
-  std::mt19937_64 engine(seed_gen());
-
-  std::shuffle(_pai.begin(), _pai.end(), engine);
+  std::shuffle(_pai.begin(), _pai.end(), *_engine);
 
   _baopai.emplace_back(_pai[4]);
   // 裏ドラあり

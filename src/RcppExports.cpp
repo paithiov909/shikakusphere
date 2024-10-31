@@ -118,14 +118,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// skksph_feat_pai
-Rcpp::List skksph_feat_pai(const std::vector<std::string>& pai);
-RcppExport SEXP _shikakusphere_skksph_feat_pai(SEXP paiSEXP) {
+// skksph_rand_qipai_impl
+Rcpp::List skksph_rand_qipai_impl(const int n, const std::size_t seed, Rcpp::List list, Rcpp::NumericVector rankPoints, Rcpp::IntegerVector hongpai);
+RcppExport SEXP _shikakusphere_skksph_rand_qipai_impl(SEXP nSEXP, SEXP seedSEXP, SEXP listSEXP, SEXP rankPointsSEXP, SEXP hongpaiSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type pai(paiSEXP);
-    rcpp_result_gen = Rcpp::wrap(skksph_feat_pai(pai));
+    Rcpp::traits::input_parameter< const int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< const std::size_t >::type seed(seedSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List >::type list(listSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type rankPoints(rankPointsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type hongpai(hongpaiSEXP);
+    rcpp_result_gen = Rcpp::wrap(skksph_rand_qipai_impl(n, seed, list, rankPoints, hongpai));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -593,7 +597,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_shikakusphere_skksph_get_tingpai", (DL_FUNC) &_shikakusphere_skksph_get_tingpai, 3},
     {"_shikakusphere_skksph_bingpai_to_table", (DL_FUNC) &_shikakusphere_skksph_bingpai_to_table, 1},
     {"_shikakusphere_skksph_get_n_fulou", (DL_FUNC) &_shikakusphere_skksph_get_n_fulou, 1},
-    {"_shikakusphere_skksph_feat_pai", (DL_FUNC) &_shikakusphere_skksph_feat_pai, 1},
+    {"_shikakusphere_skksph_rand_qipai_impl", (DL_FUNC) &_shikakusphere_skksph_rand_qipai_impl, 5},
     {"_shikakusphere_random_zhuangfeng", (DL_FUNC) &_shikakusphere_random_zhuangfeng, 6},
     {"_shikakusphere_random_menfeng", (DL_FUNC) &_shikakusphere_random_menfeng, 6},
     {"_shikakusphere_random_fanpai", (DL_FUNC) &_shikakusphere_random_fanpai, 5},

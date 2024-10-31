@@ -1,3 +1,27 @@
+#' Generate hands at random
+#'
+#' @param nrow An integer scalar.
+#' @param rule A list; a rule set. Defaults to `default_rule()`.
+#' @param seed An integer scalar.
+#' Used for initializing the random number generator.
+#' @returns A tibble that consists of 4 columns of `paistr` vector.
+#' @export
+#' @examples
+#' rand_qipai(4)
+rand_qipai <- function(nrow, rule = default_rule(), seed = sample.int(1e4, 1)) {
+  if (!is_valid_rule(rule)) {
+    rlang::abort("The rule set is invalid.")
+  }
+  qipai <- skksph_rand_qipai_impl(nrow, seed, rule, rule[["rankPoints"]], rule[["hongpai"]]) |>
+    purrr::list_transpose()
+  tibble::tibble(
+    l1 = paistr(qipai[[1]]),
+    l2 = paistr(qipai[[2]]),
+    l3 = paistr(qipai[[3]]),
+    l4 = paistr(qipai[[4]])
+  )
+}
+
 #' Create a function to randomly generate hands
 #'
 #' @param hupai A string scalar.
@@ -12,42 +36,42 @@
 #' @export
 #' @importFrom purrr partial
 rand_hands <- function(
-  hupai = c(
-    "pinghe", # defaults to pinghe
-    "zhuangfeng",
-    "menfeng",
-    "fanpai",
-    "duanyaojiu",
-    "yibeikou",
-    "sansetongshun",
-    "yiqitongguan",
-    "hunquandaiyaojiu",
-    "qiduizi",
-    "duiduihu",
-    "sananke",
-    "sangangzi",
-    "sansetongke",
-    "hunlaotou",
-    "xiaosanyuan",
-    "hunyise",
-    "chunquandaiyaojiu",
-    "erbeikou",
-    "qingyise",
-    "guoshiwushuang",
-    "sianke",
-    "dasanyuan",
-    "xiaosixi",
-    "dasixi",
-    "ziyise",
-    "lvyise",
-    "qinglaotou",
-    "sigangzi",
-    "jiulianbaodeng"
-  ),
-  zhuangfeng = c("z1", "z2", "z3", "z4"),
-  menfeng = c("z2", "z3", "z4", "z1"),
-  rule = default_rule(),
-  seed = 1234
+    hupai = c(
+      "pinghe", # defaults to pinghe
+      "zhuangfeng",
+      "menfeng",
+      "fanpai",
+      "duanyaojiu",
+      "yibeikou",
+      "sansetongshun",
+      "yiqitongguan",
+      "hunquandaiyaojiu",
+      "qiduizi",
+      "duiduihu",
+      "sananke",
+      "sangangzi",
+      "sansetongke",
+      "hunlaotou",
+      "xiaosanyuan",
+      "hunyise",
+      "chunquandaiyaojiu",
+      "erbeikou",
+      "qingyise",
+      "guoshiwushuang",
+      "sianke",
+      "dasanyuan",
+      "xiaosixi",
+      "dasixi",
+      "ziyise",
+      "lvyise",
+      "qinglaotou",
+      "sigangzi",
+      "jiulianbaodeng"
+    ),
+    zhuangfeng = c("z1", "z2", "z3", "z4"),
+    menfeng = c("z2", "z3", "z4", "z1"),
+    rule = default_rule(),
+    seed = sample.int(1e4, 1)
 ) {
   if (!is_valid_rule(rule)) {
     rlang::abort("The rule set is invalid.")

@@ -13,7 +13,7 @@ rand_hands(
   zhuangfeng = c("z1", "z2", "z3", "z4"),
   menfeng = c("z2", "z3", "z4", "z1"),
   rule = default_rule(),
-  seed = 1234
+  seed = sample.int(10000, 1)
 )
 }
 \arguments{
