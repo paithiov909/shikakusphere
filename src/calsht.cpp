@@ -3,14 +3,11 @@
 #include "constant.h"
 
 #include <algorithm>
-#include <fstream>
 #include <numeric>
 #ifdef CHECK_HAND
 #include <sstream>
 #include <stdexcept>
 #endif
-
-using namespace Rcpp;
 
 #ifdef THREE_PLAYER
 Calsht::RVec Calsht::index1(const int n) const
@@ -58,6 +55,8 @@ void Calsht::add2(LVec& lhs, const RVec& rhs, const int m) const
 
 int Calsht::calc_lh(const int* t, const int m) const
 {
+  using namespace Rcpp;
+
 #ifdef THREE_PLAYER
   LVec ret = [](const RVec& rhs) {
     return LVec(rhs.begin(), rhs.end());

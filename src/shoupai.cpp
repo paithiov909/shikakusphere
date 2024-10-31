@@ -7,6 +7,8 @@
 
 #include <iterator>
 
+namespace cmajiang {
+
 void Shoupai::_set(const std::vector<std::string>& qipai) {
   for (const auto& p : qipai) {
     if (p == "_") {
@@ -427,3 +429,5 @@ std::vector<std::string> Shoupai::get_gang_mianzi(const std::string& p) const {
     return mianzi;
   }
 }
+
+}  // namespace cmajiang

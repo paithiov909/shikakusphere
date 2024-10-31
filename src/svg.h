@@ -2,6 +2,8 @@
 
 #include "shoupai.h"
 
+namespace cmajiang {
+
 std::string shoupai_to_svg_with_scale(const Shoupai& shoupai, const double scale);
 std::string shoupai_to_svg(const Shoupai& shoupai);
 
@@ -107,3 +109,5 @@ width="1000" height="83" viewBox="0 0 10000 830"><defs>)"
 
   return svg;
 }
+
+}   // namespace cmajiang

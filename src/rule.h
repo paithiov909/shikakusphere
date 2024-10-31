@@ -3,6 +3,8 @@
 #include <array>
 #include <sstream>
 
+namespace cmajiang {
+
 struct Rule {
   /* 点数関連 */
   // 配給原点
@@ -147,3 +149,5 @@ inline std::istream& operator>>(std::istream& is, Rule& rule) {
       rule.roundUpManguan;
   return is;
 }
+
+} // namespace cmajiang

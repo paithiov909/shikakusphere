@@ -1,6 +1,8 @@
 ﻿#include "tinyxml2.h"
 #include "svg.h"
 
+namespace cmajiang {
+
 std::string shoupai_to_svg_with_scale(const Shoupai& shoupai,
                                       const double scale) {
   tinyxml2::XMLDocument doc;
@@ -143,3 +145,5 @@ std::string shoupai_to_svg_with_scale(const Shoupai& shoupai,
 std::string shoupai_to_svg(const Shoupai& shoupai) {
   return shoupai_to_svg_with_scale(shoupai, 0.6);
 }
+
+}  // namespace cmajiang

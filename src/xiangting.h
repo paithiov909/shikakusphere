@@ -5,6 +5,8 @@
 #include <tuple>
 #include <array>
 
+namespace cmajiang {
+
 int xiangting_yiban(const Shoupai& shoupai, const Calsht& calsht);
 int xiangting_guoshi(const Shoupai& shoupai, const Calsht& calsht);
 int xiangting_qidui(const Shoupai& shoupai, const Calsht& calsht);
@@ -27,3 +29,5 @@ inline std::vector<int> shoupai_to_table(const Shoupai& shoupai) {
   std::copy(z.begin() + 1, z.end(), std::back_inserter(ret));
   return ret;
 }
+
+}  // namespace cmajiang

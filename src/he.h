@@ -4,6 +4,8 @@
 
 #include <unordered_set>
 
+namespace cmajiang {
+
 class He {
  public:
   // 打牌
@@ -31,3 +33,5 @@ inline const std::regex& re_fulou() {
   static const std::regex v{R"(\d(?=[\+\=\-]))"};
   return v;
 }
+
+}  // namespace cmajiang

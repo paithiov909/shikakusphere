@@ -17,7 +17,6 @@ new_paistr <- function(x = character()) {
 }
 
 # for compatibility with the S4 system
-#' @importFrom methods setOldClass
 methods::setOldClass(c("skksph_paistr", "vctrs_vctr"))
 
 #' `paistr` vector

@@ -4,6 +4,8 @@
 #include <set>
 #include <cassert>
 
+namespace cmajiang {
+
 constexpr char suit[] = {'m', 'p', 's', 'z'};
 constexpr char tajia[] = {'+', '=', '-'};
 
@@ -1670,3 +1672,5 @@ void make_n_xiangting(std::vector<std::string>& pai,
     fulou.erase(fulou.begin() + fulou_i);
   }
 }
+
+}  // namespace cmajiang

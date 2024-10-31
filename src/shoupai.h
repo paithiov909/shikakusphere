@@ -10,6 +10,8 @@
 #include <ostream>
 #include <istream>
 
+namespace cmajiang {
+
 inline const std::regex& re_ling() {
   static const std::regex v{R"(0)"};
   return v;
@@ -341,3 +343,5 @@ inline std::string to_string(const char s, const int n1, const int n2,
 
 inline int to_int(const char s) { return s - '0'; }
 inline char to_char(const int n) { return (char)(n + '0'); }
+
+}  // namespace cmajiang

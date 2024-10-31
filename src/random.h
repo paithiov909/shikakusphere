@@ -8,6 +8,8 @@
 #include <map>
 #include <random>
 
+namespace cmajiang {
+
 // β分布
 class BetaDistribution {
  private:
@@ -152,3 +154,5 @@ void make_n_xiangting(std::vector<std::string>& pai,
                       std::vector<std::string>& fulou,
                       BetaDistribution& xiangting_dist, std::mt19937_64& mt);
 // void random_game_state(Game& game, const int n_xiangting, std::mt19937_64& mt);
+
+} // namespace cmajiang

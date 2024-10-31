@@ -2,6 +2,8 @@
 
 #include <climits>
 
+namespace cmajiang {
+
 // 一般形
 int xiangting_yiban(const Shoupai& shoupai, const Calsht& calsht) {
   const std::vector<int> hand = shoupai_to_table(shoupai);
@@ -65,3 +67,5 @@ std::vector<std::string> tingpai(
   }
   return pai;
 }
+
+}  // namespace cmajiang

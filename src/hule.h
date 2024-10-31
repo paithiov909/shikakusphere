@@ -6,6 +6,8 @@
 
 #include <array>
 
+namespace cmajiang {
+
 template <typename T>
 void concat(T& m1, T& m2) {
   m1.insert(m1.end(), std::make_move_iterator(m2.begin()),
@@ -218,3 +220,5 @@ inline const std::regex& re_get_post_hupai() {
   static const std::regex v{R"([mpsz][^mpsz,]*)"};
   return v;
 }
+
+}  // namespace cmajiang

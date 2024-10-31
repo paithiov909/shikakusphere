@@ -3,6 +3,8 @@
 #include <cmath>
 #include <numeric>
 
+namespace cmajiang {
+
 // 面子
 std::vector<std::vector<std::string>> mianzi(const char s,
                                              std::vector<int>& bingpai,
@@ -867,3 +869,5 @@ Defen hule(const Shoupai& shoupai, std::string rongpai, const Param& param) {
 
   return max;
 }
+
+} // namespace cmajiang

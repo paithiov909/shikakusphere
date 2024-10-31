@@ -5,6 +5,8 @@
 
 #include <random>
 
+namespace cmajiang {
+
 // 山
 class Shan {
  public:
@@ -78,3 +80,5 @@ inline std::ostream& operator<<(std::ostream& os, const Shan& shan) {
   for (const auto& p : shan._libaopai) os << p;
   return os;
 }
+
+}  // namespace cmajiang

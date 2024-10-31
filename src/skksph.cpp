@@ -3,6 +3,10 @@
 #include "random.h"
 #include "svg.h"
 
+namespace {
+
+using namespace cmajiang;
+
 Rule set_rule(const Rcpp::List& list, const Rcpp::NumericVector& rankPoints,
               const Rcpp::IntegerVector& hongpai) {
   const std::array<float, 4> rp = {
@@ -84,6 +88,13 @@ Shoupai random_setup(
   setup_func(pai, rest, fulou, rule, engine);
   return Shoupai{pai, fulou};
 }
+
+} // namespace
+
+using Shoupai = cmajiang::Shoupai;
+using Rule = cmajiang::Rule;
+using Defen = cmajiang::Defen;
+
 
 //' Internal function for `tidy(<skksph_paistr>)`
 //'

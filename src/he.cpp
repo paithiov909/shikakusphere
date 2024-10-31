@@ -1,5 +1,7 @@
 ﻿#include "he.h"
 
+namespace cmajiang {
+
 // 打牌
 He& He::dapai(const std::string& p) {
   if (!Shoupai::valid_pai(p)) throw std::invalid_argument(p);
@@ -32,3 +34,5 @@ void He::set(const std::string& paistr) {
        it != end; ++it)
     dapai(it->str());
 }
+
+}  // namespace cmajiang

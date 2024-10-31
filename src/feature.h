@@ -5,6 +5,8 @@
 #include "he.h"
 #include "hule.h"
 
+namespace cmajiang {
+
 constexpr int N_CHANNELS_STATUS = 5;
 constexpr int N_CHANNELS_SHOUPAI = 4 + 3;
 constexpr int N_CHANNELS_FULOU = 4 + 3 + 3 + 4;
@@ -215,3 +217,5 @@ inline void fill_channel(channel_t* data, const float val) {
   std::fill(reinterpret_cast<float*>(data), reinterpret_cast<float*>(data + 1),
             val);
 }
+
+} // namespace cmajiang

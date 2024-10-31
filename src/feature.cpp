@@ -3,6 +3,8 @@
 
 #include <cassert>
 
+namespace cmajiang {
+
 // 状態の特徴量
 // void status_featuers(const Game& game, const int lunban, channel_t* data) {
 //   // 打牌、副露x3他家
@@ -285,3 +287,5 @@ void shan_features(const Shan& shan, channel_t* data) {
 //   // 裏ドラ
 //   baopai_features(game.shan().libaopai_(), data);
 // }
+
+}  // namespace cmajiang
