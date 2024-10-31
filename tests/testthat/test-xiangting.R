@@ -1,5 +1,5 @@
 test_that("calc_xiangting works", {
-  xiangting <- \(pai) calc_xiangting(pai)$num
+  xiangting <- function(pai) calc_xiangting(pai)[["num"]]
   # テンパイ
   expect_equal(xiangting("m123p406s789z1122"), 0L)
   # 和了
@@ -28,7 +28,7 @@ test_that("calc_xiangting works", {
 
 # https://github.com/paithiov909/shikakusphere/issues/1
 test_that("calc_xiangting works in additional cases", {
-  xiangting <- \(pai) calc_xiangting(pai)$num
+  xiangting <- function(pai) calc_xiangting(pai)[["num"]]
   # p1111234444s999s9
   expect_equal(xiangting("p1111234444s999s9"), 1L)
   expect_equal(xiangting("p1111234444s999"), 1L)

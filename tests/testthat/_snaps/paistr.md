@@ -1,4 +1,50 @@
-# paistr works
+# calculate for paistr works
+
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "n_fulou", "bingpai"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [0]
+        },
+        {
+          "type": "integer",
+          "attributes": {
+            "dim": {
+              "type": "integer",
+              "attributes": {},
+              "value": [1, 34]
+            }
+          },
+          "value": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1]
+        }
+      ]
+    }
+
+# tidy for paistr works
 
     {
       "type": "list",

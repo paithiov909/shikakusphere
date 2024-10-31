@@ -4,7 +4,7 @@ skip_on_ci()
 
 patrick::with_parameters_test_that("calc_xiangting works",
   {
-    expect_equal(calc_xiangting(q)$num, n)
+    expect_equal(calc_xiangting(q)[["num"]], n)
   },
   .cases = withr::with_seed(1234, {
     # 1: 一般手, 2: 混一手, 3: 清一手, 4: 国士手

@@ -1,5 +1,5 @@
 test_that("collect_tingpai works", {
-  tingpai <- \(pai) unlist(collect_tingpai(pai), use.names = FALSE)
+  tingpai <- function(pai) unlist(collect_tingpai(pai), use.names = FALSE)
 
   # 打牌可能な状態のとき、warningを出す
   expect_warning(tingpai("m123p456s789z12345"))

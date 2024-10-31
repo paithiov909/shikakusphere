@@ -35,8 +35,8 @@ lineup <- function(x) {
   if (!is.data.frame(x) || !all(c("id", "tile", "n") %in% colnames(x))) {
     rlang::abort("`x` must be a data frame with columns `id`, `tile`, and `n`.")
   }
-  unname(tapply(x, x$id, function(d) {
-    rep(d$tile, d$n)
+  unname(tapply(x, x[["id"]], function(d) {
+    rep(d[["tile"]], d[["n"]])
   }))
 }
 
