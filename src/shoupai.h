@@ -197,7 +197,7 @@ class Shoupai {
     static const std::regex v{R"(^(?:[mps]\d|z[1-7])_?\*?[\+\=\-]?$)"};
     return v;
   }
-  inline static const std::regex& _re_qipai() {
+  static inline const std::regex& _re_qipai() {
     static const std::regex v{R"([mpsz]\d+)"};
     return v;
   }

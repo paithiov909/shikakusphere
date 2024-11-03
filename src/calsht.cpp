@@ -1,4 +1,4 @@
-// `.hpp`にすると、なぜかR CMD checkで怒られる
+// NOTE: `.hpp`にすると、なぜかR CMD checkで怒られる
 #include "calsht.h"
 #include "constant.h"
 

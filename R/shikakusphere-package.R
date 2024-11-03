@@ -80,8 +80,8 @@ parse_hupai <- function(str, lang = c("en", "jp")) {
   sp <- stringi::stri_split_fixed(str, ",")
   factor(
     unlist(sp, use.names = FALSE),
-    levels = hupai[["id"]],
-    labels = hupai[[lang]]
+    levels = hupai[["id"]], # nolint
+    labels = hupai[[lang]]  # nolint
   ) |>
     vctrs::vec_chop(sizes = vctrs::list_sizes(sp))
 }

@@ -122,7 +122,7 @@ calc_defen <- function(
 #' @examples
 #' calc_xiangting(c("m345567p234s3378", "p222345z1234567"))
 calc_xiangting <- function(pai) {
-  ret <- skksph_get_xiangting(pai, index_s, index_h)
+  ret <- skksph_get_xiangting(pai, index_s, index_h) # nolint
   tibble::tibble(
     num = ret[["num"]] - 1L,
     mode = factor(ret[["mode"]],
@@ -145,5 +145,5 @@ calc_xiangting <- function(pai) {
 #' @examples
 #' collect_tingpai(c("m345567p234s3378", "p222345z1234567"))
 collect_tingpai <- function(pai) {
-  skksph_get_tingpai(pai, index_s, index_h)
+  skksph_get_tingpai(pai, index_s, index_h) # nolint
 }

@@ -71,8 +71,7 @@ rand_hands <- function(
     zhuangfeng = c("z1", "z2", "z3", "z4"),
     menfeng = c("z2", "z3", "z4", "z1"),
     rule = default_rule(),
-    seed = sample.int(1e4, 1)
-) {
+    seed = sample.int(1e4, 1)) {
   if (!is_valid_rule(rule)) {
     rlang::abort("The rule set is invalid.")
   }
@@ -95,6 +94,7 @@ rand_hands <- function(
       "z1" = 0L
     )
 
+  # nolint start
   func <-
     switch(hupai,
       "zhuangfeng" = partial(
@@ -312,5 +312,6 @@ rand_hands <- function(
         hongpai = rule[["hongpai"]]
       )
     )
+  # nolint end
   func
 }
