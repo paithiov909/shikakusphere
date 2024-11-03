@@ -11,7 +11,7 @@ namespace cmajiang {
 class Shan {
  public:
   // 真宝牌(表示牌ではない現物のドラ)
-  static std::string zhenbaopai(const std::string& p) {
+  static inline std::string zhenbaopai(const std::string& p) {
     if (!Shoupai::valid_pai(p)) throw std::invalid_argument(p);
     const auto s = p[0];
     int n = to_int(p[1]);

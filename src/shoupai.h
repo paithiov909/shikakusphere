@@ -71,12 +71,12 @@ inline const std::vector<int>& yaojiu_n() {
 class Shoupai {
  public:
   // 牌文字列検証
-  static bool valid_pai(const std::string& p) {
+  static inline bool valid_pai(const std::string& p) {
     return std::regex_match(p, _re_valid_pai());
   }
 
   // 面子文字列検証
-  static std::string valid_mianzi(const std::string& m) {
+  static inline std::string valid_mianzi(const std::string& m) {
     if (std::regex_search(m, _re_valid_mianzi1())) return {};
     const auto h = std::regex_replace(m, re_ling(), "5");
     if (std::regex_match(h, _re_valid_mianzi3())) {
@@ -193,75 +193,75 @@ class Shoupai {
  private:
   void _set(const std::vector<std::string>& qipai);
 
-  static const std::regex& _re_valid_pai() {
+  static inline const std::regex& _re_valid_pai() {
     static const std::regex v{R"(^(?:[mps]\d|z[1-7])_?\*?[\+\=\-]?$)"};
     return v;
   }
-  static const std::regex& _re_qipai() {
+  inline static const std::regex& _re_qipai() {
     static const std::regex v{R"([mpsz]\d+)"};
     return v;
   }
-  static const std::regex& _re_valid_mianzi1() {
+  static inline const std::regex& _re_valid_mianzi1() {
     static const std::regex v{R"(^z.*[089])"};
     return v;
   }
-  static const std::regex& _re_valid_mianzi3() {
+  static inline const std::regex& _re_valid_mianzi3() {
     static const std::regex v{R"(^[mpsz](\d)\1\1[\+\=\-]\1?$)"};
     return v;
   }
-  static const std::regex& _re_valid_mianzi4() {
+  static inline const std::regex& _re_valid_mianzi4() {
     static const std::regex v{R"(([mps])05)"};
     return v;
   }
-  static const std::regex& _re_valid_mianzi5() {
+  static inline const std::regex& _re_valid_mianzi5() {
     static const std::regex v{R"(^[mpsz](\d)\1\1\1[\+\=\-]?$)"};
     return v;
   }
-  static const std::regex& _re_valid_mianzi6() {
+  static inline const std::regex& _re_valid_mianzi6() {
     static const std::regex v{R"(\d(?![\+\=\-]))"};
     return v;
   }
-  static const std::regex& _re_valid_mianzi7() {
+  static inline const std::regex& _re_valid_mianzi7() {
     static const std::regex v{R"(\d[\+\=\-]$)"};
     return v;
   }
-  static const std::regex& _re_valid_mianzi8() {
+  static inline const std::regex& _re_valid_mianzi8() {
     static const std::regex v{R"(^[mps]\d+\-\d*$)"};
     return v;
   }
-  static const std::regex& _re_valid_mianzi9() {
+  static inline const std::regex& _re_valid_mianzi9() {
     static const std::regex v{R"(\d[\+\=\-]?)"};
     return v;
   }
-  static const std::regex& _re_fulou1() {
+  static inline const std::regex& _re_fulou1() {
     static const std::regex v{R"(\d{4}$)"};
     return v;
   }
-  static const std::regex& _re_fulou2() {
+  static inline const std::regex& _re_fulou2() {
     static const std::regex v{R"(\d{3}[\+\=\-]\d$)"};
     return v;
   }
-  static const std::regex& _re_fulou3() {
+  static inline const std::regex& _re_fulou3() {
     static const std::regex v{R"(\d(?![\+\=\-]))"};
     return v;
   }
-  static const std::regex& _re_fulou4() {
+  static inline const std::regex& _re_fulou4() {
     static const std::regex v{R"(\d{4})"};
     return v;
   }
-  static const std::regex& _re_get_dapai1() {
+  static inline const std::regex& _re_get_dapai1() {
     static const std::regex v{R"(\d(?=[\+\=\-]))"};
     return v;
   }
-  static const std::regex& _re_get_dapai2() {
+  static inline const std::regex& _re_get_dapai2() {
     static const std::regex v{R"(^[mpsz](\d)\1\1)"};
     return v;
   }
-  static const std::regex& _re_get_dapai3() {
+  static inline const std::regex& _re_get_dapai3() {
     static const std::regex v{R"(^[mps]\d\-\d\d$)"};
     return v;
   }
-  static const std::regex& _re_get_dapai4() {
+  static inline const std::regex& _re_get_dapai4() {
     static const std::regex v{R"(^[mps]\d\d\d\-$)"};
     return v;
   }
