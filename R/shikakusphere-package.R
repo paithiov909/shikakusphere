@@ -10,15 +10,6 @@
 
 utils::globalVariables("hupai")
 
-#' Check if the pai is a valid tile
-#'
-#' @param x A character vector to be checked.
-#' @returns A logical vector.
-#' @keywords internal
-is_valid_pai <- function(x) {
-  stringi::stri_detect_regex(x, "(^(?:[mps]\\d|z[1-7])_?\\*?[\\+\\=\\-]?$)")
-}
-
 #' Line up tiles
 #'
 #' Arrange all tiles from a data frame.
@@ -84,34 +75,6 @@ parse_hupai <- function(str, lang = c("en", "jp")) {
     labels = hupai[[lang]]  # nolint
   ) |>
     vctrs::vec_chop(sizes = vctrs::list_sizes(sp))
-}
-
-#' Convert integers to tiles
-#'
-#' @param x An integer vector.
-#' @param origin A string scalar. Either "zero" or "one".
-#' @returns A factor.
-#' @export
-#' @examples
-#' int2tile(c(0, 1, 25, 37))
-int2tile <- function(x = seq_len(38) - 1, origin = c("zero", "one")) {
-  origin <- rlang::arg_match(origin)
-  levels <- c(
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
-    10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-    20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-    # 30, # "z0" is missing
-    31, 32, 33, 34, 35, 36, 37
-  ) + if (origin == "one") 1 else 0
-  factor(x,
-    levels = levels,
-    labels = c(
-      paste0("m", 0:9),
-      paste0("p", 0:9),
-      paste0("s", 0:9),
-      paste0("z", 1:7)
-    )
-  )
 }
 
 #' Plot a player's hand as an image

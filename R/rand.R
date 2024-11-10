@@ -12,7 +12,8 @@ rand_qipai <- function(nrow, rule = default_rule(), seed = sample.int(1e4, 1)) {
   if (!is_valid_rule(rule)) {
     rlang::abort("The rule set is invalid.")
   }
-  qipai <- skksph_rand_qipai_impl(nrow, seed, rule, rule[["rankPoints"]], rule[["hongpai"]]) |>
+  qipai <-
+    skksph_rand_qipai_impl(nrow, seed, rule, rule[["rankPoints"]], rule[["hongpai"]]) |>
     purrr::list_transpose()
   tibble::tibble(
     l1 = paistr(qipai[[1]]),

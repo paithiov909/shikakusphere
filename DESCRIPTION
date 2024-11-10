@@ -1,6 +1,6 @@
 Package: shikakusphere
 Title: Miscellaneous Functions for Japanese Mahjong
-Version: 0.0.8
+Version: 0.0.8.9000
 Authors@R: c(
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
     person("tomo", "hxx", role = "ctb",
@@ -20,6 +20,7 @@ Depends:
     R (>= 4.0)
 Imports:
     generics,
+    jsonlite,
     magick,
     methods,
     purrr,

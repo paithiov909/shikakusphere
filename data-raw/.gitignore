@@ -1,1 +1,4 @@
 *.txt
+*.json
+*.db
+*.mjlog

@@ -2,11 +2,10 @@
 #'
 #' The user-facing wrapper of this function is `paistr()`.
 #'
-#' @name skksph-paistr
 #' @param x A character vector.
 #' @returns An object of class `skksph_paistr`.
 #' @import vctrs
-#' @keywords internal
+#' @noRd
 new_paistr <- function(x = character()) {
   if (!is.character(x)) {
     rlang::abort("`x` must be a character vector.")
