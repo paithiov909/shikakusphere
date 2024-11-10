@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">shikakusphere</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.8.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.8.9001</span>
       </span>
     </div>
 
@@ -116,7 +116,7 @@
 <p><code>&lt;skksph_paistr&gt;</code>を<code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>したときに表示される牌の枚数は不正確な場合があります。手牌の表現にどの牌が何枚含まれるかを正確に確認するには、<code>tidy(&lt;skksph_paistr&gt;)</code>を使うことができます。</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">hands</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 41 × 3</span></span>
+<span><span class="co">#&gt; # A tibble: 43 × 3</span></span>
 <span><span class="co">#&gt;       id tile      n</span></span>
 <span><span class="co">#&gt;    &lt;int&gt; &lt;fct&gt; &lt;int&gt;</span></span>
 <span><span class="co">#&gt;  1     1 m1        2</span></span>
@@ -129,7 +129,7 @@
 <span><span class="co">#&gt;  8     2 p1        2</span></span>
 <span><span class="co">#&gt;  9     2 p2        2</span></span>
 <span><span class="co">#&gt; 10     2 p3        2</span></span>
-<span><span class="co">#&gt; # ℹ 31 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 33 more rows</span></span></code></pre></div>
 <p>このかたちの表現は<code><a href="reference/lineup.html">lineup()</a></code>でlist of factorsにすることができます。</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">hands</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -147,11 +147,11 @@
 <span><span class="co">#&gt; 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[4]]</span></span>
-<span><span class="co">#&gt;  [1] m0 m5 m5 m7 m8 z5 z5 z5 z5 z6 z6 z6 z7 z7</span></span>
+<span><span class="co">#&gt;  [1] m0 m5 m5 m7 m8 m9 z5 z5 z5 z5 z6 z6 z6 z7 z7</span></span>
 <span><span class="co">#&gt; 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[5]]</span></span>
-<span><span class="co">#&gt;  [1] m0 m5 m5 m7 m8 z5 z5 z5 z5 z6 z6 z6 z7 z7</span></span>
+<span><span class="co">#&gt;  [1] m0 m5 m5 m7 m8 m9 z5 z5 z5 z5 z6 z6 z6 z7 z7</span></span>
 <span><span class="co">#&gt; 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7</span></span></code></pre></div>
 <p>さらに、このかたちのlist of factors（またはlist of characters）は<code><a href="reference/lipai.html">lipai()</a></code>で文字列表現に変換できます（ただし、<code><a href="reference/lipai.html">lipai()</a></code>では<code>_*+=-,</code>は扱えません）。</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -179,8 +179,8 @@
 <span></span>
 <span><span class="co"># 有効牌</span></span>
 <span><span class="fu"><a href="reference/collect_tingpai.html">collect_tingpai</a></span><span class="op">(</span><span class="va">hands</span><span class="op">[</span><span class="va">n_xiangting</span><span class="op">$</span><span class="va">num</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in skksph_get_tingpai(pai, index_s, index_h): zimo must be empty at:</span></span>
-<span><span class="co">#&gt; m055z77,m78-9,z5555,z666=,</span></span>
+<span><span class="co">#&gt; Warning in .Call(`_shikakusphere_skksph_get_tingpai`, pai, index_s, index_h):</span></span>
+<span><span class="co">#&gt; zimo must be empty at: m055z77,m78-9,z5555,z666=,</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] "m1" "z2"</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -291,6 +291,7 @@
 <ul class="list-unstyled">
 <li><a href="https://paithiov909.r-universe.dev/shikakusphere" class="external-link"><img src="https://paithiov909.r-universe.dev/badges/shikakusphere" alt="shikakusphere status badge"></a></li>
 <li><a href="https://github.com/paithiov909/shikakusphere/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/paithiov909/shikakusphere/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.codecov.io/gh/paithiov909/shikakusphere" class="external-link"><img src="https://codecov.io/gh/paithiov909/shikakusphere/branch/main/graph/badge.svg" alt="codecov"></a></li>
 </ul>
 </div>
 
