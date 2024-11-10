@@ -127,8 +127,13 @@ generics::tidy
 #' @export
 tidy.skksph_paistr <- function(x, ...) {
   n_tiles <- vctrs::vec_data(x) |>
-    stringi::stri_replace_all_fixed(",", "") |> # treat any fulou as bingpai
-    skksph_tidy_impl()
+    purrr::map(~ {
+      stringi::stri_replace_all_regex(.x, "[\\-\\=\\+]", "") |>
+        stringi::stri_split_fixed(",") |>
+        unlist(use.names = FALSE) |>
+        skksph_tidy_impl() |>
+        purrr::reduce(`+`)
+    })
   df <-
     data.frame(
       id = rep(seq_along(n_tiles), each = 38),

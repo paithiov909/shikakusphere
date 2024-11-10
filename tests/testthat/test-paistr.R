@@ -12,11 +12,11 @@ test_that("paistr works", {
 })
 
 test_that("calculate for paistr works", {
-  pai <- paistr("p0222345z234567")
+  pai <- paistr("p0222345z234,s1-23")
   expect_snapshot_value(calculate(pai), style = "json2", cran = FALSE)
 })
 
 test_that("tidy for paistr works", {
-  pai <- paistr("p0222345z234567")
+  pai <- paistr("p0222345z234,s1-23")
   expect_snapshot_value(tidy(pai), style = "json2", cran = FALSE)
 })
