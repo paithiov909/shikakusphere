@@ -9,7 +9,7 @@
           "value": ["zimo", "zimo", "zimo", "zimo", "zimo", "zimo", "zimo", "zimo", "zimo", "zimo", "zimo", "zimo", "zimo", "zimo", "dapai", "dapai", "dapai", "dapai", "dapai", "dapai", "dapai", "dapai", "dapai", "dapai", "dapai", "dapai", "dapai"]
         }
       },
-      "value": ["p5", "s7", "p7", "s0", "s1", "s7", "p3", "m9", "p5", "s243-", "z6", "s777-", "s2", "s4", "z4", "z3", "z5", "p9", "p1", "m5", "p3_", "m9_", "s8", "s1", "z6_", "p5", "s2_"]
+      "value": ["p5", "s7", "p7", "s0", "s1", "s7", "p3", "m9", "p5", "s3-24", "z6", "s777-", "s2", "s4", "z4", "z3", "z5", "p9", "p1", "m5", "p3_", "m9_", "s8", "s1", "z6_", "p5", "s2_"]
     }
 
 # read_tenhou6 works for chankan.json

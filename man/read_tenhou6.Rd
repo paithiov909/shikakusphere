@@ -4,17 +4,17 @@
 \alias{read_tenhou6}
 \title{Read 'tenhou.net/6' format mahjong log}
 \usage{
-read_tenhou6(file)
+read_tenhou6(json)
 }
 \arguments{
-\item{file}{JSON file.}
+\item{json}{paths to the JSON files.}
 }
 \value{
 A list that contains the following elements:
 \itemize{
-\item \code{meta}: a list that contains \code{title}, \code{name} and \code{rule} string of the game.
-\item \code{paifu}: a tibble that contains the log of the game.
-\item \code{info}: a tibble that contains the other information of the game.
+\item \code{meta}: a list that contains \code{title}, \code{name} and \code{rule} string of the games.
+\item \code{paifu}: a tibble that contains the log of the games.
+\item \code{info}: a tibble that contains the other information of the games.
 }
 }
 \description{

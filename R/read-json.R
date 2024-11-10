@@ -155,8 +155,8 @@ parse_tile <- function(x) {
         purrr::map2_chr(tile, pos, \(str, i) {
           rank <- tile2rank(str)
           switch(as.character(i),
-            "1" = stri_flatten(c(tile2suit(str[1]), rank[2], rank[3], rank[1], "-")),
-            "3" = stri_flatten(c(tile2suit(str[2]), rank[1], rank[3], rank[2], "-")),
+            "1" = stri_flatten(c(tile2suit(str[1]), rank[1], "-", rank[2], rank[3])),
+            "3" = stri_flatten(c(tile2suit(str[2]), rank[1], rank[2], "-", rank[3])),
             "5" = stri_flatten(c(tile2suit(str[3]), rank[1], rank[2], rank[3], "-"))
           )
         })
@@ -173,20 +173,12 @@ parse_tile <- function(x) {
   x
 }
 
-#' Read 'tenhou.net/6' format mahjong log
-#'
-#' @param file JSON file.
-#' @returns
-#' A list that contains the following elements:
-#' * `meta`: a list that contains `title`, `name` and `rule` string of the game.
-#' * `paifu`: a tibble that contains the log of the game.
-#' * `info`: a tibble that contains the other information of the game.
-#' @export
-read_tenhou6 <- function(file) {
-  js <-
-    jsonlite::read_json(file, simplifyVector = TRUE)
-
-  log <- purrr::list_transpose(js$log)
+#' 牌譜をファイルごとにパースする
+#' @param js JSONからパースしたリスト
+#' @param path 元のファイルのパス
+#' @noRd
+parse_tenhou6 <- function(js, path) {
+  log <- purrr::list_transpose(js[["log"]])
 
   # 局
   ju <- as_version(log[[1]])
@@ -207,7 +199,7 @@ read_tenhou6 <- function(file) {
     purrr::imap(function(x, i) {
       vctrs::vec_cbind(
         purrr::list_rbind(x),
-        data.frame(player = paste0("l", i))
+        data.frame(player = paste0("l", i), path = path)
       )
     }) |>
     purrr::list_rbind() |>
@@ -235,10 +227,11 @@ read_tenhou6 <- function(file) {
     tibble::as_tibble()
 
   list(
-    meta = list(
-      title = js[["title"]],
-      name = js[["name"]],
-      rule = js[["rule"]]
+    meta = tibble::tibble(
+      path = path,
+      title = paste0(js[["title"]], collapse = " "),
+      name = list(js[["name"]]),
+      rule = list(js[["rule"]])
     ),
     paifu = paifu,
     info = tibble::tibble(
@@ -248,7 +241,31 @@ read_tenhou6 <- function(file) {
       score = score,
       result = footer1,
       payment = footer2,
-      footer3
+      footer3,
+      path = path
     )
+  )
+}
+
+#' Read 'tenhou.net/6' format mahjong log
+#'
+#' @param json paths to the JSON files.
+#' @returns
+#' A list that contains the following elements:
+#' * `meta`: a list that contains `title`, `name` and `rule` string of the games.
+#' * `paifu`: a tibble that contains the log of the games.
+#' * `info`: a tibble that contains the other information of the games.
+#' @export
+read_tenhou6 <- function(json) {
+  list_js <-
+    RcppSimdJson::fload(json, always_list = TRUE, compressed_download = TRUE) |>
+    purrr::map2(json, function(js, path) {
+      parse_tenhou6(js, path)
+    }) |>
+    purrr::list_transpose(simplify = FALSE)
+  list(
+    meta = purrr::list_rbind(list_js[["meta"]]),
+    paifu = purrr::list_rbind(list_js[["paifu"]]),
+    info = purrr::list_rbind(list_js[["info"]])
   )
 }

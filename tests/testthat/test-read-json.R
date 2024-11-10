@@ -22,7 +22,7 @@ test_that("parse_meld works", {
   # チー
   expect_equal(
     parse_tile(c("c141516", "14c1516", "1415c16")),
-    c("m564-", "m465-", "m456-")
+    c("m4-56", "m45-6", "m456-")
   )
 })
 

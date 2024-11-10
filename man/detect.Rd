@@ -11,7 +11,7 @@
 \alias{is_yaojiu}
 \alias{is_zhongzhang}
 \alias{is_suzhi}
-\title{Detect the suit or rank of tiles}
+\title{Detect specific tiles}
 \usage{
 tile2suit(x)
 
@@ -47,5 +47,5 @@ is_suzhi(x, suzhi = c("23", "34", "45", "56", "67", "78"))
 }
 }
 \description{
-Detect the suit or rank of tiles
+Detect specific tiles
 }

@@ -35,7 +35,7 @@ int2tile <- function(x = seq_len(38) - 1, origin = c("zero", "one")) {
   )
 }
 
-#' Detect the suit or rank of tiles
+#' Detect specific tiles
 #'
 #' @rdname detect
 #' @name detect-tiles
@@ -63,7 +63,7 @@ tile2rank <- function(x) {
 #' @rdname detect
 #' @export
 is_fulou <- function(x) {
-  stringi::stri_detect_regex(x, "[\\-\\=\\+]")
+  stringi::stri_detect_regex(x, "(\\d(?=[\\-\\=\\+]))|\\d{4}")
 }
 
 #' @rdname detect
@@ -106,7 +106,7 @@ is_zhongzhang <- function(x) {
 is_suzhi <- function(x, suzhi = c("23", "34", "45", "56", "67", "78")) {
   suzhi <- rlang::arg_match(suzhi)
   ret <- tile2suit(x) != "z" # 字牌はFALSE
-  ret <- ret & switch(suzhi,
+  ret & switch(suzhi,
     "23" = tile2rank(x) %in% c("1", "4"),
     "34" = tile2rank(x) %in% c("2", "5", "0"),
     "45" = tile2rank(x) %in% c("3", "6"),
@@ -114,5 +114,4 @@ is_suzhi <- function(x, suzhi = c("23", "34", "45", "56", "67", "78")) {
     "67" = tile2rank(x) %in% c("5", "8", "0"),
     "78" = tile2rank(x) %in% c("6", "9")
   )
-  ret
 }

@@ -8,6 +8,7 @@
 [![shikakusphere status
 badge](https://paithiov909.r-universe.dev/badges/shikakusphere)](https://paithiov909.r-universe.dev/shikakusphere)
 [![R-CMD-check](https://github.com/paithiov909/shikakusphere/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/paithiov909/shikakusphere/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/gh/paithiov909/shikakusphere/branch/main/graph/badge.svg)](https://app.codecov.io/gh/paithiov909/shikakusphere)
 <!-- badges: end -->
 
 shikakusphere is a collection of miscellaneous funcitons for Japanese
@@ -76,7 +77,7 @@ plot(hands[4])
 
 ``` r
 tidy(hands)
-#> # A tibble: 41 × 3
+#> # A tibble: 43 × 3
 #>       id tile      n
 #>    <int> <fct> <int>
 #>  1     1 m1        2
@@ -89,7 +90,7 @@ tidy(hands)
 #>  8     2 p1        2
 #>  9     2 p2        2
 #> 10     2 p3        2
-#> # ℹ 31 more rows
+#> # ℹ 33 more rows
 ```
 
 このかたちの表現は`lineup()`でlist of factorsにすることができます。
@@ -110,11 +111,11 @@ tidy(hands) |>
 #> 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7
 #> 
 #> [[4]]
-#>  [1] m0 m5 m5 m7 m8 z5 z5 z5 z5 z6 z6 z6 z7 z7
+#>  [1] m0 m5 m5 m7 m8 m9 z5 z5 z5 z5 z6 z6 z6 z7 z7
 #> 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7
 #> 
 #> [[5]]
-#>  [1] m0 m5 m5 m7 m8 z5 z5 z5 z5 z6 z6 z6 z7 z7
+#>  [1] m0 m5 m5 m7 m8 m9 z5 z5 z5 z5 z6 z6 z6 z7 z7
 #> 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7
 ```
 
@@ -150,8 +151,8 @@ n_xiangting
 
 # 有効牌
 collect_tingpai(hands[n_xiangting$num >= 0])
-#> Warning in skksph_get_tingpai(pai, index_s, index_h): zimo must be empty at:
-#> m055z77,m78-9,z5555,z666=,
+#> Warning in .Call(`_shikakusphere_skksph_get_tingpai`, pai, index_s, index_h):
+#> zimo must be empty at: m055z77,m78-9,z5555,z666=,
 #> [[1]]
 #> [1] "m1" "z2"
 #> 

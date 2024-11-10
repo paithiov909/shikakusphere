@@ -54,7 +54,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages: any::rcmdcheck, any::covr
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
@@ -63,3 +63,10 @@ jobs:
           args: 'c("--no-vignettes", "--no-manual", "--ignore-vignettes", "--as-cran")'
           build_args: 'c("--no-build-vignettes", "--no-manual")'
           # build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+
+      - name: Codecov
+        if: ${{ matrix.config.os == 'ubuntu-latest' && matrix.config.r == 'release' }}
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: covr::codecov()
+        shell: Rscript {0}
