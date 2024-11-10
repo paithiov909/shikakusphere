@@ -72,7 +72,7 @@ parse_hupai <- function(str, lang = c("en", "jp")) {
   factor(
     unlist(sp, use.names = FALSE),
     levels = hupai[["id"]], # nolint
-    labels = hupai[[lang]]  # nolint
+    labels = hupai[[lang]] # nolint
   ) |>
     vctrs::vec_chop(sizes = vctrs::list_sizes(sp))
 }

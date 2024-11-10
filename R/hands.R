@@ -24,34 +24,33 @@
 #' @examples
 #' calc_defen("m345567p234s3378", baopai = "z1", rongpai = "s9=")
 calc_defen <- function(
-  pai,
-  baopai,
-  libaopai = "",
-  rongpai = "",
-  rule = default_rule(),
-  zhuangfeng = c("z1", "z2", "z3", "z4"),
-  menfeng = c("z2", "z3", "z4", "z1"),
-  lizhi = c("none", "lizhi", "double-lizhi"),
-  yifa = FALSE,
-  qianggang = FALSE,
-  lingshang = FALSE,
-  haidi = c("none", "haidimoyue", "hedilaoyu"),
-  tianhe = c("none", "tianhe", "dihe"),
-  changbang = 0L,
-  lizhibang = 0L
-) {
+    pai,
+    baopai,
+    libaopai = "",
+    rongpai = "",
+    rule = default_rule(),
+    zhuangfeng = c("z1", "z2", "z3", "z4"),
+    menfeng = c("z2", "z3", "z4", "z1"),
+    lizhi = c("none", "lizhi", "double-lizhi"),
+    yifa = FALSE,
+    qianggang = FALSE,
+    lingshang = FALSE,
+    haidi = c("none", "haidimoyue", "hedilaoyu"),
+    tianhe = c("none", "tianhe", "dihe"),
+    changbang = 0L,
+    lizhibang = 0L) {
   rongpai <- rongpai[1]
   libaopai[is.na(libaopai)] <- ""
   rongpai[is.na(rongpai)] <- ""
 
-  if (any(!is_valid_pai(baopai))) {
+  if (any(!is_valid_tile(baopai))) {
     rlang::abort("baopai contains invalid tiles.")
   }
-  if (all(!stringi::stri_isempty(libaopai)) && any(!is_valid_pai(libaopai))) {
+  if (all(!stringi::stri_isempty(libaopai)) && any(!is_valid_tile(libaopai))) {
     rlang::abort("libaopai contains invalid tiles.")
   }
   if (all(!stringi::stri_isempty(rongpai)) &&
-      (!is_valid_pai(rongpai) && !stringi::stri_detect_regex(rongpai, "\\=$"))) { #nolint
+    (!is_valid_tile(rongpai) && !stringi::stri_detect_regex(rongpai, "\\=$"))) { # nolint
     rlang::abort("rongpai is invalid.")
   }
   zhuangfeng <- rlang::arg_match(zhuangfeng)

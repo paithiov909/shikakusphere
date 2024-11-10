@@ -1,9 +1,9 @@
-#' Check if the pai is a valid tile
+#' Check if each element is a valid tile
 #'
 #' @param x A character vector to be checked.
 #' @returns A logical vector.
 #' @export
-is_valid_pai <- function(x) {
+is_valid_tile <- function(x) {
   stringi::stri_detect_regex(x, "(^(?:[mps]\\d|z[1-7])_?\\*?[\\+\\=\\-]?$)")
 }
 
@@ -87,18 +87,18 @@ is_suit <- function(x, suit = c("m", "p", "s", "z")) {
 
 #' @rdname detect
 #' @export
-is_zhongzhang <- function(x) {
-  (!tile2rank(x) %in% c("1", "9")) & !is_suit(x, "z")
-}
-
-#' @rdname detect
-#' @export
 is_yaojiu <- function(x, negate = FALSE) {
   ret <- (tile2rank(x) %in% c("1", "9")) | is_suit(x, "z")
   if (negate) {
     return(!ret)
   }
   ret
+}
+
+#' @rdname detect
+#' @export
+is_zhongzhang <- function(x) {
+  is_yaojiu(x, negate = TRUE)
 }
 
 #' @rdname detect

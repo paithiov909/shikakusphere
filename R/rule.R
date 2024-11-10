@@ -4,7 +4,8 @@
 #' @returns A logical scalar.
 #' @keywords internal
 is_valid_rule <- function(rule) {
-  cond <- identical(names(rule),
+  cond <- identical(
+    names(rule),
     c(
       "startingPoints",
       "rankPoints",

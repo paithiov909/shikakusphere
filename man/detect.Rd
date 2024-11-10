@@ -8,8 +8,8 @@
 \alias{is_tsumogiri}
 \alias{is_lizhi}
 \alias{is_suit}
-\alias{is_zhongzhang}
 \alias{is_yaojiu}
+\alias{is_zhongzhang}
 \alias{is_suzhi}
 \title{Detect the suit or rank of tiles}
 \usage{
@@ -25,9 +25,9 @@ is_lizhi(x)
 
 is_suit(x, suit = c("m", "p", "s", "z"))
 
-is_zhongzhang(x)
-
 is_yaojiu(x, negate = FALSE)
+
+is_zhongzhang(x)
 
 is_suzhi(x, suzhi = c("23", "34", "45", "56", "67", "78"))
 }
