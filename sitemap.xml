@@ -7,6 +7,7 @@
 <url><loc>/reference/calc_xiangting.html</loc></url>
 <url><loc>/reference/collect_tingpai.html</loc></url>
 <url><loc>/reference/default_rule.html</loc></url>
+<url><loc>/reference/detect.html</loc></url>
 <url><loc>/reference/hand2img.html</loc></url>
 <url><loc>/reference/hupai.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
@@ -20,9 +21,9 @@
 <url><loc>/reference/parse_hupai.html</loc></url>
 <url><loc>/reference/rand_hands.html</loc></url>
 <url><loc>/reference/rand_qipai.html</loc></url>
+<url><loc>/reference/read_tenhou6.html</loc></url>
 <url><loc>/reference/reexports.html</loc></url>
 <url><loc>/reference/shikakusphere-package.html</loc></url>
-<url><loc>/reference/skksph-paistr.html</loc></url>
 <url><loc>/reference/skksph_bingpai_to_table.html</loc></url>
 <url><loc>/reference/skksph_get_defen.html</loc></url>
 <url><loc>/reference/skksph_get_n_fulou.html</loc></url>
