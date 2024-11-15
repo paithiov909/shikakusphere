@@ -2,8 +2,8 @@
 % Please edit documentation in R/detect.R
 \name{detect-tiles}
 \alias{detect-tiles}
-\alias{tile2suit}
 \alias{tile2rank}
+\alias{tile2suit}
 \alias{is_fulou}
 \alias{is_tsumogiri}
 \alias{is_lizhi}
@@ -13,9 +13,9 @@
 \alias{is_suzhi}
 \title{Detect specific tiles}
 \usage{
-tile2suit(x)
-
 tile2rank(x)
+
+tile2suit(x)
 
 is_fulou(x)
 
@@ -42,7 +42,8 @@ is_suzhi(x, suzhi = c("23", "34", "45", "56", "67", "78"))
 }
 \value{
 \itemize{
-\item For \code{tile2suit} and \code{tile2rank}: a character vector.
+\item For \code{tile2rank} and \code{tile2suit}: a character vector
+(an empty string for "_").
 \item For other functions: a logical vector.
 }
 }

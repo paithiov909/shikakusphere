@@ -7,20 +7,23 @@
 #' @param negate A logical scalar.
 #' @param suzhi A string scalar. Either "23", "34", "45", "56", "67", or "78".
 #' @returns
-#' * For `tile2suit` and `tile2rank`: a character vector.
+#' * For `tile2rank` and `tile2suit`: a character vector
+#' (an empty string for "_").
 #' * For other functions: a logical vector.
 NULL
 
 #' @rdname detect
 #' @export
-tile2suit <- function(x) {
-  stringi::stri_sub(x, 1, 1)
+tile2rank <- function(x) {
+  stringi::stri_sub(x, 2, 2)
 }
 
 #' @rdname detect
 #' @export
-tile2rank <- function(x) {
-  stringi::stri_sub(x, 2, 2)
+tile2suit <- function(x) {
+  ret <- stringi::stri_sub(x, 1, 1)
+  ret[x == "_"] <- ""
+  ret
 }
 
 #' @rdname detect

@@ -11,86 +11,29 @@ test_that("lipai works", {
   expect_equal(lipai(list(pai, NA, NULL)), c("m109p109s109z1267", "", ""))
 })
 
-test_that("is_yaojiu works", {
-  pai <- int2tile()
+test_that("trans_tile works", {
   expect_equal(
-    is_yaojiu(pai),
-    !c(
-      TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE,
-      TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE,
-      TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE,
-      NA, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE
-    )
-  )
-})
-
-test_that("is_zhongzhang works", {
-  pai <- int2tile()
-  expect_equal(
-    is_zhongzhang(pai),
-    c(
-      TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE,
-      TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE,
-      TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE,
-      NA, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE
-    )
-  )
-})
-
-test_that("is_suzhi works", {
-  pai <- int2tile()
-  expect_equal(
-    is_suzhi(pai, suzhi = "23"),
-    c(
-      FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE,
-      FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE,
-      FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE,
-      FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE
-    )
+    trans_tile(tiles[["cmajiang"]], from = "cmajiang", to = "mjai"),
+    tiles[["mjai"]]
   )
   expect_equal(
-    is_suzhi(pai, suzhi = "34"),
-    c(
-      TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE,
-      TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE,
-      TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE,
-      FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE
-    )
+    trans_tile(tiles[["cmajiang"]], from = "cmajiang", to = "tenhou_int"),
+    tiles[["tenhou_int"]]
   )
   expect_equal(
-    is_suzhi(pai, suzhi = "45"),
-    c(
-      FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE,
-      FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE,
-      FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE,
-      FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE
-    )
+    trans_tile(tiles[["mjai"]], from = "mjai", to = "cmajiang"),
+    tiles[["cmajiang"]]
   )
   expect_equal(
-    is_suzhi(pai, suzhi = "56"),
-    c(
-      FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE,
-      FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE,
-      FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE,
-      FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE
-    )
+    trans_tile(tiles[["mjai"]], from = "mjai", to = "tenhou_int"),
+    tiles[["tenhou_int"]]
   )
   expect_equal(
-    is_suzhi(pai, suzhi = "67"),
-    c(
-      TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE,
-      TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE,
-      TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE,
-      FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE
-    )
+    trans_tile(tiles[["tenhou_int"]], from = "tenhou_int", to = "cmajiang"),
+    tiles[["cmajiang"]]
   )
   expect_equal(
-    is_suzhi(pai, suzhi = "78"),
-    c(
-      FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,
-      FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,
-      FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,
-      FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE
-    )
+    trans_tile(tiles[["tenhou_int"]], from = "tenhou_int", to = "mjai"),
+    tiles[["mjai"]]
   )
 })
