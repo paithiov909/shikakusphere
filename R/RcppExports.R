@@ -3,39 +3,50 @@
 
 #' Internal function for `tidy(<skksph_paistr>)`
 #'
-#' @param pai hand
-#' @returns list of integers
-#' @keywords internal
+#' @param pai Characters (hands).
+#' @returns List of integers of length 36.
+#' @noRd
 skksph_tidy_impl <- function(pai) {
     .Call(`_shikakusphere_skksph_tidy_impl`, pai)
 }
 
-#' Internal function to lipai
+#' Internal function for `proceed()`
 #'
-#' @param x list of characters
-#' @returns list of hands
-#' @keywords internal
+#' @param qipai List of characters (tiles).
+#' @param pai pai List of characters (tiles).
+#' @param action action List of characters (tiles).
+#' @returns Characters (hands).
+#' @noRd
+skksph_proceed_impl <- function(qipai, zimo, dapai) {
+    .Call(`_shikakusphere_skksph_proceed_impl`, qipai, zimo, dapai)
+}
+
+#' Internal function for `lipai()`
+#'
+#' @param x List of a list of characters (tiles).
+#' @returns Characters (hands).
+#' @noRd
 skksph_lipai_impl <- function(x) {
     .Call(`_shikakusphere_skksph_lipai_impl`, x)
 }
 
-#' Internal function to convert hand to SVG
+#' Internal function to convert hands to SVG
 #'
-#' @param pai hand
-#' @returns SVG strings
-#' @keywords internal
+#' @param pai Characters (hands).
+#' @returns Characters (SVG strings).
+#' @noRd
 skksph_hand_to_svg <- function(pai) {
     .Call(`_shikakusphere_skksph_hand_to_svg`, pai)
 }
 
 #' Internal function to get defen
 #'
-#' @param paistr hand
-#' @param baopai baopai
-#' @param libaopai libaopai
-#' @param list rule set
-#' @param rankPoints rank points (numeric vector of length 4)
-#' @param hongpai hongpai (numeric vector of length 3)
+#' @param paistr String (hand)
+#' @param baopai Characters (baopai)
+#' @param libaopai Characters (libaopai)
+#' @param list List (rule set)
+#' @param rankPoints rank points (numerics of length 4)
+#' @param hongpai hongpai (integers of length 3)
 #' @param rongpai rongpai
 #' @param zhuangfeng zhuangfeng (0-3)
 #' @param menfeng menfeng (0-3)
@@ -47,48 +58,48 @@ skksph_hand_to_svg <- function(pai) {
 #' @param tianhu tianhu (0-2)
 #' @param changbang changbang
 #' @param lizhibang lizhibang
-#' @returns A data frame
-#' @keywords internal
+#' @returns Data frame
+#' @noRd
 skksph_get_defen <- function(paistr, baopai, libaopai, list, rankPoints, hongpai, rongpai = "", zhuangfeng = 0L, menfeng = 1L, lizhi = 0L, yifa = FALSE, qianggang = FALSE, lingshang = FALSE, haidi = 0L, tianhu = 0L, changbang = 0L, lizhibang = 0L) {
     .Call(`_shikakusphere_skksph_get_defen`, paistr, baopai, libaopai, list, rankPoints, hongpai, rongpai, zhuangfeng, menfeng, lizhi, yifa, qianggang, lingshang, haidi, tianhu, changbang, lizhibang)
 }
 
 #' Internal function to get xiangting number
 #'
-#' @param pai hand
-#' @param index_s internal data (integer matrix)
-#' @param index_h internal data (integer matrix)
-#' @returns A data frame
-#' @keywords internal
+#' @param pai Characters (hands).
+#' @param index_s Internal data (integer matrix).
+#' @param index_h Internal data (integer matrix).
+#' @returns Data frame.
+#' @noRd
 skksph_get_xiangting <- function(pai, index_s, index_h) {
     .Call(`_shikakusphere_skksph_get_xiangting`, pai, index_s, index_h)
 }
 
 #' Internal function to get tingpai
 #'
-#' @param pai hand
-#' @param index_s internal data (integer matrix)
-#' @param index_h internal data (integer matrix)
-#' @returns A data frame
-#' @keywords internal
+#' @param pai Characters (hands).
+#' @param index_s Internal data (integer matrix).
+#' @param index_h Internal data (integer matrix).
+#' @returns Data frame.
+#' @noRd
 skksph_get_tingpai <- function(pai, index_s, index_h) {
     .Call(`_shikakusphere_skksph_get_tingpai`, pai, index_s, index_h)
 }
 
 #' Internal function to convert bingpai to table
 #'
-#' @param pai hand
-#' @returns A list of integer vectors
-#' @keywords internal
+#' @param pai Characters (hands).
+#' @returns List of integers.
+#' @noRd
 skksph_bingpai_to_table <- function(pai) {
     .Call(`_shikakusphere_skksph_bingpai_to_table`, pai)
 }
 
 #' Internal function to get number of fulou mianzi
 #'
-#' @param pai hand
-#' @returns An integer vector
-#' @keywords internal
+#' @param pai Characters (hands).
+#' @returns Integers.
+#' @noRd
 skksph_get_n_fulou <- function(pai) {
     .Call(`_shikakusphere_skksph_get_n_fulou`, pai)
 }

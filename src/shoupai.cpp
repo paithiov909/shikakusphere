@@ -193,11 +193,11 @@ Shoupai& Shoupai::dapai(const std::string& p, bool check) {
   if (p.back() == '*') _lizhi = true;
   return *this;
 }
-
 // 副露
 Shoupai& Shoupai::fulou(const std::string& m, bool check) {
   if (check && !_zimo.empty()) throw std::runtime_error("zimo must be empty");
-  if (m != valid_mianzi(m)) throw std::invalid_argument(m);
+  // NOTE: `m7-68`のように、置き方通りに書かれている場合がある
+  if (m != valid_mianzi(m)) Rcpp::warning("possibly incorrect mianzi at: %s", m);
   if (std::regex_search(m, _re_fulou1())) throw std::invalid_argument(m);
   if (std::regex_search(m, _re_fulou2())) throw std::invalid_argument(m);
   const auto s = m[0];
@@ -212,10 +212,8 @@ Shoupai& Shoupai::fulou(const std::string& m, bool check) {
 
 // 杠(槓)
 Shoupai& Shoupai::gang(const std::string& m, bool check) {
-  if (check && _zimo.empty())
-    throw std::runtime_error("zimo must not be empty");
-  if (check && _zimo.size() > 2)
-    throw std::runtime_error("unexpected zimo " + _zimo);
+  if (check && _zimo.empty()) throw std::runtime_error("zimo must not be empty");
+  if (check && _zimo.size() > 2) throw std::runtime_error("unexpected zimo " + _zimo);
   if (m != valid_mianzi(m)) throw std::invalid_argument(m);
   const auto s = m[0];
   if (std::regex_search(m, _re_fulou1())) {

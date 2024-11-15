@@ -92,9 +92,9 @@ Shoupai random_setup(
 
 //' Internal function for `tidy(<skksph_paistr>)`
 //'
-//' @param pai hand
-//' @returns list of integers
-//' @keywords internal
+//' @param pai Characters (hands).
+//' @returns List of integers of length 36.
+//' @noRd
 // [[Rcpp::export]]
 Rcpp::List skksph_tidy_impl(const std::vector<std::string>& pai) {
   std::vector<Rcpp::IntegerVector> ret;
@@ -120,11 +120,62 @@ Rcpp::List skksph_tidy_impl(const std::vector<std::string>& pai) {
   return Rcpp::wrap(ret);
 }
 
-//' Internal function to lipai
+//' Internal function for `proceed()`
 //'
-//' @param x list of characters
-//' @returns list of hands
-//' @keywords internal
+//' @param qipai List of characters (tiles).
+//' @param pai pai List of characters (tiles).
+//' @param action action List of characters (tiles).
+//' @returns Characters (hands).
+//' @noRd
+// [[Rcpp::export]]
+Rcpp::CharacterVector skksph_proceed_impl(
+    const std::vector<std::vector<std::string>>& qipai,
+    const std::vector<std::vector<std::string>>& zimo,
+    const std::vector<std::vector<std::string>>& dapai) {
+  std::vector<std::string> ret;
+  ret.reserve(qipai.size());
+
+  for (std::size_t i = 0; i < qipai.size(); i++) {
+    Shoupai q = Shoupai{qipai[i]};
+
+    auto itr_zimo = zimo[i].begin();
+    auto itr_dapai = dapai[i].begin();
+
+    while (itr_zimo != zimo[i].end() || itr_dapai != dapai[i].end()) {
+      if (itr_zimo != zimo[i].end()) {
+        if (std::regex_match(*itr_zimo, re_gang())) {
+          q.gang(*itr_zimo, true);
+        } else if (std::regex_match(*itr_zimo,
+                                    std::regex(R"(^[mpsz]\d{3}[\+\=\-]$)")) ||
+                   std::regex_match(*itr_zimo,
+                                    std::regex(R"(^[mpsz][\d\-]{4}$)"))) {
+          q.fulou(*itr_zimo, true);
+        } else {
+          q.zimo(*itr_zimo, true);
+        }
+        itr_zimo++;
+      }
+      if (itr_dapai != dapai[i].end()) {
+        if (std::regex_match(*itr_dapai, re_angang()) ||
+            std::regex_match(*itr_dapai,
+                             std::regex(R"(^[mpsz]\d{3}[\+\=\-]\d$)"))) {
+          q.gang(*itr_dapai, true);
+        } else {
+          q.dapai(*itr_dapai, true);
+        }
+        itr_dapai++;
+      }
+    }
+    ret.emplace_back(q.toString());
+  }
+  return Rcpp::wrap(ret);
+}
+
+//' Internal function for `lipai()`
+//'
+//' @param x List of a list of characters (tiles).
+//' @returns Characters (hands).
+//' @noRd
 // [[Rcpp::export]]
 Rcpp::CharacterVector skksph_lipai_impl(
     const std::vector<std::vector<std::string>>& x) {
@@ -142,11 +193,11 @@ Rcpp::CharacterVector skksph_lipai_impl(
   return Rcpp::wrap(ret);
 }
 
-//' Internal function to convert hand to SVG
+//' Internal function to convert hands to SVG
 //'
-//' @param pai hand
-//' @returns SVG strings
-//' @keywords internal
+//' @param pai Characters (hands).
+//' @returns Characters (SVG strings).
+//' @noRd
 // [[Rcpp::export]]
 Rcpp::CharacterVector skksph_hand_to_svg(const std::vector<std::string>& pai) {
   std::vector<std::string> ret;
@@ -160,12 +211,12 @@ Rcpp::CharacterVector skksph_hand_to_svg(const std::vector<std::string>& pai) {
 
 //' Internal function to get defen
 //'
-//' @param paistr hand
-//' @param baopai baopai
-//' @param libaopai libaopai
-//' @param list rule set
-//' @param rankPoints rank points (numeric vector of length 4)
-//' @param hongpai hongpai (numeric vector of length 3)
+//' @param paistr String (hand)
+//' @param baopai Characters (baopai)
+//' @param libaopai Characters (libaopai)
+//' @param list List (rule set)
+//' @param rankPoints rank points (numerics of length 4)
+//' @param hongpai hongpai (integers of length 3)
 //' @param rongpai rongpai
 //' @param zhuangfeng zhuangfeng (0-3)
 //' @param menfeng menfeng (0-3)
@@ -177,8 +228,8 @@ Rcpp::CharacterVector skksph_hand_to_svg(const std::vector<std::string>& pai) {
 //' @param tianhu tianhu (0-2)
 //' @param changbang changbang
 //' @param lizhibang lizhibang
-//' @returns A data frame
-//' @keywords internal
+//' @returns Data frame
+//' @noRd
 // [[Rcpp::export]]
 Rcpp::DataFrame skksph_get_defen(
     const std::string& paistr,
@@ -243,11 +294,11 @@ Rcpp::DataFrame skksph_get_defen(
 
 //' Internal function to get xiangting number
 //'
-//' @param pai hand
-//' @param index_s internal data (integer matrix)
-//' @param index_h internal data (integer matrix)
-//' @returns A data frame
-//' @keywords internal
+//' @param pai Characters (hands).
+//' @param index_s Internal data (integer matrix).
+//' @param index_h Internal data (integer matrix).
+//' @returns Data frame.
+//' @noRd
 // [[Rcpp::export]]
 Rcpp::DataFrame skksph_get_xiangting(const std::vector<std::string>& pai,
                                      Rcpp::IntegerMatrix& index_s,
@@ -271,11 +322,11 @@ Rcpp::DataFrame skksph_get_xiangting(const std::vector<std::string>& pai,
 
 //' Internal function to get tingpai
 //'
-//' @param pai hand
-//' @param index_s internal data (integer matrix)
-//' @param index_h internal data (integer matrix)
-//' @returns A data frame
-//' @keywords internal
+//' @param pai Characters (hands).
+//' @param index_s Internal data (integer matrix).
+//' @param index_h Internal data (integer matrix).
+//' @returns Data frame.
+//' @noRd
 // [[Rcpp::export]]
 Rcpp::List skksph_get_tingpai(const std::vector<std::string>& pai,
                               Rcpp::IntegerMatrix& index_s,
@@ -300,9 +351,9 @@ Rcpp::List skksph_get_tingpai(const std::vector<std::string>& pai,
 
 //' Internal function to convert bingpai to table
 //'
-//' @param pai hand
-//' @returns A list of integer vectors
-//' @keywords internal
+//' @param pai Characters (hands).
+//' @returns List of integers.
+//' @noRd
 // [[Rcpp::export]]
 Rcpp::List skksph_bingpai_to_table(const std::vector<std::string>& pai) {
   std::vector<std::vector<int>> ret;
@@ -316,9 +367,9 @@ Rcpp::List skksph_bingpai_to_table(const std::vector<std::string>& pai) {
 
 //' Internal function to get number of fulou mianzi
 //'
-//' @param pai hand
-//' @returns An integer vector
-//' @keywords internal
+//' @param pai Characters (hands).
+//' @returns Integers.
+//' @noRd
 // [[Rcpp::export]]
 Rcpp::IntegerVector skksph_get_n_fulou(const std::vector<std::string>& pai) {
   std::vector<int> ret;

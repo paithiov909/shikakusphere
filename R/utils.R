@@ -1,10 +1,16 @@
-#' Check if each element is a valid tile
+utils::globalVariables("hupai")
+
+#' Plot a player's hand as an image
 #'
-#' @param x A character vector to be checked.
-#' @returns A logical vector.
+#' This function is a short hand for `paistr(pai) |> plot()`
+#'
+#' @param pai A character vector.
+#' @param ... Other arguments passed to `plot()`.
+#' @seealso \code{\link{paistr}}
 #' @export
-is_valid_tile <- function(x) {
-  stringi::stri_detect_regex(x, "(^(?:[mps]\\d|z[1-7])_?\\*?[\\+\\=\\-]?$)")
+hand2img <- function(pai, ...) {
+  paistr(pai) |>
+    plot(...)
 }
 
 #' Convert integers to tiles
@@ -35,83 +41,78 @@ int2tile <- function(x = seq_len(38) - 1, origin = c("zero", "one")) {
   )
 }
 
-#' Detect specific tiles
+#' Check if each element is a valid tile
 #'
-#' @rdname detect
-#' @name detect-tiles
-#' @param x A character vector.
-#' @param suit A string scalar. Either "m", "p", "s", or "z".
-#' @param negate A logical scalar.
-#' @param suzhi A string scalar. Either "23", "34", "45", "56", "67", or "78".
-#' @returns
-#' * For `tile2suit` and `tile2rank`: a character vector.
-#' * For other functions: a logical vector.
-NULL
-
-#' @rdname detect
+#' @param x A character vector to be checked.
+#' @returns A logical vector.
 #' @export
-tile2suit <- function(x) {
-  stringi::stri_sub(x, 1, 1)
+is_valid_tile <- function(x) {
+  stringi::stri_detect_regex(x, "(^(?:[mps]\\d|z[1-7])_?\\*?[\\+\\=\\-]?$)")
 }
 
-#' @rdname detect
+#' Line up tiles
+#'
+#' Arrange all tiles from a data frame.
+#'
+#' @param x A data frame with columns `id`, `tile`, and `n`.
+#' @returns An object of `x$tile` class.
 #' @export
-tile2rank <- function(x) {
-  stringi::stri_sub(x, 2, 2)
-}
-
-#' @rdname detect
-#' @export
-is_fulou <- function(x) {
-  stringi::stri_detect_regex(x, "(\\d(?=[\\-\\=\\+]))|\\d{4}")
-}
-
-#' @rdname detect
-#' @export
-is_tsumogiri <- function(x) {
-  stringi::stri_detect_regex(x, ".+_")
-}
-
-#' @rdname detect
-#' @export
-is_lizhi <- function(x) {
-  stringi::stri_detect_regex(x, ".+\\*")
-}
-
-#' @rdname detect
-#' @export
-is_suit <- function(x, suit = c("m", "p", "s", "z")) {
-  suit <- rlang::arg_match(suit)
-  stringi::stri_detect_fixed(x, suit)
-}
-
-#' @rdname detect
-#' @export
-is_yaojiu <- function(x, negate = FALSE) {
-  ret <- (tile2rank(x) %in% c("1", "9")) | is_suit(x, "z")
-  if (negate) {
-    return(!ret)
+#' @examples
+#' rand_hands()(3) |>
+#'   paistr() |>
+#'   tidy() |>
+#'   lineup()
+lineup <- function(x) {
+  if (!is.data.frame(x) || !all(c("id", "tile", "n") %in% colnames(x))) {
+    rlang::abort("`x` must be a data frame with columns `id`, `tile`, and `n`.")
   }
-  ret
+  unname(tapply(x, x[["id"]], function(d) {
+    rep(d[["tile"]], d[["n"]])
+  }))
 }
 
-#' @rdname detect
+#' Compose hands from character vectors
+#'
+#' Compose hands from character vectors
+#' while ignoring invalid tiles.
+#' This function can handle any number of tiles in each hand,
+#' but cannot more than 5 identical tiles.
+#' If there are more than 5 identical tiles, arises an error.
+#'
+#' @param x A list of character vectors or a character vector.
+#' @returns A character vector.
 #' @export
-is_zhongzhang <- function(x) {
-  is_yaojiu(x, negate = TRUE)
+#' @examples
+#' lipai(list(c("m1", "m2", "m3"), c("p1", "p2", "p3")))
+lipai <- function(x) {
+  if (!is.list(x)) {
+    x <- x[!is.na(x)]
+    lipai(list(x))
+  } else {
+    l <- unlist(x, use.names = FALSE) |>
+      as.character() |>
+      stringi::stri_replace_na("") |>
+      vctrs::vec_chop(sizes = vctrs::list_sizes(x))
+    skksph_lipai_impl(l)
+  }
 }
 
-#' @rdname detect
+#' Parse chains of hupai ids
+#'
+#' Parse comma separated chains of hupai ids
+#' into a list of factors.
+#'
+#' @param str A character vector.
+#' @param lang A string scalar. Either "en" or "jp".
+#' @returns A list of factors.
 #' @export
-is_suzhi <- function(x, suzhi = c("23", "34", "45", "56", "67", "78")) {
-  suzhi <- rlang::arg_match(suzhi)
-  ret <- tile2suit(x) != "z" # 字牌はFALSE
-  ret & switch(suzhi,
-    "23" = tile2rank(x) %in% c("1", "4"),
-    "34" = tile2rank(x) %in% c("2", "5", "0"),
-    "45" = tile2rank(x) %in% c("3", "6"),
-    "56" = tile2rank(x) %in% c("4", "7"),
-    "67" = tile2rank(x) %in% c("5", "8", "0"),
-    "78" = tile2rank(x) %in% c("6", "9")
-  )
+parse_hupai <- function(str, lang = c("en", "jp")) {
+  lang <- rlang::arg_match(lang)
+  sp <- stringi::stri_split_fixed(str, ",")
+  factor(
+    unlist(sp, use.names = FALSE),
+    levels = hupai[["id"]], # nolint
+    labels = hupai[[lang]] # nolint
+  ) |>
+    vctrs::vec_chop(sizes = vctrs::list_sizes(sp))
 }
