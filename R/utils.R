@@ -1,4 +1,4 @@
-utils::globalVariables("hupai")
+utils::globalVariables(c("hupai", "tiles"))
 
 #' Plot a player's hand as an image
 #'
@@ -23,21 +23,10 @@ hand2img <- function(pai, ...) {
 #' int2tile(c(0, 1, 25, 37))
 int2tile <- function(x = seq_len(38) - 1, origin = c("zero", "one")) {
   origin <- rlang::arg_match(origin)
-  levels <- c(
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
-    10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-    20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-    # 30, # "z0" is missing
-    31, 32, 33, 34, 35, 36, 37
-  ) + if (origin == "one") 1 else 0
+  levels <- tiles[["id"]] + if (origin == "one") 1 else 0 # nolint
   factor(x,
     levels = levels,
-    labels = c(
-      paste0("m", 0:9),
-      paste0("p", 0:9),
-      paste0("s", 0:9),
-      paste0("z", 1:7)
-    )
+    labels = tiles[["cmajiang"]] # nolint
   )
 }
 
@@ -115,4 +104,26 @@ parse_hupai <- function(str, lang = c("en", "jp")) {
     labels = hupai[[lang]] # nolint
   ) |>
     vctrs::vec_chop(sizes = vctrs::list_sizes(sp))
+}
+
+#' Translate tiles from one format to another
+#'
+#' @param x A vector of tiles to be translated.
+#' @param from A string scalar. Either "mjai", "tenhou_int", or "cmajiang".
+#' @param to A string scalar. Either "cmajiang", "mjai", or "tenhou_int".
+#' @returns
+#' * For `to = "cmajiang" and `to = "mjai"`, a character vector.
+#' * For `to = "tenhou_int"`, an integer vector.
+#' @export
+#' @examples
+#' trans_tile(c("m0", "p1", "z1", "_"), from = "cmajiang", to = "mjai")
+#' trans_tile(c("5mr", "1p", "E", "?"), from = "mjai", to = "cmajiang")
+#' trans_tile(c(51, 21, 41, 0), from = "tenhou_int", to = "mjai")
+trans_tile <- function(x,
+                       from = c("mjai", "tenhou_int", "cmajiang"),
+                       to = c("cmajiang", "mjai", "tenhou_int")) {
+  from <- rlang::arg_match(from)
+  to <- rlang::arg_match(to)
+  mapping <- rlang::set_names(tiles[[to]], as.character(tiles[[from]])) # nolint
+  unname(mapping[as.character(x)])
 }

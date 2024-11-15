@@ -14,7 +14,7 @@ hupai
 List of hupai
 }
 \details{
-A data frame that contains the list of hupai.
+A tibble that contains the list of hupai.
 
 The list includes the following columns:
 \itemize{

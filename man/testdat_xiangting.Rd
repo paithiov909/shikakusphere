@@ -17,7 +17,7 @@ testdat_xiangting
 Test cases for \code{calc_xiangting()}
 }
 \details{
-A data frame that contains test cases for \code{calc_xiangting()}.
+A tibble that contains test cases for \code{calc_xiangting()}.
 Contents may vary depending on package version.
 }
 \keyword{datasets}
