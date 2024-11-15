@@ -15,6 +15,13 @@ as_version <- function(x) {
 #' @param ju 局数を含む`package_version`のベクトル
 #' @noRd
 collect_log_by_player <- function(x, ju) {
+  x[[3]] <- purrr::imap(x[[3]], function(y, i) {
+    vctrs::vec_assign(
+      as.character(y),
+      y == 60,
+      paste0(x[[2]][[i]][which(y == 60, useNames = FALSE)], "_")
+    )
+  })
   ret <- purrr::map2(x, c("qipai", "zimo", "dapai"), function(y, z) {
     data.frame(
       round = rep(ju, vctrs::list_sizes(y)),
@@ -22,11 +29,6 @@ collect_log_by_player <- function(x, ju) {
       pai = unlist(y, use.names = FALSE) |> as.character()
     )
   })
-  ret[[3]][["pai"]] <- vctrs::vec_assign(
-    ret[[3]][["pai"]],
-    ret[[3]][["pai"]] == 60,
-    paste0(ret[[2]][["pai"]][which(ret[[3]][["pai"]] == 60, useNames = FALSE)], "_")
-  )
   ret
 }
 
