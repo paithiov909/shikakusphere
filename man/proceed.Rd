@@ -17,7 +17,7 @@ where each element represents a players's zimo.}
 where each element represents a players's dapai.}
 }
 \value{
-A character vector that represents proceeded hands.
+A \code{paistr} vector.
 }
 \description{
 Proceed state of hands
