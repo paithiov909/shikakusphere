@@ -136,23 +136,23 @@
 <span>  <span class="fu"><a href="reference/lineup.html">lineup</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt;  [1] m1 m1 p2 p3 p4 s5 s5 s5 z1 z1 z1 z2 z2</span></span>
-<span><span class="co">#&gt; 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7</span></span>
+<span><span class="co">#&gt; 38 Levels: _ m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[2]]</span></span>
 <span><span class="co">#&gt;  [1] p1 p1 p2 p2 p3 p3 p4 p4 p5 p5 p6 p6 p7</span></span>
-<span><span class="co">#&gt; 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7</span></span>
+<span><span class="co">#&gt; 38 Levels: _ m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[3]]</span></span>
 <span><span class="co">#&gt;  [1] m1 m9 p1 p9 s1 s9 z1 z2 z3 z4 z5 z6 z7</span></span>
-<span><span class="co">#&gt; 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7</span></span>
+<span><span class="co">#&gt; 38 Levels: _ m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[4]]</span></span>
 <span><span class="co">#&gt;  [1] m0 m5 m5 m7 m8 m9 z5 z5 z5 z5 z6 z6 z6 z7 z7</span></span>
-<span><span class="co">#&gt; 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7</span></span>
+<span><span class="co">#&gt; 38 Levels: _ m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[5]]</span></span>
 <span><span class="co">#&gt;  [1] m0 m5 m5 m7 m8 m9 z5 z5 z5 z5 z6 z6 z6 z7 z7</span></span>
-<span><span class="co">#&gt; 37 Levels: m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7</span></span></code></pre></div>
+<span><span class="co">#&gt; 38 Levels: _ m0 m1 m2 m3 m4 m5 m6 m7 m8 m9 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 ... z7</span></span></code></pre></div>
 <p>さらに、このかたちのlist of factors（またはlist of characters）は<code><a href="reference/lipai.html">lipai()</a></code>で文字列表現に変換できます（ただし、<code><a href="reference/lipai.html">lipai()</a></code>では<code>_*+=-,</code>は扱えません）。</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"m"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"s"</span>, <span class="fl">4</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"z"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -242,6 +242,169 @@
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] 翻牌 白 翻牌 發 小三元  混一色  赤ドラ </span></span>
 <span><span class="co">#&gt; 54 Levels: 場風 東 場風 南 場風 西 場風 北 自風 東 自風 南 自風 西 ... 地和</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="牌譜ファイルを扱う">牌譜ファイルを扱う<a class="anchor" aria-label="anchor" href="#%E7%89%8C%E8%AD%9C%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86"></a>
+</h3>
+<p><a href="https://github.com/paithiov909/convlog" class="external-link">convlog</a>パッケージを使うと、天鳳のJSON形式（<code>tenhou.net/6</code>）のファイルから牌譜を読み込むことができます。</p>
+<p><code>convlog::read_tenhou6()</code>の戻り値は、次のようなかたちをしています。</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">json_log</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata/"</span>, package <span class="op">=</span> <span class="st">"convlog"</span><span class="op">)</span>,</span>
+<span>    pattern <span class="op">=</span> <span class="st">"*.json$"</span>,</span>
+<span>    full.names <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">convlog</span><span class="fu">::</span><span class="fu">read_tenhou6</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">json_log</span></span>
+<span><span class="co">#&gt; $game_info</span></span>
+<span><span class="co">#&gt; # A tibble: 21 × 4</span></span>
+<span><span class="co">#&gt;    game_id names        qijia aka  </span></span>
+<span><span class="co">#&gt;      &lt;int&gt; &lt;named list&gt; &lt;int&gt; &lt;lgl&gt;</span></span>
+<span><span class="co">#&gt;  1       1 &lt;chr [4]&gt;        4 TRUE </span></span>
+<span><span class="co">#&gt;  2       2 &lt;chr [4]&gt;        0 TRUE </span></span>
+<span><span class="co">#&gt;  3       3 &lt;chr [4]&gt;        0 TRUE </span></span>
+<span><span class="co">#&gt;  4       4 &lt;chr [4]&gt;        0 TRUE </span></span>
+<span><span class="co">#&gt;  5       5 &lt;chr [4]&gt;        0 TRUE </span></span>
+<span><span class="co">#&gt;  6       6 &lt;chr [4]&gt;        0 TRUE </span></span>
+<span><span class="co">#&gt;  7       7 &lt;chr [4]&gt;        0 TRUE </span></span>
+<span><span class="co">#&gt;  8       8 &lt;chr [4]&gt;        0 TRUE </span></span>
+<span><span class="co">#&gt;  9       9 &lt;chr [4]&gt;        0 TRUE </span></span>
+<span><span class="co">#&gt; 10      10 &lt;chr [4]&gt;        0 TRUE </span></span>
+<span><span class="co">#&gt; # ℹ 11 more rows</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $round_info</span></span>
+<span><span class="co">#&gt; # A tibble: 33 × 10</span></span>
+<span><span class="co">#&gt;    game_id round_id bakaze dora_marker kyoku honba kyotaku   oya scores tehais  </span></span>
+<span><span class="co">#&gt;      &lt;int&gt;    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;       &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;list&gt; &lt;list&gt;  </span></span>
+<span><span class="co">#&gt;  1       1        1 E      3s              1     0       0     0 &lt;int&gt;  &lt;chr[…]&gt;</span></span>
+<span><span class="co">#&gt;  2       2        1 E      4m              3     3       0     2 &lt;int&gt;  &lt;chr[…]&gt;</span></span>
+<span><span class="co">#&gt;  3       3        1 E      6m              1     0       0     0 &lt;int&gt;  &lt;chr[…]&gt;</span></span>
+<span><span class="co">#&gt;  4       4        1 E      E               4     0       0     3 &lt;int&gt;  &lt;chr[…]&gt;</span></span>
+<span><span class="co">#&gt;  5       5        1 E      8p              2     2       0     1 &lt;int&gt;  &lt;chr[…]&gt;</span></span>
+<span><span class="co">#&gt;  6       6        1 E      7s              1     0       0     0 &lt;int&gt;  &lt;chr[…]&gt;</span></span>
+<span><span class="co">#&gt;  7       7        1 S      6s              4     0       0     3 &lt;int&gt;  &lt;chr[…]&gt;</span></span>
+<span><span class="co">#&gt;  8       8        1 S      2m              4     1       1     3 &lt;int&gt;  &lt;chr[…]&gt;</span></span>
+<span><span class="co">#&gt;  9       9        1 S      2m              1     0       0     0 &lt;int&gt;  &lt;chr[…]&gt;</span></span>
+<span><span class="co">#&gt; 10      10        1 S      7s              2     2       0     1 &lt;int&gt;  &lt;chr[…]&gt;</span></span>
+<span><span class="co">#&gt; # ℹ 23 more rows</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $paifu</span></span>
+<span><span class="co">#&gt; # A tibble: 3,255 × 12</span></span>
+<span><span class="co">#&gt;    game_id round_id event_id type  actor target pai   tsumogiri consumed</span></span>
+<span><span class="co">#&gt;      &lt;int&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt; &lt;lgl&gt;     &lt;list&gt;  </span></span>
+<span><span class="co">#&gt;  1       1        1        1 tsumo     0     NA S     NA        &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  2       1        1        2 dahai     0     NA N     FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  3       1        1        3 tsumo     1     NA 2m    NA        &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  4       1        1        4 dahai     1     NA 8p    FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  5       1        1        5 tsumo     2     NA 6p    NA        &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  6       1        1        6 dahai     2     NA 8s    FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  7       1        1        7 tsumo     3     NA 1m    NA        &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  8       1        1        8 dahai     3     NA P     FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  9       1        1        9 tsumo     0     NA 1m    NA        &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt; 10       1        1       10 dahai     0     NA 1p    FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt; # ℹ 3,245 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 3 more variables: dora_marker &lt;chr&gt;, deltas &lt;list&gt;, ura_markers &lt;list&gt;</span></span></code></pre></div>
+<p>この関数は、天鳳のJSON形式を一度MJAIフォーマットのJSON文字列へと変換したうえでパースするため、牌の表現などがshikakusphereで用いているものとは異なっています。MJAIフォーマットにおける牌の表現をshikakusphereで用いている表現に変換するには、<code><a href="reference/trans_tile.html">trans_tile()</a></code>, <code><a href="reference/mjai.html">mjai_target()</a></code>, <code><a href="reference/mjai.html">mjai_conv()</a></code>を使って、次のようにします。</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">paifu</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">json_log</span><span class="op">[[</span><span class="st">"paifu"</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
+<span>    <span class="va">type</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tsumo"</span>, <span class="st">"dahai"</span>, <span class="st">"chi"</span>, <span class="st">"pon"</span>, <span class="st">"daiminkan"</span>, <span class="st">"kakan"</span>, <span class="st">"ankan"</span>, <span class="st">"reach"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="co"># ツモ切りかを判定する場合、あらかじめ`NA`を`FALSE`で埋めておく</span></span>
+<span>    tsumogiri <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">tsumogiri</span><span class="op">)</span>, <span class="cn">FALSE</span>, <span class="va">tsumogiri</span><span class="op">)</span>,</span>
+<span>    <span class="co"># 牌の表現の変換</span></span>
+<span>    pai <span class="op">=</span> <span class="fu"><a href="reference/trans_tile.html">trans_tile</a></span><span class="op">(</span><span class="va">pai</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">game_id</span>, <span class="va">round_id</span>, <span class="va">actor</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="co"># 副露メンツの変換</span></span>
+<span>    pai <span class="op">=</span> <span class="fu"><a href="reference/mjai.html">mjai_conv</a></span><span class="op">(</span><span class="va">type</span>, <span class="va">pai</span>, <span class="va">consumed</span>, <span class="fu"><a href="reference/mjai.html">mjai_target</a></span><span class="op">(</span><span class="va">actor</span>, <span class="va">target</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="co"># ツモ切りなら末尾に"_"を付ける</span></span>
+<span>    pai <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">tsumogiri</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">pai</span>, <span class="st">"_"</span><span class="op">)</span>,</span>
+<span>      <span class="va">pai</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="co"># # リーチ宣言牌なら末尾に"*"を付ける</span></span>
+<span>    pai <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span></span>
+<span>      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">type</span>, default <span class="op">=</span> <span class="st">""</span><span class="op">)</span> <span class="op">==</span> <span class="st">"reach"</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">pai</span>, <span class="st">"*"</span><span class="op">)</span>,</span>
+<span>      <span class="va">pai</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">paifu</span></span>
+<span><span class="co">#&gt; # A tibble: 3,185 × 12</span></span>
+<span><span class="co">#&gt;    game_id round_id event_id type  actor target pai   tsumogiri consumed</span></span>
+<span><span class="co">#&gt;      &lt;int&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;int&gt;  &lt;int&gt; &lt;chr&gt; &lt;lgl&gt;     &lt;list&gt;  </span></span>
+<span><span class="co">#&gt;  1       1        1        1 tsumo     0     NA z2    FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  2       1        1        2 dahai     0     NA z4    FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  3       1        1        3 tsumo     1     NA m2    FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  4       1        1        4 dahai     1     NA p8    FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  5       1        1        5 tsumo     2     NA p6    FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  6       1        1        6 dahai     2     NA s8    FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  7       1        1        7 tsumo     3     NA m1    FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  8       1        1        8 dahai     3     NA z5    FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt;  9       1        1        9 tsumo     0     NA m1    FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt; 10       1        1       10 dahai     0     NA p1    FALSE     &lt;NULL&gt;  </span></span>
+<span><span class="co">#&gt; # ℹ 3,175 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 3 more variables: dora_marker &lt;chr&gt;, deltas &lt;list&gt;, ura_markers &lt;list&gt;</span></span></code></pre></div>
+<p><code><a href="reference/proceed.html">proceed()</a></code>を使うと、ゲームのある時点におけるプレイヤーの手牌の状態を再現することができます。この関数には、その時点までの各プレイヤーの配牌・ツモ・打牌をそれぞれlistとして与えます。チー・ポンと大明槓についてはツモの一部、暗槓と加槓については打牌の一部とします。</p>
+<p>たとえば、ここで読み込んでいるデータについて、各本場の終わりの時点におけるプレイヤーの手牌を再現するには、次のようにします。</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">qipai</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">json_log</span><span class="op">[[</span><span class="st">"round_info"</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html" class="external-link">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/reframe.html" class="external-link">reframe</a></span><span class="op">(</span></span>
+<span>    game_id <span class="op">=</span> <span class="va">game_id</span>,</span>
+<span>    round_id <span class="op">=</span> <span class="va">round_id</span>,</span>
+<span>    actor <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">3</span>,</span>
+<span>    <span class="va">tehais</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">game_id</span>, <span class="va">round_id</span>, <span class="va">actor</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>qipai <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="reference/trans_tile.html">trans_tile</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">tehais</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, .keep <span class="op">=</span> <span class="st">"unused"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">paifu</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">qipai</span>, by <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html" class="external-link">join_by</a></span><span class="op">(</span><span class="va">game_id</span>, <span class="va">round_id</span>, <span class="va">actor</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">game_id</span>, <span class="va">round_id</span>, <span class="va">actor</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
+<span>    qipai <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">qipai</span><span class="op">)</span>,</span>
+<span>    zimo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">pai</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">type</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tsumo"</span>, <span class="st">"chi"</span>, <span class="st">"pon"</span>, <span class="st">"daiminkan"</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    dapai <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">pai</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">type</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dahai"</span>, <span class="st">"kakan"</span>, <span class="st">"ankan"</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    .groups <span class="op">=</span> <span class="st">"keep"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/reframe.html" class="external-link">reframe</a></span><span class="op">(</span></span>
+<span>    game_id <span class="op">=</span> <span class="va">game_id</span>,</span>
+<span>    round_id <span class="op">=</span> <span class="va">round_id</span>,</span>
+<span>    player <span class="op">=</span> <span class="va">actor</span>,</span>
+<span>    last_state <span class="op">=</span> <span class="fu"><a href="reference/proceed.html">proceed</a></span><span class="op">(</span><span class="va">qipai</span>, <span class="va">zimo</span>, <span class="va">dapai</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: There were 2 warnings in `dplyr::reframe()`.</span></span>
+<span><span class="co">#&gt; The first warning was:</span></span>
+<span><span class="co">#&gt; ℹ In argument: `last_state = proceed(qipai, zimo, dapai)`.</span></span>
+<span><span class="co">#&gt; Caused by warning in `.Call()`:</span></span>
+<span><span class="co">#&gt; ! possibly incorrect mianzi at: m04-6</span></span>
+<span><span class="co">#&gt; ℹ Run `dplyr::last_dplyr_warnings()` to see the 1 remaining warning.</span></span>
+<span><span class="co">#&gt; # A tibble: 130 × 4</span></span>
+<span><span class="co">#&gt;    game_id round_id player last_state                    </span></span>
+<span><span class="co">#&gt;      &lt;int&gt;    &lt;int&gt;  &lt;int&gt; &lt;paistr&gt;                      </span></span>
+<span><span class="co">#&gt;  1       1        1      0 &lt;13&gt;'m34677p33405s123'        </span></span>
+<span><span class="co">#&gt;  2       1        1      1 &lt;13&gt;'m12227999z13336'         </span></span>
+<span><span class="co">#&gt;  3       1        1      2 &lt;13&gt;'m05567s40z111,m333='     </span></span>
+<span><span class="co">#&gt;  4       1        1      3 &lt;14&gt;'m56688p3377s4,s666+6'    </span></span>
+<span><span class="co">#&gt;  5       2        1      0 &lt;13&gt;'m2255p345567s567'        </span></span>
+<span><span class="co">#&gt;  6       2        1      1 &lt;13&gt;'m3p222,z777=,s222=,z111+'</span></span>
+<span><span class="co">#&gt;  7       2        1      2 &lt;13&gt;'m24777789z55,m666+'      </span></span>
+<span><span class="co">#&gt;  8       2        1      3 &lt;14&gt;'m3445688s406m2,z222-'    </span></span>
+<span><span class="co">#&gt;  9       3        1      0 &lt;13&gt;'m34p8s23466z11,m67-8'    </span></span>
+<span><span class="co">#&gt; 10       3        1      1 &lt;13&gt;'m88p456s06789,z555+'     </span></span>
+<span><span class="co">#&gt; # ℹ 120 more rows</span></span></code></pre></div>
 </div>
 </div>
 </div>

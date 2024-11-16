@@ -52,8 +52,8 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">trans_tile</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mjai"</span>, <span class="st">"tenhou_int"</span>, <span class="st">"cmajiang"</span><span class="op">)</span>,</span>
-<span>  to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cmajiang"</span>, <span class="st">"mjai"</span>, <span class="st">"tenhou_int"</span><span class="op">)</span></span>
+<span>  from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mjai"</span>, <span class="st">"tenhou_int"</span>, <span class="st">"id"</span>, <span class="st">"cmajiang"</span><span class="op">)</span>,</span>
+<span>  to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cmajiang"</span>, <span class="st">"mjai"</span>, <span class="st">"tenhou_int"</span>, <span class="st">"id"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -66,18 +66,18 @@
 
 
 <dt id="arg-from">from<a class="anchor" aria-label="anchor" href="#arg-from"></a></dt>
-<dd><p>A string scalar. Either "mjai", "tenhou_int", or "cmajiang".</p></dd>
+<dd><p>A string scalar. Either "mjai", "tenhou_int", "id", or "cmajiang".</p></dd>
 
 
 <dt id="arg-to">to<a class="anchor" aria-label="anchor" href="#arg-to"></a></dt>
-<dd><p>A string scalar. Either "cmajiang", "mjai", or "tenhou_int".</p></dd>
+<dd><p>A string scalar. Either "cmajiang", "mjai", "tenhou_int", or "id".</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
 
-<ul><li><p>For <code>to = "cmajiang" and </code>to = "mjai"`, a character vector.</p></li>
-<li><p>For <code>to = "tenhou_int"</code>, an integer vector.</p></li>
+<ul><li><p>For <code>to = "cmajiang"</code> and <code>to = "mjai"</code>: A character vector.</p></li>
+<li><p>For <code>to = "tenhou_int"</code>: An integer vector.</p></li>
 </ul></div>
 
     <div id="ref-examples">
