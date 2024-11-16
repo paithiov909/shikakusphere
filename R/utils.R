@@ -109,19 +109,19 @@ parse_hupai <- function(str, lang = c("en", "jp")) {
 #' Translate tiles from one format to another
 #'
 #' @param x A vector of tiles to be translated.
-#' @param from A string scalar. Either "mjai", "tenhou_int", or "cmajiang".
-#' @param to A string scalar. Either "cmajiang", "mjai", or "tenhou_int".
+#' @param from A string scalar. Either "mjai", "tenhou_int", "id", or "cmajiang".
+#' @param to A string scalar. Either "cmajiang", "mjai", "tenhou_int", or "id".
 #' @returns
-#' * For `to = "cmajiang" and `to = "mjai"`, a character vector.
-#' * For `to = "tenhou_int"`, an integer vector.
+#' * For `to = "cmajiang"` and `to = "mjai"`: A character vector.
+#' * For `to = "tenhou_int"`: An integer vector.
 #' @export
 #' @examples
 #' trans_tile(c("m0", "p1", "z1", "_"), from = "cmajiang", to = "mjai")
 #' trans_tile(c("5mr", "1p", "E", "?"), from = "mjai", to = "cmajiang")
 #' trans_tile(c(51, 21, 41, 0), from = "tenhou_int", to = "mjai")
 trans_tile <- function(x,
-                       from = c("mjai", "tenhou_int", "cmajiang"),
-                       to = c("cmajiang", "mjai", "tenhou_int")) {
+                       from = c("mjai", "tenhou_int", "id", "cmajiang"),
+                       to = c("cmajiang", "mjai", "tenhou_int", "id")) {
   from <- rlang::arg_match(from)
   to <- rlang::arg_match(to)
   mapping <- rlang::set_names(tiles[[to]], as.character(tiles[[from]])) # nolint

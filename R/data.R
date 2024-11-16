@@ -9,6 +9,18 @@
 #' * `jp`: The Japanese name of the hupai.
 "hupai"
 
+#' Sample data of mahjong game log
+#'
+#' @details
+#' A named list that contains sample data of mahjong game log.
+#' The data was coverted from 'tenhou.net/6' format
+#' using `read_tenhou6()` function
+#' in \href{https://github.com/paithiov909/convlog}{convlog} package.
+#'
+#' @source
+#' \url{https://github.com/Equim-chan/mjai-reviewer/blob/master/convlog/tests/testdata/ranked_game.json}
+"ranked_game"
+
 #' Test cases for `calc_xiangting()`
 #'
 #' @details

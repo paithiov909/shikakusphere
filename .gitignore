@@ -50,4 +50,7 @@ po/*~
 rsconnect/
 
 .vscode/
+
+inst/doc
+
 *.zip

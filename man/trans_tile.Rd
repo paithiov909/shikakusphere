@@ -6,21 +6,21 @@
 \usage{
 trans_tile(
   x,
-  from = c("mjai", "tenhou_int", "cmajiang"),
-  to = c("cmajiang", "mjai", "tenhou_int")
+  from = c("mjai", "tenhou_int", "id", "cmajiang"),
+  to = c("cmajiang", "mjai", "tenhou_int", "id")
 )
 }
 \arguments{
 \item{x}{A vector of tiles to be translated.}
 
-\item{from}{A string scalar. Either "mjai", "tenhou_int", or "cmajiang".}
+\item{from}{A string scalar. Either "mjai", "tenhou_int", "id", or "cmajiang".}
 
-\item{to}{A string scalar. Either "cmajiang", "mjai", or "tenhou_int".}
+\item{to}{A string scalar. Either "cmajiang", "mjai", "tenhou_int", or "id".}
 }
 \value{
 \itemize{
-\item For \verb{to = "cmajiang" and }to = "mjai"`, a character vector.
-\item For \code{to = "tenhou_int"}, an integer vector.
+\item For \code{to = "cmajiang"} and \code{to = "mjai"}: A character vector.
+\item For \code{to = "tenhou_int"}: An integer vector.
 }
 }
 \description{
