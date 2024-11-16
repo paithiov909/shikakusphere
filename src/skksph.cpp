@@ -143,13 +143,18 @@ Rcpp::CharacterVector skksph_proceed_impl(
 
     while (itr_zimo != zimo[i].end() || itr_dapai != dapai[i].end()) {
       if (itr_zimo != zimo[i].end()) {
-        if (std::regex_match(*itr_zimo, re_gang())) {
+        if (std::regex_match(*itr_zimo, std::regex(R"(^[mpsz]\d{4}$)"))) {
           q.gang(*itr_zimo, true);
         } else if (std::regex_match(*itr_zimo,
                                     std::regex(R"(^[mpsz]\d{3}[\+\=\-]$)")) ||
                    std::regex_match(*itr_zimo,
-                                    std::regex(R"(^[mpsz][\d\-]{4}$)"))) {
+                                    std::regex(R"(^[mpsz][\d\+\=\-]{4}$)"))) {
           q.fulou(*itr_zimo, true);
+        } else if (std::regex_match(*itr_zimo,
+                                    std::regex(R"(^[mpsz][\d\+\=\-]{5}$)"))) {
+          q.fulou(*itr_zimo, true);
+          itr_zimo++;
+          continue;  // 大明槓の後はすぐに次のツモを消費する
         } else {
           q.zimo(*itr_zimo, true);
         }

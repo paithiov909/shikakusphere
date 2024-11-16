@@ -193,6 +193,7 @@ Shoupai& Shoupai::dapai(const std::string& p, bool check) {
   if (p.back() == '*') _lizhi = true;
   return *this;
 }
+
 // 副露
 Shoupai& Shoupai::fulou(const std::string& m, bool check) {
   if (check && !_zimo.empty()) throw std::runtime_error("zimo must be empty");
