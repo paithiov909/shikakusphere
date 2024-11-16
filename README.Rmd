@@ -137,6 +137,99 @@ calc_defen("m345567p234s3378", baopai = "z1", rongpai = "s9=")
 parse_hupai(score$hupai, "jp")
 ```
 
+### 牌譜ファイルを扱う
+
+```{r include = FALSE}
+stopifnot(requireNamespace("convlog", quietly = TRUE))
+```
+
+[convlog](https://github.com/paithiov909/convlog)パッケージを使うと、天鳳のJSON形式（`tenhou.net/6`）のファイルから牌譜を読み込むことができます。
+
+`convlog::read_tenhou6()`の戻り値は、次のようなかたちをしています。
+
+```{r}
+json_log <-
+  list.files(
+    system.file("testdata/", package = "convlog"),
+    pattern = "*.json$",
+    full.names = TRUE
+  ) |>
+  convlog::read_tenhou6()
+
+json_log
+```
+
+この関数は、天鳳のJSON形式を一度MJAIフォーマットのJSON文字列へと変換したうえでパースするため、牌の表現などがshikakusphereで用いているものとは異なっています。MJAIフォーマットにおける牌の表現をshikakusphereで用いている表現に変換するには、`trans_tile()`, `mjai_target()`, `mjai_conv()`を使って、次のようにします。
+
+```{r}
+paifu <-
+  json_log[["paifu"]] |>
+  dplyr::filter(
+    type %in% c("tsumo", "dahai", "chi", "pon", "daiminkan", "kakan", "ankan", "reach")
+  ) |>
+  dplyr::mutate(
+    # ツモ切りかを判定する場合、あらかじめ`NA`を`FALSE`で埋めておく
+    tsumogiri = dplyr::if_else(is.na(tsumogiri), FALSE, tsumogiri),
+    # 牌の表現の変換
+    pai = trans_tile(pai)
+  ) |>
+  dplyr::group_by(game_id, round_id, actor) |>
+  dplyr::mutate(
+    # 副露メンツの変換
+    pai = mjai_conv(type, pai, consumed, mjai_target(actor, target)),
+    # ツモ切りなら末尾に"_"を付ける
+    pai = dplyr::if_else(tsumogiri,
+      paste0(pai, "_"),
+      pai
+    ),
+    # # リーチ宣言牌なら末尾に"*"を付ける
+    pai = dplyr::if_else(
+      dplyr::lag(type, default = "") == "reach",
+      paste0(pai, "*"),
+      pai
+    )
+  ) |>
+  dplyr::ungroup()
+
+paifu
+```
+
+`proceed()`を使うと、ゲームのある時点におけるプレイヤーの手牌の状態を再現することができます。この関数には、その時点までの各プレイヤーの配牌・ツモ・打牌をそれぞれlistとして与えます。チー・ポンと大明槓についてはツモの一部、暗槓と加槓については打牌の一部とします。
+
+たとえば、ここで読み込んでいるデータについて、各本場の終わりの時点におけるプレイヤーの手牌を再現するには、次のようにします。
+
+```{r}
+qipai <-
+  json_log[["round_info"]] |>
+  dplyr::rowwise() |>
+  dplyr::reframe(
+    game_id = game_id,
+    round_id = round_id,
+    actor = 0:3,
+    tehais
+  ) |>
+  dplyr::group_by(game_id, round_id, actor) |>
+  dplyr::mutate(qipai = list(trans_tile(as.character(tehais))), .keep = "unused") |>
+  dplyr::ungroup()
+
+paifu |>
+  dplyr::left_join(qipai, by = dplyr::join_by(game_id, round_id, actor)) |>
+  dplyr::group_by(game_id, round_id, actor) |>
+  dplyr::summarise(
+    qipai = unique(qipai),
+    zimo = list(pai[which(type %in% c("tsumo", "chi", "pon", "daiminkan"))]),
+    dapai = list(pai[which(type %in% c("dahai", "kakan", "ankan"))]),
+    .groups = "keep"
+  ) |>
+  dplyr::ungroup() |>
+  dplyr::reframe(
+    game_id = game_id,
+    round_id = round_id,
+    player = actor,
+    last_state = proceed(qipai, zimo, dapai)
+  )
+```
+
 # License
 
 GPL (>= 3). This package contains the [tinyxml2](https://github.com/leethomason/tinyxml2) code released under the zlib license.
