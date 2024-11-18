@@ -328,7 +328,7 @@
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">pai</span>, <span class="st">"_"</span><span class="op">)</span>,</span>
 <span>      <span class="va">pai</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    <span class="co"># # リーチ宣言牌なら末尾に"*"を付ける</span></span>
+<span>    <span class="co"># リーチ宣言牌なら末尾に"*"を付ける</span></span>
 <span>    pai <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span></span>
 <span>      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">type</span>, default <span class="op">=</span> <span class="st">""</span><span class="op">)</span> <span class="op">==</span> <span class="st">"reach"</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">pai</span>, <span class="st">"*"</span><span class="op">)</span>,</span>
@@ -353,7 +353,7 @@
 <span><span class="co">#&gt; 10       1        1       10 dahai     0     NA p1    FALSE     &lt;NULL&gt;  </span></span>
 <span><span class="co">#&gt; # ℹ 3,175 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 3 more variables: dora_marker &lt;chr&gt;, deltas &lt;list&gt;, ura_markers &lt;list&gt;</span></span></code></pre></div>
-<p><code><a href="reference/proceed.html">proceed()</a></code>を使うと、ゲームのある時点におけるプレイヤーの手牌の状態を再現することができます。この関数には、その時点までの各プレイヤーの配牌・ツモ・打牌をそれぞれlistとして与えます。チー・ポンと大明槓についてはツモの一部、暗槓と加槓については打牌の一部とします。</p>
+<p><code><a href="reference/proceed.html">proceed()</a></code>を使うと、ゲームのある時点におけるプレイヤーの手牌の状態を再現することができます。この関数には、各プレイヤーの配牌とその時点までのツモ・打牌をそれぞれlistとして与えます。チー・ポンと大明槓についてはツモの一部、暗槓と加槓については打牌の一部とします。</p>
 <p>たとえば、ここで読み込んでいるデータについて、各本場の終わりの時点におけるプレイヤーの手牌を再現するには、次のようにします。</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">qipai</span> <span class="op">&lt;-</span></span>
@@ -397,13 +397,13 @@
 <span><span class="co">#&gt;  1       1        1      0 &lt;13&gt;'m34677p33405s123'        </span></span>
 <span><span class="co">#&gt;  2       1        1      1 &lt;13&gt;'m12227999z13336'         </span></span>
 <span><span class="co">#&gt;  3       1        1      2 &lt;13&gt;'m05567s40z111,m333='     </span></span>
-<span><span class="co">#&gt;  4       1        1      3 &lt;14&gt;'m56688p3377s4,s666+6'    </span></span>
+<span><span class="co">#&gt;  4       1        1      3 &lt;14&gt;'m56688p3377s4,s666-6'    </span></span>
 <span><span class="co">#&gt;  5       2        1      0 &lt;13&gt;'m2255p345567s567'        </span></span>
-<span><span class="co">#&gt;  6       2        1      1 &lt;13&gt;'m3p222,z777=,s222=,z111+'</span></span>
-<span><span class="co">#&gt;  7       2        1      2 &lt;13&gt;'m24777789z55,m666+'      </span></span>
-<span><span class="co">#&gt;  8       2        1      3 &lt;14&gt;'m3445688s406m2,z222-'    </span></span>
+<span><span class="co">#&gt;  6       2        1      1 &lt;13&gt;'m3p222,z777=,s222=,z111-'</span></span>
+<span><span class="co">#&gt;  7       2        1      2 &lt;13&gt;'m24777789z55,m666-'      </span></span>
+<span><span class="co">#&gt;  8       2        1      3 &lt;14&gt;'m3445688s406m2,z222+'    </span></span>
 <span><span class="co">#&gt;  9       3        1      0 &lt;13&gt;'m34p8s23466z11,m67-8'    </span></span>
-<span><span class="co">#&gt; 10       3        1      1 &lt;13&gt;'m88p456s06789,z555+'     </span></span>
+<span><span class="co">#&gt; 10       3        1      1 &lt;13&gt;'m88p456s06789,z555-'     </span></span>
 <span><span class="co">#&gt; # ℹ 120 more rows</span></span></code></pre></div>
 </div>
 </div>
