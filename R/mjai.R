@@ -41,10 +41,13 @@ mjai_target <- function(perspective, target) {
   target[is.na(target)] <- perspective[is.na(target)]
 
   purrr::map2_chr(perspective, target, function(p, t) {
-    shifted <- c(0:3 + p) %% 4
+    shifted <- (0:3 + p) %% 4
+    # the player sitting at the East at E1 is 0,
+    # and his shimocha (right) will be 1,
+    # toimen (across) will be 2, kamicha (left) will be 3.
     mapping <-
       rlang::set_names(
-        rep(c(NA_character_, "+", "=", "-")),
+        c(NA_character_, "-", "=", "+"),
         as.character(shifted)
       )
     unname(mapping[as.character(t)])
