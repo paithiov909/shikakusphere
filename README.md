@@ -301,7 +301,6 @@ paifu <-
     # 牌の表現の変換
     pai = trans_tile(pai)
   ) |>
-  dplyr::group_by(game_id, round_id, actor) |>
   dplyr::mutate(
     # 副露メンツの変換
     pai = mjai_conv(type, pai, consumed, mjai_target(actor, target)),
@@ -315,9 +314,9 @@ paifu <-
       dplyr::lag(type, default = "") == "reach",
       paste0(pai, "*"),
       pai
-    )
-  ) |>
-  dplyr::ungroup()
+    ),
+    .by = c(game_id, round_id, actor)
+  )
 
 paifu
 #> # A tibble: 3,185 × 12
@@ -351,20 +350,20 @@ qipai <-
     actor = 0:3,
     tehais
   ) |>
-  dplyr::group_by(game_id, round_id, actor) |>
-  dplyr::mutate(qipai = list(trans_tile(as.character(tehais))), .keep = "unused") |>
-  dplyr::ungroup()
+  dplyr::mutate(
+    qipai = list(trans_tile(as.character(tehais))),
+    .by = c(game_id, round_id, actor),
+    .keep = "unused"
+  )
 
 paifu |>
   dplyr::left_join(qipai, by = dplyr::join_by(game_id, round_id, actor)) |>
-  dplyr::group_by(game_id, round_id, actor) |>
   dplyr::summarise(
-    qipai = unique(qipai),
     zimo = list(pai[which(type %in% c("tsumo", "chi", "pon", "daiminkan"))]),
     dapai = list(pai[which(type %in% c("dahai", "kakan", "ankan"))]),
-    .groups = "keep"
+    .by = c(game_id, round_id, actor)
   ) |>
-  dplyr::ungroup() |>
+  dplyr::left_join(qipai, by = dplyr::join_by(game_id, round_id, actor)) |>
   dplyr::reframe(
     game_id = game_id,
     round_id = round_id,
@@ -384,10 +383,10 @@ paifu |>
 #>  2       1        1      1 <13>'m12227999z13336'         
 #>  3       1        1      2 <13>'m05567s40z111,m333='     
 #>  4       1        1      3 <14>'m56688p3377s4,s666-6'    
-#>  5       2        1      0 <13>'m2255p345567s567'        
-#>  6       2        1      1 <13>'m3p222,z777=,s222=,z111-'
-#>  7       2        1      2 <13>'m24777789z55,m666-'      
-#>  8       2        1      3 <14>'m3445688s406m2,z222+'    
+#>  5       2        1      2 <13>'m24777789z55,m666-'      
+#>  6       2        1      3 <14>'m3445688s406m2,z222+'    
+#>  7       2        1      0 <13>'m2255p345567s567'        
+#>  8       2        1      1 <13>'m3p222,z777=,s222=,z111-'
 #>  9       3        1      0 <13>'m34p8s23466z11,m67-8'    
 #> 10       3        1      1 <13>'m88p456s06789,z555-'     
 #> # ℹ 120 more rows

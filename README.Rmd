@@ -173,7 +173,6 @@ paifu <-
     # 牌の表現の変換
     pai = trans_tile(pai)
   ) |>
-  dplyr::group_by(game_id, round_id, actor) |>
   dplyr::mutate(
     # 副露メンツの変換
     pai = mjai_conv(type, pai, consumed, mjai_target(actor, target)),
@@ -187,9 +186,9 @@ paifu <-
       dplyr::lag(type, default = "") == "reach",
       paste0(pai, "*"),
       pai
-    )
-  ) |>
-  dplyr::ungroup()
+    ),
+    .by = c(game_id, round_id, actor)
+  )
 
 paifu
 ```
@@ -208,20 +207,20 @@ qipai <-
     actor = 0:3,
     tehais
   ) |>
-  dplyr::group_by(game_id, round_id, actor) |>
-  dplyr::mutate(qipai = list(trans_tile(as.character(tehais))), .keep = "unused") |>
-  dplyr::ungroup()
+  dplyr::mutate(
+    qipai = list(trans_tile(as.character(tehais))),
+    .by = c(game_id, round_id, actor),
+    .keep = "unused"
+  )
 
 paifu |>
   dplyr::left_join(qipai, by = dplyr::join_by(game_id, round_id, actor)) |>
-  dplyr::group_by(game_id, round_id, actor) |>
   dplyr::summarise(
-    qipai = unique(qipai),
     zimo = list(pai[which(type %in% c("tsumo", "chi", "pon", "daiminkan"))]),
     dapai = list(pai[which(type %in% c("dahai", "kakan", "ankan"))]),
-    .groups = "keep"
+    .by = c(game_id, round_id, actor)
   ) |>
-  dplyr::ungroup() |>
+  dplyr::left_join(qipai, by = dplyr::join_by(game_id, round_id, actor)) |>
   dplyr::reframe(
     game_id = game_id,
     round_id = round_id,
