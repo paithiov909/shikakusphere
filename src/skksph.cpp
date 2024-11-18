@@ -136,6 +136,8 @@ Rcpp::CharacterVector skksph_proceed_impl(
   ret.reserve(qipai.size());
 
   for (std::size_t i = 0; i < qipai.size(); i++) {
+    Rcpp::checkUserInterrupt();
+
     Shoupai q = Shoupai{qipai[i]};
 
     auto itr_zimo = zimo[i].begin();
