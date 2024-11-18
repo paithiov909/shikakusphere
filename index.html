@@ -319,7 +319,6 @@
 <span>    <span class="co"># 牌の表現の変換</span></span>
 <span>    pai <span class="op">=</span> <span class="fu"><a href="reference/trans_tile.html">trans_tile</a></span><span class="op">(</span><span class="va">pai</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">game_id</span>, <span class="va">round_id</span>, <span class="va">actor</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    <span class="co"># 副露メンツの変換</span></span>
 <span>    pai <span class="op">=</span> <span class="fu"><a href="reference/mjai.html">mjai_conv</a></span><span class="op">(</span><span class="va">type</span>, <span class="va">pai</span>, <span class="va">consumed</span>, <span class="fu"><a href="reference/mjai.html">mjai_target</a></span><span class="op">(</span><span class="va">actor</span>, <span class="va">target</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -333,9 +332,9 @@
 <span>      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">type</span>, default <span class="op">=</span> <span class="st">""</span><span class="op">)</span> <span class="op">==</span> <span class="st">"reach"</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">pai</span>, <span class="st">"*"</span><span class="op">)</span>,</span>
 <span>      <span class="va">pai</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">game_id</span>, <span class="va">round_id</span>, <span class="va">actor</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">paifu</span></span>
 <span><span class="co">#&gt; # A tibble: 3,185 × 12</span></span>
@@ -365,20 +364,20 @@
 <span>    actor <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">3</span>,</span>
 <span>    <span class="va">tehais</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">game_id</span>, <span class="va">round_id</span>, <span class="va">actor</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>qipai <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="reference/trans_tile.html">trans_tile</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">tehais</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, .keep <span class="op">=</span> <span class="st">"unused"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    qipai <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="reference/trans_tile.html">trans_tile</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">tehais</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">game_id</span>, <span class="va">round_id</span>, <span class="va">actor</span><span class="op">)</span>,</span>
+<span>    .keep <span class="op">=</span> <span class="st">"unused"</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">paifu</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">qipai</span>, by <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html" class="external-link">join_by</a></span><span class="op">(</span><span class="va">game_id</span>, <span class="va">round_id</span>, <span class="va">actor</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">game_id</span>, <span class="va">round_id</span>, <span class="va">actor</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>    qipai <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">qipai</span><span class="op">)</span>,</span>
 <span>    zimo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">pai</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">type</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tsumo"</span>, <span class="st">"chi"</span>, <span class="st">"pon"</span>, <span class="st">"daiminkan"</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>    dapai <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">pai</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">type</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dahai"</span>, <span class="st">"kakan"</span>, <span class="st">"ankan"</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>    .groups <span class="op">=</span> <span class="st">"keep"</span></span>
+<span>    .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">game_id</span>, <span class="va">round_id</span>, <span class="va">actor</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">qipai</span>, by <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html" class="external-link">join_by</a></span><span class="op">(</span><span class="va">game_id</span>, <span class="va">round_id</span>, <span class="va">actor</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/reframe.html" class="external-link">reframe</a></span><span class="op">(</span></span>
 <span>    game_id <span class="op">=</span> <span class="va">game_id</span>,</span>
 <span>    round_id <span class="op">=</span> <span class="va">round_id</span>,</span>
@@ -398,10 +397,10 @@
 <span><span class="co">#&gt;  2       1        1      1 &lt;13&gt;'m12227999z13336'         </span></span>
 <span><span class="co">#&gt;  3       1        1      2 &lt;13&gt;'m05567s40z111,m333='     </span></span>
 <span><span class="co">#&gt;  4       1        1      3 &lt;14&gt;'m56688p3377s4,s666-6'    </span></span>
-<span><span class="co">#&gt;  5       2        1      0 &lt;13&gt;'m2255p345567s567'        </span></span>
-<span><span class="co">#&gt;  6       2        1      1 &lt;13&gt;'m3p222,z777=,s222=,z111-'</span></span>
-<span><span class="co">#&gt;  7       2        1      2 &lt;13&gt;'m24777789z55,m666-'      </span></span>
-<span><span class="co">#&gt;  8       2        1      3 &lt;14&gt;'m3445688s406m2,z222+'    </span></span>
+<span><span class="co">#&gt;  5       2        1      2 &lt;13&gt;'m24777789z55,m666-'      </span></span>
+<span><span class="co">#&gt;  6       2        1      3 &lt;14&gt;'m3445688s406m2,z222+'    </span></span>
+<span><span class="co">#&gt;  7       2        1      0 &lt;13&gt;'m2255p345567s567'        </span></span>
+<span><span class="co">#&gt;  8       2        1      1 &lt;13&gt;'m3p222,z777=,s222=,z111-'</span></span>
 <span><span class="co">#&gt;  9       3        1      0 &lt;13&gt;'m34p8s23466z11,m67-8'    </span></span>
 <span><span class="co">#&gt; 10       3        1      1 &lt;13&gt;'m88p456s06789,z555-'     </span></span>
 <span><span class="co">#&gt; # ℹ 120 more rows</span></span></code></pre></div>
