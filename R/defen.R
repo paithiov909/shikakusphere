@@ -50,7 +50,7 @@ calc_defen <- function(
     rlang::abort("libaopai contains invalid tiles.")
   }
   if (all(!stringi::stri_isempty(rongpai)) &&
-    (!is_valid_tile(rongpai) && !stringi::stri_detect_regex(rongpai, "\\=$"))) { # nolint
+    (!is_valid_tile(rongpai) && !stringi::stri_detect_regex(rongpai, "[\\-\\=\\+]$"))) { # nolint
     rlang::abort("rongpai is invalid.")
   }
   zhuangfeng <- rlang::arg_match(zhuangfeng)
