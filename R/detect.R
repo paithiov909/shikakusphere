@@ -29,7 +29,7 @@ tile2suit <- function(x) {
 #' @rdname detect
 #' @export
 is_fulou <- function(x) {
-  stringi::stri_detect_regex(x, "(\\d(?=[\\-\\=\\+]))|\\d{4}")
+  stringi::stri_detect_regex(x, "([0-9](?=[\\-\\=\\+]))|[0-9]{4}")
 }
 
 #' @rdname detect

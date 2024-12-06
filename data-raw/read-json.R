@@ -39,7 +39,7 @@ collect_log_by_player <- function(x, ju) {
 #' @noRd
 tenhouint2tile <- function(x) {
   mark <- stringi::stri_extract_all_regex(x, "[_\\*]")
-  digit <- stringi::stri_extract_all_regex(x, "[\\d]{2}")
+  digit <- stringi::stri_extract_all_regex(x, "[0-9]{2}")
   tile <- c(
     0,
     51, 11:19,
@@ -66,7 +66,7 @@ tenhouint2tile <- function(x) {
 #' @noRd
 parse_tile <- function(x) {
   # m: 大明カン `191919m19` -> `m9999+`
-  check <- stringi::stri_detect_regex(x, "m[\\d]{2}")
+  check <- stringi::stri_detect_regex(x, "m[0-9]{2}")
   is_fulou <- check
   if (any(check)) {
     x[check] <- x[check] |>
@@ -74,7 +74,7 @@ parse_tile <- function(x) {
         # 1,3,5,7
         pos <- stringi::stri_locate_first_fixed(., "m")[, "start"]
         tile <-
-          stringi::stri_extract_all_regex(., "[\\d]{2}") |>
+          stringi::stri_extract_all_regex(., "[0-9]{2}") |>
           purrr::map(~ tenhouint2tile(as.integer(.))) |>
           lipai()
         purrr::imap_chr(as.character(pos), \(p, i) {
@@ -92,7 +92,7 @@ parse_tile <- function(x) {
   is_fulou <- is_fulou | check
   if (any(check)) {
     x[check] <- x[check] |>
-      stringi::stri_extract_all_regex("[\\d]{2}") |>
+      stringi::stri_extract_all_regex("[0-9]{2}") |>
       purrr::map(~ tenhouint2tile(as.integer(.))) |>
       lipai()
   }
@@ -105,7 +105,7 @@ parse_tile <- function(x) {
         # 1,3,5
         pos <- stringi::stri_locate_first_fixed(., "k")[, "start"]
         tile <-
-          stringi::stri_extract_all_regex(., "[\\d]{2}") |>
+          stringi::stri_extract_all_regex(., "[0-9]{2}") |>
           purrr::map(\(x) {
             tenhouint2tile(as.integer(x))
           })
@@ -128,7 +128,7 @@ parse_tile <- function(x) {
         # 1,3,5
         pos <- stringi::stri_locate_first_fixed(., "p")[, "start"]
         tile <-
-          stringi::stri_extract_all_regex(., "[\\d]{2}") |>
+          stringi::stri_extract_all_regex(., "[0-9]{2}") |>
           purrr::map(\(x) {
             tenhouint2tile(as.integer(x))
           })
@@ -150,7 +150,7 @@ parse_tile <- function(x) {
         # 1,3,5
         pos <- stringi::stri_locate_first_fixed(., "c")[, "start"]
         tile <-
-          stringi::stri_extract_all_regex(., "[\\d]{2}") |>
+          stringi::stri_extract_all_regex(., "[0-9]{2}") |>
           purrr::map(\(x) {
             tenhouint2tile(as.integer(x))
           })
@@ -168,7 +168,7 @@ parse_tile <- function(x) {
   check <- stringi::stri_detect_fixed(x, "r")
   if (any(check)) {
     x[check] <- x[check] |>
-      stringi::stri_replace_all_regex("r(\\d{2})", "$1\\*")
+      stringi::stri_replace_all_regex("r([0-9]{2})", "$1\\*")
   }
   # その他
   x[!is_fulou] <- tenhouint2tile(x[!is_fulou])

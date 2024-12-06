@@ -36,7 +36,7 @@ int2tile <- function(x = seq_len(38) - 1, origin = c("zero", "one")) {
 #' @returns A logical vector.
 #' @export
 is_valid_tile <- function(x) {
-  stringi::stri_detect_regex(x, "(^(?:[mps]\\d|z[1-7])_?\\*?[\\+\\=\\-]?$)")
+  stringi::stri_detect_regex(x, "(^(?:[mps][0-9]|z[1-7])_?\\*?[\\+\\=\\-]?$)")
 }
 
 #' Line up tiles

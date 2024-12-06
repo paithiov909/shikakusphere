@@ -11,7 +11,7 @@ new_paistr <- function(x = character()) {
     rlang::abort("`x` must be a character vector.")
   }
   x |>
-    stringi::stri_replace_all_regex("[^mpsz_,\\*\\+\\=\\-\\d]", "") |>
+    stringi::stri_replace_all_regex("[^mpsz_,\\*\\+\\=\\-0-9]", "") |>
     vctrs::new_vctr(class = "skksph_paistr")
 }
 
@@ -81,7 +81,7 @@ is_paistr <- function(x) {
 #' @export
 format.skksph_paistr <- function(x, ...) {
   dat <- vctrs::vec_data(x)
-  counts <- stringi::stri_count_regex(dat, "\\d")
+  counts <- stringi::stri_count_regex(dat, "[0-9]")
   paste0("<", counts, ">\'", dat, "\'")
 }
 
