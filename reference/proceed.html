@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shikakusphere</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -50,7 +50,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">proceed</span><span class="op">(</span><span class="va">qipai</span>, <span class="va">zimo</span>, <span class="va">dapai</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">proceed</span><span class="op">(</span><span class="va">qipai</span>, <span class="va">zimo</span>, <span class="va">dapai</span>, accumulate <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -71,10 +71,14 @@ where each element represents a players's zimo.</p></dd>
 <dd><p>A list of character vectors
 where each element represents a players's dapai.</p></dd>
 
+
+<dt id="arg-accumulate">accumulate<a class="anchor" aria-label="anchor" href="#arg-accumulate"></a></dt>
+<dd><p>Logical. If true, returns accumulated result.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>paistr</code> vector.</p>
+    <p>A (list of) <code>paistr</code> vector(s).</p>
     </div>
 
     <div id="ref-examples">
