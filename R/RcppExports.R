@@ -15,10 +15,11 @@ skksph_tidy_impl <- function(pai) {
 #' @param qipai List of characters (tiles).
 #' @param pai pai List of characters (tiles).
 #' @param action action List of characters (tiles).
+#' @param accumulate Logical. If true, returns accumulated result.
 #' @returns Characters (hands).
 #' @noRd
-skksph_proceed_impl <- function(qipai, zimo, dapai) {
-    .Call(`_shikakusphere_skksph_proceed_impl`, qipai, zimo, dapai)
+skksph_proceed_impl <- function(qipai, zimo, dapai, accumulate) {
+    .Call(`_shikakusphere_skksph_proceed_impl`, qipai, zimo, dapai, accumulate)
 }
 
 #' Internal function for `lipai()`

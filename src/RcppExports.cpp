@@ -22,15 +22,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // skksph_proceed_impl
-Rcpp::CharacterVector skksph_proceed_impl(const std::vector<std::vector<std::string>>& qipai, const std::vector<std::vector<std::string>>& zimo, const std::vector<std::vector<std::string>>& dapai);
-RcppExport SEXP _shikakusphere_skksph_proceed_impl(SEXP qipaiSEXP, SEXP zimoSEXP, SEXP dapaiSEXP) {
+Rcpp::CharacterVector skksph_proceed_impl(const std::vector<std::vector<std::string>>& qipai, const std::vector<std::vector<std::string>>& zimo, const std::vector<std::vector<std::string>>& dapai, const bool accumulate);
+RcppExport SEXP _shikakusphere_skksph_proceed_impl(SEXP qipaiSEXP, SEXP zimoSEXP, SEXP dapaiSEXP, SEXP accumulateSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const std::vector<std::vector<std::string>>& >::type qipai(qipaiSEXP);
     Rcpp::traits::input_parameter< const std::vector<std::vector<std::string>>& >::type zimo(zimoSEXP);
     Rcpp::traits::input_parameter< const std::vector<std::vector<std::string>>& >::type dapai(dapaiSEXP);
-    rcpp_result_gen = Rcpp::wrap(skksph_proceed_impl(qipai, zimo, dapai));
+    Rcpp::traits::input_parameter< const bool >::type accumulate(accumulateSEXP);
+    rcpp_result_gen = Rcpp::wrap(skksph_proceed_impl(qipai, zimo, dapai, accumulate));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -603,7 +604,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_shikakusphere_skksph_tidy_impl", (DL_FUNC) &_shikakusphere_skksph_tidy_impl, 1},
-    {"_shikakusphere_skksph_proceed_impl", (DL_FUNC) &_shikakusphere_skksph_proceed_impl, 3},
+    {"_shikakusphere_skksph_proceed_impl", (DL_FUNC) &_shikakusphere_skksph_proceed_impl, 4},
     {"_shikakusphere_skksph_lipai_impl", (DL_FUNC) &_shikakusphere_skksph_lipai_impl, 1},
     {"_shikakusphere_skksph_hand_to_svg", (DL_FUNC) &_shikakusphere_skksph_hand_to_svg, 1},
     {"_shikakusphere_skksph_get_defen", (DL_FUNC) &_shikakusphere_skksph_get_defen, 17},

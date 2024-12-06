@@ -4,7 +4,7 @@
 \alias{proceed}
 \title{Proceed state of hands}
 \usage{
-proceed(qipai, zimo, dapai)
+proceed(qipai, zimo, dapai, accumulate = FALSE)
 }
 \arguments{
 \item{qipai}{A list of character vectors
@@ -15,9 +15,11 @@ where each element represents a players's zimo.}
 
 \item{dapai}{A list of character vectors
 where each element represents a players's dapai.}
+
+\item{accumulate}{Logical. If true, returns accumulated result.}
 }
 \value{
-A \code{paistr} vector.
+A (list of) \code{paistr} vector(s).
 }
 \description{
 Proceed state of hands

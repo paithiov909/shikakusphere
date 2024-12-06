@@ -125,15 +125,19 @@ Rcpp::List skksph_tidy_impl(const std::vector<std::string>& pai) {
 //' @param qipai List of characters (tiles).
 //' @param pai pai List of characters (tiles).
 //' @param action action List of characters (tiles).
+//' @param accumulate Logical. If true, returns accumulated result.
 //' @returns Characters (hands).
 //' @noRd
 // [[Rcpp::export]]
 Rcpp::CharacterVector skksph_proceed_impl(
     const std::vector<std::vector<std::string>>& qipai,
     const std::vector<std::vector<std::string>>& zimo,
-    const std::vector<std::vector<std::string>>& dapai) {
-  std::vector<std::string> ret;
-  ret.reserve(qipai.size());
+    const std::vector<std::vector<std::string>>& dapai,
+    const bool accumulate) {
+  std::vector<std::string> out;
+  std::vector<std::size_t> names;
+  out.reserve(qipai.size());
+  names.reserve(qipai.size());
 
   for (std::size_t i = 0; i < qipai.size(); i++) {
     Rcpp::checkUserInterrupt();
@@ -172,10 +176,19 @@ Rcpp::CharacterVector skksph_proceed_impl(
         }
         itr_dapai++;
       }
+      if (accumulate) {
+        out.emplace_back(q.toString());
+        names.push_back(i);
+      }
     }
-    ret.emplace_back(q.toString());
+    if (!accumulate) {
+      out.emplace_back(q.toString());
+      names.push_back(i);
+    }
   }
-  return Rcpp::wrap(ret);
+  Rcpp::CharacterVector ret = Rcpp::wrap(out);
+  ret.attr("names") = Rcpp::wrap(names);
+  return ret;
 }
 
 //' Internal function for `lipai()`
