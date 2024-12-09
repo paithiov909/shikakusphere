@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shikakusphere</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
       </span>
     </div>
 
@@ -90,10 +90,17 @@ Used for initializing the random number generator.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A function inheriting class <code>purrr_function_partial</code>
+    <p>A function inheriting class <code>purrr_function_compose</code>
 that takes single arguments <code>n</code>: number of hands to be generated.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">rand_hands</span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;skksph_paistr[3]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;14&gt;'m4p344556s455667m4' &lt;14&gt;'m234678p4569s789p9' &lt;14&gt;'m123p4567788999p9' </span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
