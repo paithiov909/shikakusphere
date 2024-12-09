@@ -21,5 +21,5 @@ A tibble that consists of 4 columns of \code{paistr} vector.
 Generate hands at random
 }
 \examples{
-rand_qipai(4)
+rand_qipai(3)
 }

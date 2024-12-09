@@ -7,7 +7,7 @@
 #' @returns A tibble that consists of 4 columns of `paistr` vector.
 #' @export
 #' @examples
-#' rand_qipai(4)
+#' rand_qipai(3)
 rand_qipai <- function(nrow, rule = default_rule(), seed = sample.int(1e4, 1)) {
   if (!is_valid_rule(rule)) {
     rlang::abort("The rule set is invalid.")
@@ -32,10 +32,12 @@ rand_qipai <- function(nrow, rule = default_rule(), seed = sample.int(1e4, 1)) {
 #' @param seed An integer scalar.
 #' Used for initializing the random number generator.
 #' @returns
-#' A function inheriting class \code{purrr_function_partial}
+#' A function inheriting class `purrr_function_compose`
 #' that takes single arguments `n`: number of hands to be generated.
 #' @export
 #' @importFrom purrr partial
+#' @examples
+#' rand_hands()(3)
 rand_hands <- function(
     hupai = c(
       "pinghe", # defaults to pinghe
@@ -314,5 +316,5 @@ rand_hands <- function(
       )
     )
   # nolint end
-  func
+  purrr::compose(paistr, func)
 }

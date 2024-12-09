@@ -29,9 +29,12 @@ rand_hands(
 Used for initializing the random number generator.}
 }
 \value{
-A function inheriting class \code{purrr_function_partial}
+A function inheriting class \code{purrr_function_compose}
 that takes single arguments \code{n}: number of hands to be generated.
 }
 \description{
 Create a function to randomly generate hands
+}
+\examples{
+rand_hands()(3)
 }
