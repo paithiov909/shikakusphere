@@ -24,7 +24,7 @@ exactly like mahjong games.
 ## Installation
 
 You can install the development version of shikakusphere from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/paithiov909/shikakusphere) with:
 
 ``` r
 # install.packages("pak")

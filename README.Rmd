@@ -29,7 +29,7 @@ It comes from "Shikakui Uchuu De Matteru Yo", which is the third ED of the anime
 
 ## Installation
 
-You can install the development version of shikakusphere from [GitHub](https://github.com/) with:
+You can install the development version of shikakusphere from [GitHub](https://github.com/paithiov909/shikakusphere) with:
 
 ``` r
 # install.packages("pak")
