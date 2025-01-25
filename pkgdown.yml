@@ -2,4 +2,7 @@ pandoc: 3.1.11
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2025-01-17T16:42Z
+last_built: 2025-01-25T18:29Z
+urls:
+  reference: https://paithiov909.github.io/shikakusphere/reference
+  article: https://paithiov909.github.io/shikakusphere/articles
