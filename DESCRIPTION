@@ -15,6 +15,7 @@ Description: A collection of miscellaneous functions for Japanese mahjong
     <https://github.com/tomohxx/shanten-number> and 'cmajiang'
     <https://github.com/TadaoYamaoka/cmajiang>.
 License: GPL (>= 3)
+URL: https://paithiov909.github.io/shikakusphere/
 BugReports: https://github.com/paithiov909/shikakusphere/issues
 Depends:
     R (>= 4.0)

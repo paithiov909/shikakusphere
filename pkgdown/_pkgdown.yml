@@ -1,0 +1,8 @@
+url: https://paithiov909.github.io/shikakusphere/
+template:
+  bootstrap: 5
+  light-switch: true
+  opengraph:
+    twitter:
+      creator: "@paithiov909"
+      card: summary_large_image

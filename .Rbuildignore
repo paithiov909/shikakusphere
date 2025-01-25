@@ -6,5 +6,6 @@
 ^README\.Rmd$
 ^cran-comments\.md$
 ^data-raw$
+^pkgdown$
 ^\.github$
 ^codecov\.yml$
