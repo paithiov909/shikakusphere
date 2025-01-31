@@ -18,7 +18,7 @@ License: GPL (>= 3)
 URL: https://paithiov909.github.io/shikakusphere/
 BugReports: https://github.com/paithiov909/shikakusphere/issues
 Depends:
-    R (>= 4.0)
+    R (>= 4.1)
 Imports:
     generics,
     magick,
