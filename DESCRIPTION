@@ -3,11 +3,11 @@ Title: Miscellaneous Functions for Japanese Mahjong
 Version: 0.1.3
 Authors@R: c(
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
-    person("tomo", "hxx", role = "ctb",
+    person("tomo hxx", role = "cph",
            comment = "shanten-number"),
-    person("Tadao", "Yamaoka", role = "ctb",
+    person("Tadao", "Yamaoka", role = "cph",
            comment = "cmajiang"),
-    person("Lee", "Thomason", role = "ctb",
+    person("Lee", "Thomason", role = "cph",
            comment = "tinyxml2")
   )
 Description: A collection of miscellaneous functions for Japanese mahjong

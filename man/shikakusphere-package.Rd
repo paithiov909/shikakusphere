@@ -11,6 +11,7 @@ A collection of miscellaneous functions for Japanese mahjong that wraps C++ sour
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://paithiov909.github.io/shikakusphere/}
   \item Report bugs at \url{https://github.com/paithiov909/shikakusphere/issues}
 }
 
@@ -20,9 +21,9 @@ Useful links:
 
 Other contributors:
 \itemize{
-  \item tomo hxx (shanten-number) [contributor]
-  \item Tadao Yamaoka (cmajiang) [contributor]
-  \item Lee Thomason (tinyxml2) [contributor]
+  \item tomo hxx (shanten-number) [copyright holder]
+  \item Tadao Yamaoka (cmajiang) [copyright holder]
+  \item Lee Thomason (tinyxml2) [copyright holder]
 }
 
 }
