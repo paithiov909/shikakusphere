@@ -24,7 +24,7 @@ collect_log_by_player <- function(x, ju) {
   })
   ret <- purrr::map2(x, c("qipai", "zimo", "dapai"), function(y, z) {
     data.frame(
-      round = rep(ju, vctrs::list_sizes(y)),
+      round = rep(ju, lengths(y, use.names = FALSE)),
       action = z,
       pai = unlist(y, use.names = FALSE) |> as.character()
     )

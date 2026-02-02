@@ -81,7 +81,7 @@ lipai <- function(x) {
     l <- unlist(x, use.names = FALSE) |>
       as.character() |>
       stringi::stri_replace_na("") |>
-      vctrs::vec_chop(sizes = vctrs::list_sizes(x))
+      vctrs::vec_chop(sizes = lengths(x, use.names = FALSE))
     skksph_lipai_impl(l)
   }
 }
@@ -103,7 +103,7 @@ parse_hupai <- function(str, lang = c("en", "jp")) {
     levels = hupai[["id"]], # nolint
     labels = hupai[[lang]] # nolint
   ) |>
-    vctrs::vec_chop(sizes = vctrs::list_sizes(sp))
+    vctrs::vec_chop(sizes = lengths(sp, use.names = FALSE))
 }
 
 #' Translate tiles from one format to another

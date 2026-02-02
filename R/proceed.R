@@ -21,7 +21,7 @@
 #'   proceed(qipai, zimo, dapai)
 #' }
 proceed <- function(qipai, zimo, dapai, accumulate = FALSE) {
-  if (any(vctrs::list_sizes(qipai) != 13, rlang::is_empty(zimo), rlang::is_empty(dapai))) {
+  if (any(lengths(qipai, use.names = FALSE) != 13, rlang::is_empty(zimo), rlang::is_empty(dapai))) {
     rlang::abort("qipai must have 13 elements.")
   }
   hands <- skksph_proceed_impl(qipai, zimo, dapai, accumulate)
